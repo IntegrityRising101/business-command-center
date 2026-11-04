@@ -1,0 +1,26 @@
+export default function FilterBar({ categories, selected, onChange, search, onSearch }) {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <select
+        value={selected}
+        onChange={(e) => onChange(e.target.value)}
+        className="rounded-lg border border-slate-600 bg-brand-card px-3 py-2 text-sm"
+      >
+        <option value="All">All categories</option>
+        {categories.map((c) => (
+          <option key={c} value={c}>
+            {c}
+          </option>
+        ))}
+      </select>
+
+      <input
+        type="text"
+        placeholder="Search by tool or platform…"
+        value={search}
+        onChange={(e) => onSearch(e.target.value)}
+        className="flex-1 rounded-lg border border-slate-600 bg-brand-card px-3 py-2 text-sm placeholder:text-brand-soft"
+      />
+    </div>
+  )
+}
