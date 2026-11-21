@@ -27,6 +27,7 @@ This record keeps the two related but separate products organized. The Business 
 - Added this central project progress record for both Integrity Rising apps.
 - Recorded Gmail as the selected email provider on November 21, 2026.
 - Added a Gmail workspace tab and setup panel to the Command Center UI. It clearly shows that Gmail OAuth is still required and does not claim inbox access is active. The panel includes the selected account, planned workflows, a direct Gmail link, and draft-first/approval-before-send security guidance.
+- Added optional task due dates, an overdue count on the dashboard, upcoming deadlines, and due-date indicators on task cards. Added the database column to `supabase/schema.sql` and a repeat-safe migration at `supabase/migrations/20261121_task_due_dates.sql`.
 
 ### New requirements requested November 21, 2026
 
@@ -103,7 +104,7 @@ This record keeps the two related but separate products organized. The Business 
 
 ## 4. Updated priority order
 
-1. Verify both live apps and authentication.
+1. Verify both live apps and authentication, including the new due-date UI.
 2. Complete Business Command Center data persistence and per-user security.
 3. Build Books & Publishing management for Legacy Within and The Architecture Is Yours.
 4. Build the secure Document & Media Center and choose storage integrations.
