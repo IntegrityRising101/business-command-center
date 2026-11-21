@@ -9,8 +9,8 @@
 - [x] Build the initial dashboard (Home, Tasks, Projects, Daily Log, Links) — completion date not confirmed
 - [x] Save product and monetization roadmap in `docs/PRODUCT_ROADMAP.md` — **Nov 21, 2026**
 - [ ] Confirm GitHub Pages deployment is live and working — date completed: ______
-- [ ] Create separate Supabase project for Business Command Center — date completed: ______
-- [ ] Configure app environment variables safely — date completed: ______
+- [x] Create separate Supabase project for Business Command Center — **Nov 21, 2026**
+- [x] Add GitHub repository secrets and wire them into the deployment build environment — **Nov 21, 2026**
 
 ## Phase 2 — Accounts & privacy (launch blocker)
 - [ ] Set up email/password sign-up
@@ -66,7 +66,7 @@
 - [ ] Track sign-ups and feedback
 
 ## Completion log
-- **Nov 21, 2026:** Product monetization and launch roadmap created and committed to GitHub.
+- **Nov 21, 2026:** Product monetization and launch roadmap created and committed to GitHub.\n- **Nov 21, 2026:** Separate Supabase project created; project URL obtained.\n- **Nov 21, 2026:** GitHub Actions deployment workflow updated to pass Supabase URL and publishable key secrets into the build.
 
 ## Next task
-- **Confirm the public dashboard deployment.** Then begin the secure account/database foundation.
+- **Next:** Add Supabase client dependency and initialize the client using the build environment variables. Then implement authentication and user-isolated data.
