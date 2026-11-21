@@ -15,6 +15,8 @@ create table if not exists public.tasks (
   updated_at timestamptz not null default now()
 );
 
+alter table public.tasks add column if not exists due_date date;
+
 create table if not exists public.daily_logs (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
