@@ -50,7 +50,7 @@ This record keeps the two related but separate products organized. The Business 
 - Build Books & Publishing management for Legacy Within and The Architecture Is Yours, then verify each book's Lulu details against the live listings.
 - Choose and implement file storage, upload limits, access controls, metadata, preview/download, and version history. Keep large audio/video storage costs and security in view.
 - Determine which cloud storage connections to implement first: Google Drive, Microsoft SharePoint/OneDrive for work or school, Box, or Dropbox.
-- Determine the email account to connect (Gmail or Outlook) and implement secure OAuth with draft-first, approval-before-send behavior.
+- **Email provider selected November 21, 2026: Gmail**, using the user's Integrity Rising Gmail account. Implement secure Google OAuth with least-privilege scopes, inbox search/read, draft creation, follow-up tracking, and approval-before-send behavior. Do not store Google passwords or OAuth tokens in source code or browser local storage.
 - Assess Muse integration options and add an external launch point; only implement direct integration if a supported connector/API becomes available.
 - Finish public-user onboarding and test a separate account end-to-end.
 - Decide and implement pricing/monetization only after core account separation, file privacy, and persistence are verified.
@@ -105,7 +105,7 @@ This record keeps the two related but separate products organized. The Business 
 2. Complete Business Command Center data persistence and per-user security.
 3. Build Books & Publishing management for Legacy Within and The Architecture Is Yours.
 4. Build the secure Document & Media Center and choose storage integrations.
-5. Add the email workspace (confirm Gmail or Outlook) and assess Meta Muse integration.
+5. Add the Gmail email workspace for the selected Integrity Rising account and assess Meta Muse integration.
 6. Finish Wellness App home and community navigation refinements.
 7. Organize business plans, Academy materials, brand assets, and launch documents.
 8. Plan monetization and public launch after security and persistence tests pass.
