@@ -28,6 +28,8 @@ This record keeps the two related but separate products organized. The Business 
 - Recorded Gmail as the selected email provider on November 21, 2026.
 - Added a Gmail workspace tab and setup panel to the Command Center UI. It clearly shows that Gmail OAuth is still required and does not claim inbox access is active. The panel includes the selected account, planned workflows, a direct Gmail link, and draft-first/approval-before-send security guidance.
 - Added optional task due dates, an overdue count on the dashboard, upcoming deadlines, and due-date indicators on task cards. Added the database column to `supabase/schema.sql` and a repeat-safe migration at `supabase/migrations/20261121_task_due_dates.sql`.
+- User tested a task titled “Test Due Date Feature,” saved a November 22, 2026 deadline, and confirmed the date appeared in the Tasks list.
+- Added an idempotent master backlog import in `src/App.jsx` for the user's outstanding Command Center and Integrity Rising workstreams. The backlog covers operations, document storage, Google/Microsoft integrations, Gmail OAuth, books, Academy, Wellness App, websites, marketing, merchandise, monetization, and launch security. It inserts only predefined task IDs not already present, preserving existing task statuses. Deployment and live import still need verification.
 
 ### New requirements requested November 21, 2026
 
