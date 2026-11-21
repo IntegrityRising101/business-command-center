@@ -6,6 +6,8 @@ An all-in-one workspace for organizing business projects, content, social media,
 
 **Live application:** https://integrityrising101.github.io/business-command-center/
 
+**Project progress record:** [See completed work and next steps for both Integrity Rising apps](docs/PROJECT_PROGRESS.md).
+
 ## What It Helps You Organize
 
 - **AI projects:** Keep track of AI-assisted projects, tools, prompts, and where finished content will be used.
