@@ -25,6 +25,8 @@ This record keeps the two related but separate products organized. The Business 
 - Confirmed the local app opens, the sign-in screen appears, and the user was able to log in.
 - Cleaned up the duplicate and inaccurate README content and documented setup, build, deployment, Supabase configuration, and security notes. README cleanup commit: 86f709f29de291f69c6288696e297283716b5b8c.
 - Added this central project progress record for both Integrity Rising apps.
+- Recorded Gmail as the selected email provider on November 21, 2026.
+- Added a Gmail workspace tab and setup panel to the Command Center UI. It clearly shows that Gmail OAuth is still required and does not claim inbox access is active. The panel includes the selected account, planned workflows, a direct Gmail link, and draft-first/approval-before-send security guidance.
 
 ### New requirements requested November 21, 2026
 
