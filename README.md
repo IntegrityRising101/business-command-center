@@ -1,5 +1,5 @@
 # Business Command Center
-
+[![Deploy to GitHub Pages](https://github.com/IntegrityRising101/business-command-center/actions/workflows/deploy.yml/badge.svg)](https://github.com/IntegrityRising101/business-command-center/actions/workflows/deploy.yml)
 An all-in-one organizer built for modern small businesses juggling multiple lanes.
 
 **Live App:** https://integrityrising101.github.io/business-command-center/
