@@ -66,7 +66,7 @@
 - [ ] Track sign-ups and feedback
 
 ## Completion log
-- **Nov 21, 2026:** Product monetization and launch roadmap created and committed to GitHub.\n- **Nov 21, 2026:** Separate Supabase project created; project URL obtained.\n- **Nov 21, 2026:** GitHub Actions deployment workflow updated to pass Supabase URL and publishable key secrets into the build.
+- **Nov 21, 2026:** Product monetization and launch roadmap created and committed to GitHub.\n- **Nov 21, 2026:** Separate Supabase project created; project URL obtained.\n- **Nov 21, 2026:** GitHub Actions deployment workflow updated to pass Supabase URL and publishable key secrets into the build.\n- **Nov 21, 2026:** Added `@supabase/supabase-js` dependency and created `src/lib/supabase.js` client initialization.
 
 ## Next task
-- **Next:** Add Supabase client dependency and initialize the client using the build environment variables. Then implement authentication and user-isolated data.
+- **Next:** Use the Supabase client in the app UI and verify the GitHub Actions build succeeds. Then implement authentication and user-isolated data.
