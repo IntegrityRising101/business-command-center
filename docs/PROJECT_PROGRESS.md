@@ -73,7 +73,7 @@ This record keeps the two related but separate products organized. The Business 
 - Before launch, define annual discounts, trial policy, nonprofit eligibility, cancellation/refund handling, taxes, invoices, plan limits, and customer support process.
 - Public pricing is a proposal only; do not represent any tier as currently purchasable or active.
 
-- November 21, 2026: Updated the Document & Media Center download action. It now requests a signed URL with an attachment filename and uses a clearly labeled **Download** button instead of opening the file in a new tab. Code change committed; browser-level verification and Supabase Storage configuration still need testing.
+- November 21, 2026: Updated the Document & Media Center download action to request a signed URL with an attachment filename and use a clearly labeled **Download** button. Supabase Storage was configured with a private `private-documents` bucket and owner-folder access policies. The user confirmed that file uploads now work. Download behavior still needs a separate live browser test.
 
 ### Current development to-do list
 
@@ -81,8 +81,9 @@ This record keeps the two related but separate products organized. The Business 
 - [ ] Verify the latest GitHub Pages deployment and test the Bot Team tab on the live app.
 - [ ] Test task creation, editing, due dates, completion, and persistence after refresh.
 - [ ] Test task-completion celebrations and confirm achievements appear on the Wall of Accomplishments after refresh.
-- [ ] **Verify Document & Media Center downloads** with PDF, DOCX, and image test files; confirm the browser saves files with readable names.
-- [ ] **Investigate and fix the Document & Media Center file-upload failure.** Check the upload UI, Supabase Storage bucket, policies, file-size/type validation, and user-visible error handling.
+- [ ] **Test Document & Media Center downloads** with a PDF first; confirm the browser saves it with a readable filename.
+- [x] Fix the reported Document & Media Center upload failure by creating the private `private-documents` Supabase Storage bucket and owner-folder access policies. User confirmed uploads now work.
+- [ ] Verify upload/download permissions with a second account to confirm users cannot access one another's files.
 - [ ] Verify login/authentication and Supabase Row Level Security (RLS) so each account can access only its own records.
 
 #### Priority 2 — Program Manager Bot
