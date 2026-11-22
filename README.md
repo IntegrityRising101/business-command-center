@@ -6,6 +6,17 @@ An all-in-one workspace for organizing business projects, content, social media,
 
 **Live application:** https://integrityrising101.github.io/business-command-center/
 
+## Business Command Center Brand Identity
+
+**Palette:** Navy blue `#0B1424` and deep navy panels `#172943`, silver `#C7D0DF`, white `#E8EDF5`, and copper `#C47C52` accents. The navy-and-silver foundation communicates clarity and dependable operations; copper is reserved for key actions and highlights.
+
+**Keep the three products visually distinct:**
+- Project Haven — purple and lavender, with warm white and soft gold.
+- Integrity Rising — The Wellness & Growth App — teal, gold, and white.
+- Business Command Center — navy blue, silver, white, and copper.
+
+These are separate product identities; do not merge their codebases, databases, or private user data.
+
 **Project progress record and development to-do list:** [See completed work, open tasks, and next priorities](docs/PROJECT_PROGRESS.md).
 
 ## What It Helps You Organize
