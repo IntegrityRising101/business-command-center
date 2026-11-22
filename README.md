@@ -6,7 +6,7 @@ An all-in-one workspace for organizing business projects, content, social media,
 
 **Live application:** https://integrityrising101.github.io/business-command-center/
 
-**Project progress record:** [See completed work and next steps for both Integrity Rising apps](docs/PROJECT_PROGRESS.md).
+**Project progress record and development to-do list:** [See completed work, open tasks, and next priorities](docs/PROJECT_PROGRESS.md).
 
 ## What It Helps You Organize
 
@@ -15,6 +15,30 @@ An all-in-one workspace for organizing business projects, content, social media,
 - **Merchandise launches:** Plan product ideas, mockups, descriptions, promotions, and launch tasks.
 - **Task management:** Move work through a simple Planned, In Progress, and Launched/Done workflow.
 - **Priorities and focus:** Use priority indicators, categories, search, and a Focus Today view to decide what needs attention.
+- **Bot team roadmap:** Plan a team of friendly task bots led by Boss Bot, with a dedicated Program Manager Bot to help manage the Command Center software itself.
+
+## AI Management Team (Planned)
+
+The planned bot team will have visible roles, assigned work, statuses, due dates, and progress reports:
+
+- **Boss Bot:** Coordinates the team, prioritizes work, tracks milestones, flags blockers, and reports progress.
+- **Program Manager Bot:** Oversees the Command Center development backlog, feature requests, bug reports, testing, deployment checks, and dated change records.
+- **Tasky:** Tracks assigned tasks, priorities, due dates, and completion.
+- **Deadline Bot:** Monitors upcoming and overdue work.
+- **Doc Bot:** Helps organize business documents and records.
+- **Scout / Brainy:** Research prospects, competitors, business gaps, and opportunities.
+- **Maily:** Prepares outreach emails for owner review.
+- **Cheer Bot:** Celebrates completed tasks, milestones, streaks, and team accomplishments.
+
+### Program Manager Bot permissions
+
+The owner has approved limited automatic repair authority for basic, low-risk fixes, such as clear spelling/text corrections, known broken links, minor display issues, and straightforward code fixes. Each repair must be logged and tested.
+
+Program Manager Bot must request approval before major code changes, database or Supabase changes, authentication/security or permission changes, paid services or spending, external communications, and significant publishing or deployment actions. If a repair fails or the risk is unclear, it must stop and notify the owner. These are planned permissions; they are not active until implemented and tested.
+
+### Optional premium capabilities
+
+Biweekly competitor and business-gap analysis, prospect discovery, and email outreach are planned as optional paid capabilities. Show estimated costs, usage limits, and third-party fees before activation. Research should produce source-backed findings and reviewable prospect lists. Emails must be drafted for owner approval; do not send without explicit approval.
 
 ## Account and Data Setup
 
