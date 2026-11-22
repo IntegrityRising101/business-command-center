@@ -217,3 +217,15 @@ This record keeps the two related but separate products organized. The Business 
 - Use Supabase RLS and test with separate accounts before claiming user data is isolated.
 - Require explicit confirmation before sending messages, sharing files externally, or publishing content.
 - Keep premium automation costs visible and obtain approval before paid activation.
+
+
+### Work session — November 22, 2026: Emergency support resources reviewed and updated
+
+- Inspected the repository structure and confirmed the current user-facing experience is implemented in the root `App.tsx`; the older `src/screens/EmergencyResourcesScreen.js` is a separate legacy screen and is not the active Support tab.
+- Reviewed the active Support tab and found it previously contained only general hotline guidance, without direct official resource links.
+- Verified current U.S. National Domestic Violence Hotline contact details against its official website: call 1-800-799-SAFE (7233), text START to 88788, and use its official website for chat and local resources.
+- Verified current 988 Lifeline guidance against its official website: call or text 988 for free, confidential support, 24 hours a day.
+- Updated the active Support tab in `App.tsx` with official resource links, clear contact details, survivor-choice language, a device/browser/phone/carrier activity warning, and a reminder that emergency services may not feel safe or be appropriate for every person or situation.
+- Change commit: `c53ce7020bf53998b502c0dff9a52bdb8f463c03`.
+- The update adds links to official external websites; it does not automatically call or text a service and does not collect or store survivor information.
+- **Pending verification:** GitHub Actions quality checks and a real-device review of link behavior, accessibility, and layout. This content update does not make Project Haven a secure vault or certify it for high-risk use.
