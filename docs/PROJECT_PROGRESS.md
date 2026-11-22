@@ -1,6 +1,6 @@
 # Integrity Rising — Project Progress Record
 
-Last updated: November 21, 2026
+Last updated: November 22, 2026
 
 This record keeps the two related but separate products organized. The Business Command Center is the internal business/work management tool. The Integrity Rising Wellness & Growth App is the community-facing wellness platform.
 
@@ -172,6 +172,18 @@ This record keeps the two related but separate products organized. The Business 
   - `8344c62bafc32f9254457f51239dcb1b34be60fe` — Expo app configuration
   - `057836c3114bba69f3e27e272aeaefcbd3de1a42` — consolidated quality workflow
   - `01deba0d301f87c3b69ac5c6ccffcd6bf3318bbf` — removed npm cache configuration because the repository has no lockfile
+
+
+### Work session — November 22, 2026: CI diagnosis and TypeScript repair
+
+- Inspected GitHub Actions run [#44993401736](https://github.com/IntegrityRising101/Project-Haven-DV-Support-Hidden-Secret-App/actions/runs/44993401736), which checked out the corrected workflow commit `01deba0d301f87c3b69ac5c6ccffcd6bf3318bbf`.
+- Verified that Node.js setup, `npm install`, and `npx expo config --type public` all passed. This confirms the missing-lockfile/cache issue is resolved for this run.
+- TypeScript validation then failed at `App.tsx:80`: the installed React Native StatusBar type does not accept the supplied `backgroundColor` prop.
+- Removed that unsupported prop while retaining `barStyle="dark-content"`; the app's root view already supplies the cream background.
+- Project Haven repair commit: `f4320f0ea6b81a9ebdbddf733816afd82b79fc4d` — **StatusBar TypeScript compatibility fix**.
+- Dependency installation reported **3 moderate severity vulnerabilities**. This is recorded for a separate dependency audit; no automatic force-upgrade was run.
+- The new commit has not yet been tested by a subsequent Actions run. TypeScript/CI success remains **unverified** until that run completes.
+- No survivor-facing feature, data storage, encryption, authentication, Quick Exit, or emergency-resource behavior was changed.
 
 ### Priority task backlog
 - [ ] Inspect the current repository structure and the actual Emergency Resources screen before editing.
