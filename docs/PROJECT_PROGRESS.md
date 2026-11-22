@@ -170,7 +170,8 @@ This record keeps the two related but separate products organized. The Business 
 - Project Haven commits:
   - `0aae95893472407bb7db2e1bad784cb4a91c6e6e` — package configuration
   - `8344c62bafc32f9254457f51239dcb1b34be60fe` — Expo app configuration
-  - `057836c3114bba69f3e27e272aeaefcbd3de1a42` — quality workflow
+  - `057836c3114bba69f3e27e272aeaefcbd3de1a42` — consolidated quality workflow
+  - `01deba0d301f87c3b69ac5c6ccffcd6bf3318bbf` — removed npm cache configuration because the repository has no lockfile
 
 ### Priority task backlog
 - [ ] Inspect the current repository structure and the actual Emergency Resources screen before editing.
