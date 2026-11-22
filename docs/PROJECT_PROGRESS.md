@@ -173,7 +173,6 @@ This record keeps the two related but separate products organized. The Business 
   - `057836c3114bba69f3e27e272aeaefcbd3de1a42` — consolidated quality workflow
   - `01deba0d301f87c3b69ac5c6ccffcd6bf3318bbf` — removed npm cache configuration because the repository has no lockfile
 
-
 ### Work session — November 22, 2026: CI diagnosis and TypeScript repair
 
 - Inspected GitHub Actions run [#44993401736](https://github.com/IntegrityRising101/Project-Haven-DV-Support-Hidden-Secret-App/actions/runs/44993401736), which checked out the corrected workflow commit `01deba0d301f87c3b69ac5c6ccffcd6bf3318bbf`.
@@ -184,6 +183,16 @@ This record keeps the two related but separate products organized. The Business 
 - Dependency installation reported **3 moderate severity vulnerabilities**. This is recorded for a separate dependency audit; no automatic force-upgrade was run.
 - User confirmed that Project Haven Quality Checks run **#29 is green (successful)** after commit `f4320f0ea6b81a9ebdbddf733816afd82b79fc4d`. This verifies that the workflow passed after the StatusBar TypeScript fix. The workflow is a configuration/TypeScript quality check, not a full device, security, or survivor-safety certification.
 - No survivor-facing feature, data storage, encryption, authentication, Quick Exit, or emergency-resource behavior was changed.
+
+### Work session — November 22, 2026: security audit workflow
+
+- User approved adding an automated security workflow to Project Haven.
+- Added `.github/workflows/security-audit.yml` in commit `7c02ce3e43afebfac3941e0fa7ff847a28999908`.
+- Workflow uses Node.js 22 and installs dependencies without lifecycle scripts; runs `npm audit --audit-level=high`; checks declared dependencies against a list of common analytics/tracking SDKs; and scans full repository history with Gitleaks.
+- Workflow runs on pushes and pull requests to `main`, weekly on Monday, and by manual dispatch.
+- User confirmed the first Security and Privacy Audit workflow run is **green (successful)** on November 22, 2026.
+- This confirms the configured dependency-audit threshold, package-name telemetry screening, and Gitleaks scan passed for that run. The dependency audit fails on high/critical findings; moderate findings may be reported without failing the gate. The telemetry scan is a package-name screening rule, not proof that runtime telemetry is absent. A passing secret scan is limited to the history scanned by that run.
+- No application code, survivor data, storage, encryption, authentication, or safety-planning behavior was changed.
 
 ### Priority task backlog
 - [ ] Inspect the current repository structure and the actual Emergency Resources screen before editing.
@@ -204,20 +213,7 @@ This record keeps the two related but separate products organized. The Business 
 - Organization / brand: **Integrity Rising — The Integrity Movement**.
 - Motto: **United by Truth, Driven by Purpose**.
 - Keep the Business Command Center and Wellness & Growth App as separate products with separate repositories, data, and user experiences.
-- Use clear dated task tracking and record completed work at the end of each work session.
 - Never put passwords, API keys, access tokens, service-role keys, or other credentials in repository files.
 - Use Supabase RLS and test with separate accounts before claiming user data is isolated.
 - Require explicit confirmation before sending messages, sharing files externally, or publishing content.
 - Keep premium automation costs visible and obtain approval before paid activation.
-
-
-
-### Work session — November 22, 2026: Project Haven security workflow
-
-- User approved adding an automated security workflow to Project Haven.
-- Added `.github/workflows/security-audit.yml` in commit `7c02ce3e43afebfac3941e0fa7ff847a28999908`.
-- Workflow uses Node.js 22 and installs dependencies without lifecycle scripts; runs `npm audit --audit-level=high`; checks declared dependencies against a list of common analytics/tracking SDKs; and scans full repository history with Gitleaks.
-- Workflow runs on pushes and pull requests to `main`, weekly on Monday, and by manual dispatch.
-- Re-fetched the workflow file from GitHub and verified its saved contents.
-- **Not yet verified:** GitHub Actions execution result for the new workflow. The dependency audit is configured to fail on high/critical findings; moderate findings are reported by npm but do not fail this gate. The telemetry check is a package-name screening rule, not proof that runtime telemetry is absent. Gitleaks results must be reviewed if a finding appears.
-- No application code, survivor data, storage, encryption, authentication, or safety-planning behavior was changed.
