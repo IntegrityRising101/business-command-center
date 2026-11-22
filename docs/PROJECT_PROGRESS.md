@@ -73,12 +73,15 @@ This record keeps the two related but separate products organized. The Business 
 - Before launch, define annual discounts, trial policy, nonprofit eligibility, cancellation/refund handling, taxes, invoices, plan limits, and customer support process.
 - Public pricing is a proposal only; do not represent any tier as currently purchasable or active.
 
+- November 21, 2026: Updated the Document & Media Center download action. It now requests a signed URL with an attachment filename and uses a clearly labeled **Download** button instead of opening the file in a new tab. Code change committed; browser-level verification and Supabase Storage configuration still need testing.
+
 ### Current development to-do list
 
 #### Priority 1 — Verify and repair core functions
 - [ ] Verify the latest GitHub Pages deployment and test the Bot Team tab on the live app.
 - [ ] Test task creation, editing, due dates, completion, and persistence after refresh.
 - [ ] Test task-completion celebrations and confirm achievements appear on the Wall of Accomplishments after refresh.
+- [ ] **Verify Document & Media Center downloads** with PDF, DOCX, and image test files; confirm the browser saves files with readable names.
 - [ ] **Investigate and fix the Document & Media Center file-upload failure.** Check the upload UI, Supabase Storage bucket, policies, file-size/type validation, and user-visible error handling.
 - [ ] Verify login/authentication and Supabase Row Level Security (RLS) so each account can access only its own records.
 
