@@ -239,3 +239,12 @@ This record keeps the two related but separate products organized. The Business 
 - This supersedes the earlier pending-CI note for the emergency-support content update above.
 - The checks confirm the configured automated workflows passed. They do not establish that the app is secure, anonymous, confidential, production-ready, or certified for survivor use.
 - Next: test the active Support tab and official links on physical devices, verify accessibility and small-screen layout, then continue the broader privacy, threat-model, and independent safety review.
+
+
+### Work session — November 22, 2026: Business Command Center brand palette approved
+
+- Owner approved a distinct Business Command Center palette: navy blue, silver, white, and copper.
+- Added the palette and the three-product brand separation to the repository README.
+- Updated the Business Command Center CSS theme toward navy surfaces, silver typography, and copper highlights while retaining the existing layout and features.
+- The other products remain distinct: Project Haven uses purple/lavender; the Wellness & Growth App uses teal/gold/white.
+- **Pending verification:** GitHub Actions build/deployment and a live visual check on desktop and mobile. This commit does not change application data, authentication, permissions, or the other apps.
