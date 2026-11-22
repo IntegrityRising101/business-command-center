@@ -158,6 +158,20 @@ This record keeps the two related but separate products organized. The Business 
 - Requested review of `src/screens/EmergencyResourcesScreen.js`; GitHub file retrieval temporarily disconnected, so no code changes were made in this session.
 - User requested that Project Haven work and next steps also be recorded in the Business Command Center progress record.
 
+### Work session — November 22, 2026: configuration cleanup
+
+- Inspected the live Project Haven repository files: `package.json`, `app.json`, `.github/workflows/quality.yml`, `App.tsx`, and the existing safety requirements.
+- Confirmed that `package.json`, `app.json`, and the quality workflow contained duplicated/conflicting declarations or malformed trailing content.
+- Replaced `package.json` with one valid Expo SDK 58 dependency/script definition, retaining the repository's declared React 19.3 / React Native 0.88 stack and TypeScript check. No lockfile was present.
+- Rebuilt `app.json` as valid JSON, retaining the LunaSync app identity, Android/iOS identifiers, disabled Android backups, SecureStore, SQLCipher plugin configuration, and Metro web bundler.
+- Consolidated `.github/workflows/quality.yml` into one read-only workflow using Node.js 22, dependency installation, Expo config validation, and TypeScript checks.
+- Re-fetched both JSON files and parsed them successfully. The workflow file was re-fetched and inspected, but GitHub Actions has not yet reported a run result; CI/build success is **not yet verified**.
+- No user-data storage, encryption implementation, Quick Exit behavior, emergency-resource content, or survivor-facing safety claims were changed.
+- Project Haven commits:
+  - `0aae95893472407bb7db2e1bad784cb4a91c6e6e` — package configuration
+  - `8344c62bafc32f9254457f51239dcb1b34be60fe` — Expo app configuration
+  - `057836c3114bba69f3e27e272aeaefcbd3de1a42` — quality workflow
+
 ### Priority task backlog
 - [ ] Inspect the current repository structure and the actual Emergency Resources screen before editing.
 - [ ] Verify emergency contact details and resource links using authoritative, current sources; make clear that emergency services may not be safe or appropriate for every survivor.
