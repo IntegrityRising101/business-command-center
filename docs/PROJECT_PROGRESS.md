@@ -248,3 +248,13 @@ This record keeps the two related but separate products organized. The Business 
 - Updated the Business Command Center CSS theme toward navy surfaces, silver typography, and copper highlights while retaining the existing layout and features.
 - The other products remain distinct: Project Haven uses purple/lavender; the Wellness & Growth App uses teal/gold/white.
 - **Pending verification:** GitHub Actions build/deployment and a live visual check on desktop and mobile. This commit does not change application data, authentication, permissions, or the other apps.
+
+
+### Work session — November 22, 2026: Project Haven purple theme applied
+
+- Updated the active Project Haven / LunaSync interface in `App.tsx` from the prior teal/mint palette to deep purple, lavender, warm white, and soft gold.
+- Documented the palette and its intended high-contrast use in the Project Haven README.
+- App theme commit: `5d9ff015ace956ff31ad5a19efa3036f467a9174`.
+- README commit: `8caf4035f8c12135d898541d4d377a0f4c011c0f`.
+- This is a visual brand change only; no survivor data, storage, authentication, emergency contacts, or safety behavior was changed.
+- **Pending verification:** GitHub Actions checks and visual/accessibility review on physical Android and iOS devices. Do not treat the new color palette as a privacy or safety control.
