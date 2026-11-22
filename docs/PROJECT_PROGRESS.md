@@ -210,3 +210,14 @@ This record keeps the two related but separate products organized. The Business 
 - Require explicit confirmation before sending messages, sharing files externally, or publishing content.
 - Keep premium automation costs visible and obtain approval before paid activation.
 
+
+
+### Work session — November 22, 2026: Project Haven security workflow
+
+- User approved adding an automated security workflow to Project Haven.
+- Added `.github/workflows/security-audit.yml` in commit `7c02ce3e43afebfac3941e0fa7ff847a28999908`.
+- Workflow uses Node.js 22 and installs dependencies without lifecycle scripts; runs `npm audit --audit-level=high`; checks declared dependencies against a list of common analytics/tracking SDKs; and scans full repository history with Gitleaks.
+- Workflow runs on pushes and pull requests to `main`, weekly on Monday, and by manual dispatch.
+- Re-fetched the workflow file from GitHub and verified its saved contents.
+- **Not yet verified:** GitHub Actions execution result for the new workflow. The dependency audit is configured to fail on high/critical findings; moderate findings are reported by npm but do not fail this gate. The telemetry check is a package-name screening rule, not proof that runtime telemetry is absent. Gitleaks results must be reviewed if a finding appears.
+- No application code, survivor data, storage, encryption, authentication, or safety-planning behavior was changed.
