@@ -138,7 +138,42 @@ This record keeps the two related but separate products organized. The Business 
 
 ---
 
-## 3. Shared brand and operating standards
+## 3. Project Haven — Domestic Violence Support App
+
+**Repository:** https://github.com/IntegrityRising101/Project-Haven-DV-Support-Hidden-Secret-App
+
+**Product identity:** Project Haven / LunaSync — a privacy-first, discreet wellness and safety-support application for people experiencing domestic violence. This is a separate product from the Business Command Center and the Integrity Rising Wellness & Growth App.
+
+### Previously reported progress (verify against the current repository)
+- User selected support for all device types and a complete build approach.
+- App foundation and initial screens were started.
+- A discreet wellness-style presentation and safety-support direction were established.
+- Earlier project discussion reported a home/secret dashboard, emergency-resources screen foundation, and Quick Exit.
+- Earlier discussion reported Android, iOS, and web export checks passing, and GitHub Actions quality run #19 passing. These historical reports are not a substitute for a fresh build or safety review.
+
+### Work session — November 22, 2026
+- Resumed work on Project Haven at the user's request.
+- Identified Emergency Resources as the next screen to inspect before making code changes.
+- Planned content includes discreet emergency support, domestic-violence hotlines and shelter resources, survivor-led safety planning, and private journaling/incident records.
+- Requested review of `src/screens/EmergencyResourcesScreen.js`; GitHub file retrieval temporarily disconnected, so no code changes were made in this session.
+- User requested that Project Haven work and next steps also be recorded in the Business Command Center progress record.
+
+### Priority task backlog
+- [ ] Inspect the current repository structure and the actual Emergency Resources screen before editing.
+- [ ] Verify emergency contact details and resource links using authoritative, current sources; make clear that emergency services may not be safe or appropriate for every survivor.
+- [ ] Design survivor-led safety planning with neutral language and no pressure to take actions that could increase danger.
+- [ ] Threat-model discreet access, app naming/icon behavior, notifications, browser history, shared devices, and Quick Exit limitations. Clearly explain that Quick Exit cannot erase device, network, or browser history.
+- [ ] Audit local storage, logs, analytics, crash reports, backups, and network traffic for sensitive-data exposure.
+- [ ] Implement and test secure authentication/access controls appropriate to the chosen platform; do not claim end-to-end encryption unless it is actually implemented and independently verified.
+- [ ] Protect private journal and incident records with encryption in transit and at rest, strict access controls, and a documented retention/deletion approach.
+- [ ] Test accessibility, mobile layouts, offline behavior, and all supported device targets.
+- [ ] Complete a survivor-centered safety and privacy review before any public launch or claims that the app is safe for high-risk use.
+
+**Safety gate:** Project Haven is a sensitive safety-support product. Do not publish or describe it as secure, anonymous, confidential, or ready for survivor use until the relevant technical controls and real-device tests have been completed. Do not collect real survivor incident data during development/testing.
+
+---
+
+## 4. Shared brand and operating standards
 - Organization / brand: **Integrity Rising — The Integrity Movement**.
 - Motto: **United by Truth, Driven by Purpose**.
 - Keep the Business Command Center and Wellness & Growth App as separate products with separate repositories, data, and user experiences.
