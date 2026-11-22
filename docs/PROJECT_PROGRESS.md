@@ -258,3 +258,11 @@ This record keeps the two related but separate products organized. The Business 
 - README commit: `8caf4035f8c12135d898541d4d377a0f4c011c0f`.
 - This is a visual brand change only; no survivor data, storage, authentication, emergency contacts, or safety behavior was changed.
 - **Pending verification:** GitHub Actions checks and visual/accessibility review on physical Android and iOS devices. Do not treat the new color palette as a privacy or safety control.
+
+## 2026-11-22 — Project Haven home-screen welcome update
+- Confirmed Project Haven Quality Checks #33, Security and Privacy Audit #4, and Secret Scanning #17 passed on commit `8caf4035f8c12135d898541d4d377a0f4c011c0f`.
+- Updated Project Haven `App.tsx` home-screen welcome copy to feel warmer and more inviting, emphasizing user choice, no pressure, and personal pace.
+- Preserved the early-preview notice and existing Support navigation and hotline resources.
+- New Project Haven commit: `0d443a733beaa277b187d8e91acf7deccd443f82`.
+- Follow-up GitHub checks for the new commit were queued at the time of this entry; results still need verification.
+- This is a copy/layout update only. It does not add secure storage, encryption, account protection, or guarantee device privacy.
