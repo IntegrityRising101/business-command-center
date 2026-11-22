@@ -75,6 +75,8 @@ This record keeps the two related but separate products organized. The Business 
 
 - November 21, 2026: Updated the Document & Media Center download action to request a signed URL with an attachment filename and use a clearly labeled **Download** button. Supabase Storage was configured with a private `private-documents` bucket and owner-folder access policies. The user confirmed that file uploads now work. Download behavior still needs a separate live browser test.
 
+- November 21, 2026: Added the first folder and media-preview experience to the Document & Media Center. Users can create and navigate private folders, upload into the current folder, preview PDFs/images, play supported audio/video files, download, and delete. Existing root-level uploads remain in place. Code changes committed in `src/App.jsx`; live deployment and browser testing are still required. Browser preview depends on the file type and browser support.
+
 ### Current development to-do list
 
 #### Priority 1 — Verify and repair core functions
@@ -82,6 +84,8 @@ This record keeps the two related but separate products organized. The Business 
 - [ ] Test task creation, editing, due dates, completion, and persistence after refresh.
 - [ ] Test task-completion celebrations and confirm achievements appear on the Wall of Accomplishments after refresh.
 - [ ] **Test Document & Media Center downloads** with a PDF first; confirm the browser saves it with a readable filename.
+- [ ] Test folder creation, navigation, and uploads inside folders on the live app.
+- [ ] Test PDF/image preview and audio/video playback on supported file types and mobile browsers.
 - [x] Fix the reported Document & Media Center upload failure by creating the private `private-documents` Supabase Storage bucket and owner-folder access policies. User confirmed uploads now work.
 - [ ] Verify upload/download permissions with a second account to confirm users cannot access one another's files.
 - [ ] Verify login/authentication and Supabase Row Level Security (RLS) so each account can access only its own records.
@@ -103,7 +107,7 @@ This record keeps the two related but separate products organized. The Business 
 
 #### Priority 4 — Business workspaces and launch readiness
 - [ ] Complete Books & Publishing management for both books using verified Lulu information.
-- [ ] Build secure document/media organization, preview/download, and version history.
+- [ ] Complete secure document/media organization, preview/download, and version history; verify folder navigation and media playback on mobile.
 - [ ] Assess and implement Google Drive and other storage integrations where supported.
 - [ ] Complete Gmail OAuth securely; never store passwords or tokens in source code or browser local storage.
 - [ ] Test a separate public user account end-to-end and verify data isolation.
