@@ -56,6 +56,23 @@ This record keeps the two related but separate products organized. The Business 
 - Continue Books & Publishing workspace for *Legacy Within* and *The Architecture Is Yours* with verified Lulu details.
 - Continue Google Drive/Docs/Sheets/Slides and Gmail integration planning. Require approval before sending emails, sharing files, or publishing content.
 
+### Monetization decisions — November 21, 2026
+
+**Proposed public pricing (not yet launched or connected to billing):**
+- Starter: $0/month.
+- Business: $19/month.
+- Professional: $39/month.
+- Business Plus: $79/month.
+- Nonprofit: $9/month, subject to eligibility and final plan limits.
+- Payment preference selected in planning: monthly and annual billing are both under consideration; a 7-day trial was presented as an option but has not yet been confirmed.
+
+**Implementation guardrails:**
+- Do not collect or charge payment details until a secure payment processor and production billing flow are configured and tested.
+- Recommended architecture to evaluate: Stripe Checkout and Billing, server-side checkout-session creation, verified webhook handling, and Supabase-backed subscription status/entitlements. Never place secret keys in browser code or GitHub source files.
+- Keep premium AI research, prospect discovery, and outreach as separately disclosed optional capabilities with visible usage limits and estimated provider costs.
+- Before launch, define annual discounts, trial policy, nonprofit eligibility, cancellation/refund handling, taxes, invoices, plan limits, and customer support process.
+- Public pricing is a proposal only; do not represent any tier as currently purchasable or active.
+
 ### Current development to-do list
 
 #### Priority 1 — Verify and repair core functions
