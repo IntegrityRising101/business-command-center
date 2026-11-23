@@ -1,3 +1,24 @@
+
+
+## Phase 6 — Company rules, departments & bot governance (approved; not implemented)
+- [ ] Build the Master Company Rulebook.
+- [ ] Provide editable ready-made policy templates and custom rule creation from scratch.
+- [ ] Allow each business to use both templates and custom-written rules.
+- [ ] Add separate department rulebooks under the master rules (Marketing, Finance, Customer Service, HR, and custom departments).
+- [ ] Define rule inheritance and conflict handling; master rules govern, and conflicts must stop and be reported.
+- [ ] Add rule version history, change summaries, and owner approval for important changes.
+- [ ] Build the Bot Permission & Approval Center with per-bot access, task scope, autonomy, and reporting controls.
+- [ ] Add an owner approval queue for spending, external messages, file sharing, security/permission changes, deletion, commitments, and significant publishing/deployments.
+- [ ] Add auditable bot activity and approval history.
+- [ ] Enforce business/tenant isolation in database, server-side authorization, and storage; test two businesses and multiple roles.
+
+## Newly approved product decisions — November 23, 2026
+- Company rules can be created from editable templates, written from scratch, or both.
+- Each business has one Master Company Rulebook plus separate department rulebooks.
+- Owners customize bot selection, roles, permissions, reporting schedules, and autonomy.
+- Bots follow the approved business plan; conflicting instructions are stopped and reported to the owner.
+- Business workspaces must be tenant-isolated so one customer cannot access another customer's records.
+- These are approved specifications only; do not mark implementation complete until built and tested.
 # Integrity Rising — Business Command Center
 
 ## Master To-Do Checklist & Progress Log
