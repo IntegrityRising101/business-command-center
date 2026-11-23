@@ -266,3 +266,16 @@ This record keeps the two related but separate products organized. The Business 
 - New Project Haven commit: `0d443a733beaa277b187d8e91acf7deccd443f82`.
 - Follow-up GitHub checks for the new commit were queued at the time of this entry; results still need verification.
 - This is a copy/layout update only. It does not add secure storage, encryption, account protection, or guarantee device privacy.
+
+
+### Work session — November 23, 2026: Company rules and bot governance approved
+
+- Owner approved a **Company Rules & Instructions Center** with both editable ready-made templates and the ability to write rules from scratch.
+- Each business will have one Master Company Rulebook and may create separate department rulebooks for Marketing, Finance, Customer Service, HR, and custom departments.
+- The Master Company Rulebook sets company-wide standards. Department instructions add detail but must not contradict master rules. Bots stop and report conflicts rather than silently choosing or changing a rule.
+- Owner-approved **Bot Permission & Approval Center** requirements: business owners control bot selection, information access, independent task scope, approval requirements, reporting schedules, and activity review.
+- Approval gates are required for spending/paid activation, external communications, file sharing, security or permission changes, legal/financial commitments, deletion of important records, and significant publishing/deployment.
+- Bot actions, approvals, and applicable rule versions must be auditable. Boss Bot provides oversight and weekly accountability/recognition reporting.
+- Multi-business requirement: each customer company has a separate tenant/workspace with database/server-side authorization and storage isolation. A business name or client-side filter is not sufficient.
+- Full specification: [Business Rules, Department Rulebooks & Bot Permissions](BUSINESS_RULES_AND_BOT_PERMISSIONS_SPEC.md).
+- **Status:** Requirements approved and documented. These features are planned; they have not yet been implemented or tested in the application.
