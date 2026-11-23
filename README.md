@@ -8,7 +8,7 @@ An all-in-one workspace for organizing business projects, content, social media,
 
 ## Business Command Center Brand Identity
 
-**Palette:** Navy blue `#0B1424` and deep navy panels `#172943`, silver `#C7D0DF`, white `#E8EDF5`, and copper `#C47C52` accents. The navy-and-silver foundation communicates clarity and dependable operations; copper is reserved for key actions and highlights.
+**Palette:** Navy blue #0B1424 and deep navy panels #172943, silver #C7D0DF, white #E8EDF5, and copper #C47C52 accents.
 
 **Keep the three products visually distinct:**
 - Project Haven — purple and lavender, with warm white and soft gold.
@@ -20,99 +20,71 @@ These are separate product identities; do not merge their codebases, databases, 
 **Project progress record and development to-do list:** [See completed work, open tasks, and next priorities](docs/PROJECT_PROGRESS.md).
 
 ## What It Helps You Organize
-
-- **AI projects:** Keep track of AI-assisted projects, tools, prompts, and where finished content will be used.
-- **Social media and website work:** Organize posts, campaigns, website updates, and related deadlines.
-- **Merchandise launches:** Plan product ideas, mockups, descriptions, promotions, and launch tasks.
-- **Task management:** Move work through a simple Planned, In Progress, and Launched/Done workflow.
-- **Priorities and focus:** Use priority indicators, categories, search, and a Focus Today view to decide what needs attention.
-- **Bot team roadmap:** Plan a team of friendly task bots led by Boss Bot, with a dedicated Program Manager Bot to help manage the Command Center software itself.
+- **AI projects:** Track AI-assisted projects, tools, prompts, and where finished content will be used.
+- **Social media and website work:** Organize posts, campaigns, updates, and deadlines.
+- **Merchandise launches:** Plan ideas, mockups, descriptions, promotions, and launch tasks.
+- **Task management:** Move work through Planned, In Progress, and Launched/Done.
+- **Priorities and focus:** Use priority indicators, categories, search, and Focus Today.
+- **Bot team roadmap:** Plan friendly task bots led by Boss Bot, plus a Program Manager Bot for software operations.
 
 ## AI Management Team (Planned)
-
-The planned bot team will have visible roles, assigned work, statuses, due dates, and progress reports:
-
 - **Boss Bot:** Coordinates the team, prioritizes work, tracks milestones, flags blockers, and reports progress.
-- **Program Manager Bot:** Oversees the Command Center development backlog, feature requests, bug reports, testing, deployment checks, and dated change records.
-- **Tasky:** Tracks assigned tasks, priorities, due dates, and completion.
+- **Program Manager Bot:** Oversees development tasks, bug reports, testing, deployment checks, and change records.
+- **Tasky:** Tracks assignments, priorities, due dates, and completion.
 - **Deadline Bot:** Monitors upcoming and overdue work.
-- **Doc Bot:** Helps organize business documents and records.
-- **Scout / Brainy:** Research prospects, competitors, business gaps, and opportunities.
+- **Doc Bot:** Organizes business documents and records.
+- **Scout:** Researches prospects, competitors, business gaps, and opportunities.
+- **Brainy:** Provides business analysis and source-grounded reporting.
 - **Maily:** Prepares outreach emails for owner review.
-- **Cheer Bot:** Celebrates completed tasks, milestones, streaks, and team accomplishments.
+- **Cheer Bot:** Celebrates tasks, milestones, streaks, and team accomplishments.
 
 ### Program Manager Bot permissions
-
 The owner has approved limited automatic repair authority for basic, low-risk fixes, such as clear spelling/text corrections, known broken links, minor display issues, and straightforward code fixes. Each repair must be logged and tested.
 
-Program Manager Bot must request approval before major code changes, database or Supabase changes, authentication/security or permission changes, paid services or spending, external communications, and significant publishing or deployment actions. If a repair fails or the risk is unclear, it must stop and notify the owner. These are planned permissions; they are not active until implemented and tested.
+Approval is required before major code changes, database or Supabase changes, authentication/security or permission changes, paid services or spending, external communications, and significant publishing or deployment actions. If a repair fails or risk is unclear, the bot must stop and notify the owner. These are planned permissions, not active features until implemented and tested.
+
+### Company rules and bot permissions (Planned)
+Each business will have one **Master Company Rulebook** and may create separate department rulebooks for Marketing, Finance, Customer Service, HR, and custom departments. Owners can start with editable templates, write rules from scratch, or combine both approaches.
+
+Owners control which bots they use, what information each bot can access, which tasks it can complete independently, and which actions require approval. Bots follow the approved business plan, stop and report conflicting instructions, and keep an auditable record of important actions and approvals.
+
+See the complete [Business Rules, Department Rulebooks & Bot Permissions specification](docs/BUSINESS_RULES_AND_BOT_PERMISSIONS_SPEC.md). This is an approved product specification, not a claim that the controls are already implemented.
 
 ### Optional premium capabilities
+Competitor and business-gap analysis, prospect discovery, and email outreach are planned as optional paid capabilities. Show estimated costs, usage limits, and third-party fees before activation. Research must provide source-backed findings. Emails must be drafted for owner approval; do not send without explicit approval.
 
-Biweekly competitor and business-gap analysis, prospect discovery, and email outreach are planned as optional paid capabilities. Show estimated costs, usage limits, and third-party fees before activation. Research should produce source-backed findings and reviewable prospect lists. Emails must be drafted for owner approval; do not send without explicit approval.
+## Accounts, privacy, and data
+The application uses [Supabase](https://supabase.com/) for authentication and connected data services. User data must be protected with Supabase Row Level Security (RLS). Keep the Supabase service-role key private; the browser application should use only the publishable/anonymous key.
 
-## Account and Data Setup
-
-The application uses [Supabase](https://supabase.com/) for authentication and connected data services. The project is intended to support individual user accounts.
-
-User data must be protected with Supabase Row Level Security (RLS) policies that restrict each signed-in user to their own records. Keep the Supabase service-role key private; the browser application should use only the project's publishable/anonymous key.
+**Multi-business requirement:** Each customer business must have an isolated tenant/workspace. Database and server-side access controls must prevent cross-business data access. A business name or client-side filter is not sufficient security.
 
 ## Technology
-
 - React
 - Vite
 - Supabase
 - Tailwind CSS
 - GitHub Pages
 
-## Run Locally
-
+## Run locally
 1. Install [Node.js](https://nodejs.org/).
 2. Clone this repository and open its folder in a terminal.
-3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-4. Create a `.env.local` file in the project root with your Supabase project settings:
-
-   ```env
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_publishable_or_anon_key
-   ```
-
-5. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-6. Open the local URL printed by Vite in your browser.
+3. Install dependencies with npm install.
+4. Create a .env.local file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.
+5. Run npm run dev and open the local URL printed by Vite.
 
 ## Build
-
-To create a production build:
-
-```bash
-npm run build
-```
-
-The production files are generated in the `dist` folder.
+Run npm run build. Production files are generated in the dist folder.
 
 ## Deployment
+The .github/workflows/deploy.yml workflow builds the application and deploys dist to GitHub Pages when changes are pushed to main. It can also be started manually from the repository Actions tab.
 
-The `.github/workflows/deploy.yml` workflow builds the application and deploys the `dist` folder to GitHub Pages when changes are pushed to the `main` branch. It can also be started manually from the repository's **Actions** tab.
+Required GitHub Actions repository secrets:
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY
 
-Add the following GitHub Actions repository secrets before deploying:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-
-Do not commit local environment files or private credentials to the repository.
+Do not commit local environment files or private credentials.
 
 ## Project
-
 Maintained by **Integrity Rising**.
 
 **United by Truth, Driven by Purpose.**
