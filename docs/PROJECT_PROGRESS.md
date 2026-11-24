@@ -386,3 +386,10 @@ This record keeps the two related but separate products organized. The Business 
 - Owner created the live test task **“Test Cheer Bot Celebration,”** marked it Done, and confirmed that Cheer Bot appeared with the celebration.
 - **Verified:** the core end-to-end completion-celebration flow works in the live Business Command Center.
 - **Follow-up:** separately check responsive presentation on desktop and mobile.
+
+
+### Work session — November 24, 2026: Custom task options requested
+- Owner requested the ability to type a value when a needed task-form option is not listed.
+- Planned the change for Project and Assigned To: show existing suggestions while allowing a new free-text value, including a person, team, or bot name.
+- Keep Status and Priority as standard workflow fields to preserve consistent task-board and dashboard behavior.
+- **Pending:** pull-request checks, owner review/approval, merge, deployment, and live testing of custom-value save/filter behavior.
