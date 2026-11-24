@@ -40,6 +40,9 @@ Live app: https://integrityrising101.github.io/business-command-center/
 - [ ] Test file access with a second account; confirm users cannot access another account's files.
 - [ ] Verify authentication and RLS for tasks, documents, and other user records.
 
+### P2 — Cheer Bot personalization (Testing)
+- [ ] Verify completed tasks generate a project-aware Cheer Bot message using the task title and project, and that the personalized message appears in the Daily Log and Wall of Wins after refresh.
+
 ### P2 — Task assignment and organization (Testing)
 - [x] Apply the task-assignment database migration in Supabase; verified both `assigned_to` and `approval_required` columns.
 - [x] Create a task assigned to Program Manager Bot with owner approval required.
