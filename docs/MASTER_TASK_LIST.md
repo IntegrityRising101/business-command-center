@@ -222,3 +222,13 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [ ] Add suggestions with free-text entry for Project and Assigned To, so owners can use existing values or enter a new project, person, team, or bot.
 - [ ] Keep Status and Priority as standard workflow choices so dashboard counts, filters, and task automation remain consistent.
 - [ ] Verify custom values save, persist after refresh, and appear in task-board project filters.
+
+
+### November 24, 2026 — Testable bot workspaces (implementation in review)
+- [ ] Build nine interactive bot workspaces: Boss Bot, Tasky, Deadline Bot, Doc Bot, Scout, Brainy, Maily, Cheer Bot, and Program Manager Bot.
+- [ ] Each workspace runs a rule-based test against saved task/activity data and can save a test report to Daily Log.
+- [ ] Maily can create and edit an email draft and copy it; no sending capability is enabled.
+- [ ] Scout prepares a research checklist only; live source research is not yet connected.
+- [ ] Doc Bot recommends a folder structure only; it does not move, share, rename, or delete files.
+- [ ] Program Manager Bot reports software-task risks only; it does not edit code, database settings, permissions, or deploy.
+- [ ] Verify all nine workspaces on the live app, confirm reports persist in Daily Log, and test mobile layout.
