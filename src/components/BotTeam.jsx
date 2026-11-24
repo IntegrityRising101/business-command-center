@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 
 const bots=[
  {name:'Boss Bot',emoji:'👑',role:'Team manager',description:'Turns your saved task board into a clear owner briefing with priorities, blockers, and approval reminders.',focus:'Team priorities',color:'gold',responsibilities:['Review open and completed work','Identify urgent tasks, blockers, and approval flags','Summarize the next best owner action'],assignment:'All workstreams'},
@@ -8,7 +8,7 @@ const bots=[
  {name:'Scout',emoji:'🔎',role:'Opportunity researcher',description:'Prepares a focused research queue and records what evidence needs to be collected.',focus:'Growth research',color:'teal',responsibilities:['Identify research and growth questions','Prepare a source-collection checklist','Separate verified findings from ideas'],assignment:'Research tasks'},
  {name:'Brainy',emoji:'📊',role:'Business analyst',description:'Analyzes your current task-board mix and points out gaps using saved workspace data.',focus:'Business analysis',color:'blue',responsibilities:['Summarize project workload','Spot missing owners and due dates','Recommend evidence-based planning improvements'],assignment:'Planning and analysis'},
  {name:'Maily',emoji:'💌',role:'Outreach assistant',description:'Creates editable email drafts for your review. It never sends messages.',focus:'Email drafts',color:'gold',responsibilities:['Prepare a reusable outreach draft','Keep tone professional and human','Require owner approval before any sending integration'],assignment:'Email workspace'},
- {name:'Cheer Bot',emoji:'🎉',role:'Celebration captain',description:'Recognizes completed work, milestones, and consistent progress.',focus:'Wall of wins',color:'teal',responsibilities:['Celebrate completed tasks','Show recorded wins','Encourage progress, not perfection'],assignment:'Completed tasks and daily log'},
+ {name:'Cheer Bot',emoji:'🎉',role:'Celebration captain',description:'Creates a personal celebration for each completed task using its title and project, then adds the message to the Wall of Wins.',focus:'Wall of wins',color:'teal',responsibilities:['Celebrate completed tasks','Show recorded wins','Encourage progress, not perfection'],assignment:'Completed tasks and daily log'},
  {name:'Program Manager Bot',emoji:'🛠️',role:'Software project manager',description:'Reviews software-related tasks, testing needs, and release risks. It proposes fixes but does not change code or deploy.',focus:'Build and release health',color:'blue',responsibilities:['Triage software and testing tasks','Identify release blockers and missing checks','Request approval before risky changes or deployment'],assignment:'Software and app work'}
 ];
 
@@ -25,6 +25,9 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
  const [draftRecipient,setDraftRecipient]=useState('');
  const [draftPurpose,setDraftPurpose]=useState('Introduce Integrity Rising and invite a conversation');
  const [message,setMessage]=useState('');
+ const [posterAvailable,setPosterAvailable]=useState(true);
+ const [voiceMessage,setVoiceMessage]=useState('');
+ useEffect(()=>()=>{if('speechSynthesis' in window)window.speechSynthesis.cancel();},[selectedBot]);
  const open=tasks.filter(isOpen);
  const done=tasks.filter(t=>t.status==='Done');
  const overdue=open.filter(t=>t.due_date&&t.due_date<today());
@@ -100,6 +103,18 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
    setMessage(`${bot.name} completed a workspace check.`);
    if(onAddLog)await onAddLog(`🤖 ${bot.name} ran a test check — ${text.split('\n')[1]||'Report prepared.'}`);
  };
+ const speakBot=()=>{
+   const spoken=report?.name===selectedBot?.name?report.text:`Hello! I’m ${selectedBot?.name}. ${selectedBot?.description||'I am ready to help.'}`;
+   if(!('speechSynthesis' in window)){setVoiceMessage('Voice is not available in this browser.');return;}
+   window.speechSynthesis.cancel();
+   const utterance=new SpeechSynthesisUtterance(spoken);
+   utterance.rate=0.96; utterance.pitch=1.08;
+   utterance.onend=()=>setVoiceMessage('Finished speaking.');
+   utterance.onerror=()=>setVoiceMessage('Voice playback could not finish.');
+   window.speechSynthesis.speak(utterance);
+   setVoiceMessage('Speaking…');
+ };
+ const stopBotVoice=()=>{if('speechSynthesis' in window)window.speechSynthesis.cancel();setVoiceMessage('Voice stopped.');};
  const makeDraft=()=>{
    const recipient=draftRecipient.trim()||'there';
    const body=`Subject: A quick introduction to Integrity Rising\n\nHello ${recipient},\n\nI’m reaching out to introduce Integrity Rising, a community and learning platform focused on personal growth, accountability, leadership, and helping people move forward with purpose.\n\n${draftPurpose.trim()||'I would love to connect and explore whether there may be a helpful opportunity to work together.'}\n\nIf this sounds relevant, I’d be glad to share more information or learn about your work.\n\nThank you,\nChristina\nIntegrity Rising\nUnited by Truth, Driven by Purpose`;
@@ -112,6 +127,10 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
 
  return <div className="bot-team">
   <section className="bot-welcome"><div className="bot-crown">👑</div><div><p className="bot-kicker">YOUR FRIENDLY AI MANAGEMENT TEAM</p><h2>Meet the Bot Squad!</h2><p>Run a test in each workspace and see what your helpers can do with saved business data.</p></div><div className="boss-message"><strong>Boss Bot says:</strong><br/>“Let's turn the plan into progress—one verified step at a time!”</div></section>
+  <section className="bot-original-art" aria-label="Original Integrity Rising AI Bot Team artwork">
+   {posterAvailable&&<img src="/business-command-center/images/integrity-rising-ai-bot-team.png" alt="Original Integrity Rising AI Bot Team poster featuring Boss Bot, Tasky, Deadline Bot, Doc Bot, Scout, Brainy, Maily, and Cheer Bot" onError={()=>setPosterAvailable(false)}/>}
+   {!posterAvailable&&<div className="bot-art-pending"><span>🤖 ✨</span><strong>Our original AI Bot Team artwork</strong><p>The exact team poster will appear here when its image file is added to the app assets. The nine bot workspaces below remain available.</p></div>}
+  </section>
   <div className="bot-summary"><div><small>Open tasks</small><strong>{open.length}</strong></div><div><small>Completed</small><strong>{done.length}</strong></div><div><small>Overdue</small><strong>{overdue.length}</strong></div><div><small>Celebrated wins</small><strong>{wins.length}</strong></div><div><small>Assigned</small><strong>{assigned}</strong></div><div><small>Unassigned open</small><strong>{unassigned}</strong></div><div><small>Approval flagged</small><strong>{approvalNeeded}</strong></div></div>
   <div className="bot-section-heading"><div><p className="bot-kicker">THE CREW</p><h2>Meet your assistants</h2></div><span className="bot-status">9 testable workspaces · MVP mode</span></div>
   <div className="bot-grid">{bots.map((bot,i)=><button type="button" className={'bot-card '+bot.color+' bot-card-button'} key={bot.name} onClick={()=>{setSelectedBot(bot);setReport(null);setMessage('')}} aria-label={'Open '+bot.name+' workspace'}>
@@ -128,6 +147,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
    {getAssigned(selectedBot).length?<div className="bot-assigned-list">{getAssigned(selectedBot).slice(0,6).map(task=><article key={task.id}><span>{task.title}</span><small>{task.status} · {task.priority||'normal'} priority</small></article>)}</div>:<p className="bot-no-assignments">No matching tasks yet. Run a workspace check to see general recommendations.</p>}
    {selectedBot.name==='Maily'&&<div className="bot-test-panel"><h3>Draft a test email</h3><label>Recipient name (optional)<input value={draftRecipient} onChange={e=>setDraftRecipient(e.target.value)} placeholder="Name or organization"/></label><label>Purpose<textarea rows="2" value={draftPurpose} onChange={e=>setDraftPurpose(e.target.value)}/></label><button type="button" className="gold" onClick={makeDraft}>Create email draft</button>{draft&&<><label>Editable draft<textarea rows="12" value={draft} onChange={e=>setDraft(e.target.value)}/></label><button type="button" onClick={copyDraft}>Copy draft</button></>}</div>}
    <div className="bot-workspace-actions"><button type="button" onClick={()=>runBot(selectedBot)}>Run workspace test</button><button type="button" onClick={()=>{setSelectedBot(null);onOpenTasks?.()}}>Open task board</button><button type="button" className="gold" onClick={()=>setSelectedBot(null)}>Close</button></div>
+   <div className="bot-voice-controls"><button type="button" onClick={speakBot}>🔊 Speak {selectedBot.name}</button><button type="button" onClick={stopBotVoice}>Stop voice</button><small aria-live="polite">{voiceMessage||'Voice plays only when you press Speak.'}</small></div>
    {report?.name===selectedBot.name&&<div className="bot-run-report"><div><strong>{selectedBot.name} report</strong><small>{report.at}</small></div><pre>{report.text}</pre></div>}
    {message&&<p className="bot-test-message" role="status">{message}</p>}
   </section></div>}
