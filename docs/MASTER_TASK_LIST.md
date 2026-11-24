@@ -163,3 +163,27 @@ Owner-provided snapshot of the Business Command Center Tasks board. This records
 - The two website refresh/navigation cards may overlap.
 - The two Wellness App launch cards may overlap.
 - Do not delete, merge, or change statuses until the owner confirms which cards should remain.
+
+## Website Analytics Baseline — November 24, 2026
+
+**Reporting period:** November 17–23, 2026  
+**Comparison period:** November 10–16, 2026  
+**Source:** Owner-provided Google Analytics screenshot (page-title views report)
+
+- **Total views:** 3 (down 4 / 57.14% from the previous period; previous period was 7 views)
+- **Integrity Rising homepage:** 2 views
+- **All Products page:** 1 view
+- **Winter T-Shirt:** 0 views
+- **Your Story Matters T-Shirt:** 0 views
+- **Integrity Within:** 0 views
+
+This is a low-traffic baseline; percentages can swing sharply with a small number of visits. The report shows views only and does not establish visitors, conversions, sales, or why traffic changed.
+
+
+### Website traffic-growth tasks (P3 — Todo)
+- [ ] Improve homepage messaging and make Shop, Academy, Community, and Wellness paths easier to find.
+- [ ] Create weekly content/posts with a direct link to a specific product, page, or course.
+- [ ] Review product-page photos, descriptions, and calls to action for clarity.
+- [ ] Check storefront links across Gumroad, Stan Store, Google Site, and Fourthwall.
+- [ ] Record weekly analytics snapshots and compare trends; avoid drawing conclusions from very small samples.
+- [ ] Track engagement and conversions when available (not just views).
