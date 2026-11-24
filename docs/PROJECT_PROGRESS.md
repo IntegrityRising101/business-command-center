@@ -304,3 +304,13 @@ This record keeps the two related but separate products organized. The Business 
 - [x] **Record the accomplishment in the central project progress log** — this dated entry keeps the completion visible in the Command Center records.
 
 **Follow-up (not a blocker):** investigate the missing `manifest.webmanifest` request and continue performance optimization after core stability is maintained.
+
+
+### Work session — November 23, 2026: Master business task list and dashboard view
+- Created `docs/MASTER_TASK_LIST.md` as the owner-facing master task list across the Business Command Center, Wellness & Growth App, Project Haven, books, Academy, website/storefronts, marketing, merchandise, and shared company operations.
+- Separated verified accomplishments from outstanding work and defined P1–P4 priorities and Todo / In Progress / Testing / Done meanings.
+- Linked the master task list from the repository README.
+- Added a **Master Plan** tab to the Command Center navigation, with task counts, workstream cards, progress bars, shortcuts to the full task list and project progress record, and links to Project Haven.
+- Added responsive styling for the Master Plan view.
+- Implementation commits: `8ecbbb97ac9a40b76440f7363965393e30108f46` (master task list), `fd134ddd84b41e8e6eb05cea6e6d3d4e8b9927ce` (README link), `681ed5b073cb45dcce4355fbb18f75f20b58ad4c` (MasterPlan component), `2ba22c125ef965333aba3eaf791677c6929619da` (navigation integration), and `5cb07a00957acf39cf2a011c884f82f4e2197e9b` (responsive styles).
+- **Pending verification:** no CI status was returned for the latest styling commit at the time of this entry. Reload the live app after deployment, open Master Plan, test each workstream link/filter, and confirm layout on mobile and desktop before marking the dashboard feature fully verified.
