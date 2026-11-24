@@ -32,6 +32,7 @@ Live app: https://integrityrising101.github.io/business-command-center/
 ### P1 — Core verification (Testing)
 - [ ] Verify the Tasks board displays task cards and that tasks remain saved after a page refresh. The owner supplied the current 12-card board contents on November 24; a fresh refresh-and-reopen persistence check is still needed.
 - [ ] Test task creation, editing, due dates, and completion.
+- [ ] Test custom Project and Assigned To values in the task form and confirm they persist and appear in task filters.
 - [ ] Test completion celebrations and confirm dated achievements persist on the Wall of Accomplishments.
 - [ ] Test a PDF download; verify it saves with a readable filename.
 - [ ] Test folder creation, navigation, and uploads inside folders.
@@ -215,3 +216,9 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Owner tested the live app by creating “Test Cheer Bot Celebration,” marking it Done, and confirming Cheer Bot appeared with its celebration.
 - [x] Verified the core completion-celebration flow in the live app. Separate desktop/mobile layout checks remain a follow-up.
 
+
+
+### November 24, 2026 — Custom task options improvement
+- [ ] Add suggestions with free-text entry for Project and Assigned To, so owners can use existing values or enter a new project, person, team, or bot.
+- [ ] Keep Status and Priority as standard workflow choices so dashboard counts, filters, and task automation remain consistent.
+- [ ] Verify custom values save, persist after refresh, and appear in task-board project filters.
