@@ -30,7 +30,8 @@ Repository: https://github.com/IntegrityRising101/business-command-center
 Live app: https://integrityrising101.github.io/business-command-center/
 
 ### P1 — Core verification (Testing)
-- [ ] Test task creation, editing, due dates, completion, and persistence after refresh.
+- [x] Verify the Tasks board displays task cards and that tasks remain saved after a page refresh (owner-confirmed November 23, 2026). A refresh returns to Home; reopening Tasks shows the saved tasks.
+- [ ] Test task creation, editing, due dates, and completion.
 - [ ] Test completion celebrations and confirm dated achievements persist on the Wall of Accomplishments.
 - [ ] Test a PDF download; verify it saves with a readable filename.
 - [ ] Test folder creation, navigation, and uploads inside folders.
@@ -113,6 +114,12 @@ Specification: [Business Rules, Department Rulebooks & Bot Permissions](BUSINESS
 - [x] Confirmed GitHub Pages deployment succeeded and the owner opened the live app and confirmed it works.
 - [x] Recorded the completion in the central project progress log.
 - [x] Kept missing manifest request/performance optimization as follow-up cleanup, not a blocker.
+
+### November 23, 2026 — Business Command Center task board
+- [x] Fixed task-board status normalization and backlog seeding in `src/App.jsx` (commit `88cd8a9da18401746a8f69a1df137755ff91318d`).
+- [x] Confirmed the deployment workflow completed successfully (run `45333500739`).
+- [x] Owner verified that task cards appear in the Tasks board and remain saved after refreshing and reopening Tasks. Refresh currently returns the app to Home; this is expected navigation behavior, not task loss.
+- [ ] Continue testing task creation, editing, due dates, completion, and related persistence separately.
 
 ### Previously completed or owner-confirmed
 - [x] Business Command Center dashboard foundation, task workflow, priorities, search, and Focus Today.
