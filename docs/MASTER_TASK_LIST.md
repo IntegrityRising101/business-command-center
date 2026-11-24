@@ -1,6 +1,6 @@
 # Integrity Rising — Master Business Task List
 
-Last updated: November 23, 2026
+Last updated: November 24, 2026
 
 This is the central owner-facing task list for Integrity Rising. Keep completed accomplishments separate from open work. Update this file when work is started, tested, completed, or blocked. Do not mark a task complete based only on a code change: verify the relevant live behavior or automated check.
 
@@ -39,11 +39,13 @@ Live app: https://integrityrising101.github.io/business-command-center/
 - [ ] Test file access with a second account; confirm users cannot access another account's files.
 - [ ] Verify authentication and RLS for tasks, documents, and other user records.
 
-### P2 — Task assignment and organization (In Progress)
-- [ ] Apply the task-assignment database migration in Supabase before using the new fields.
-- [ ] Verify task assignment to each helper role persists after refresh.
-- [ ] Verify the Bot Team page reports assigned, unassigned, and approval-flagged tasks accurately.
-- [ ] Confirm owner-approval flags are visible and do not imply that bots can execute tasks autonomously.
+### P2 — Task assignment and organization (Testing)
+- [x] Apply the task-assignment database migration in Supabase; verified both `assigned_to` and `approval_required` columns.
+- [x] Create a task assigned to Program Manager Bot with owner approval required.
+- [x] Confirm the task appears on the Task Board and remains after a browser refresh.
+- [x] Mark the test task completed.
+- [ ] Verify Bot Team assigned, unassigned, and approval-flagged summary counts against the saved task data.
+- [x] Confirm the approval flag is a tracking indicator only and does not grant bot execution authority.
 
 ### P2 — Program Manager Bot (Todo)
 - [ ] Design its software-management dashboard and task queue.
@@ -193,3 +195,9 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [ ] Check storefront links across Gumroad, Stan Store, Google Site, and Fourthwall.
 - [ ] Record weekly analytics snapshots and compare trends; avoid drawing conclusions from very small samples.
 - [ ] Track engagement and conversions when available (not just views).
+
+
+## November 24, 2026 — Boss Bot Daily Briefing panel
+- [ ] Build and verify the Boss Bot Daily Briefing panel in the live Business Command Center.
+- The planned panel summarizes saved tasks, overdue/upcoming due dates, owner-approval flags, bot assignments, and recent accomplishment logs.
+- The panel is a live dashboard summary, not an autonomous agent executor. Scheduled Boss Bot reporting remains a separate automation.
