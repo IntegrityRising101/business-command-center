@@ -386,3 +386,10 @@ This record keeps the two related but separate products organized. The Business 
 - Owner created the live test task **“Test Cheer Bot Celebration,”** marked it Done, and confirmed that Cheer Bot appeared with the celebration.
 - **Verified:** the core end-to-end completion-celebration flow works in the live Business Command Center.
 - **Follow-up:** separately check responsive presentation on desktop and mobile.
+
+
+### Work session — November 24, 2026: Task Form custom options
+- Started a feature branch to let the owner type a new Project/category or assignee instead of being limited to preset dropdown values.
+- Existing and newly entered project categories are intended to appear in Task Board filters and project views.
+- Status and Priority remain controlled options to preserve board workflow and reporting consistency.
+- **Pending:** build checks, owner review, merge, deployment, and live testing.
