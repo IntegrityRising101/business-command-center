@@ -38,10 +38,10 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
    if(explicit.length)return explicit;
    if(bot.name==='Boss Bot'||bot.name==='Program Manager Bot')return tasks.filter(t=>bot.name==='Boss Bot'||includes(t,/app|software|code|github|supabase|deploy|bug|test|release/i));
    if(bot.name==='Tasky')return open;
-   if(bot.name==='Deadline Bot')return tasks.filter(t=>t.due_date);
+   if(bot.name==='Deadline Bot')return tasks;
    if(bot.name==='Doc Bot')return tasks.filter(t=>includes(t,/document|media|file|drive|book|publish|workbook|pdf/i));
    if(bot.name==='Scout')return tasks.filter(t=>includes(t,/research|resource|marketing|funding|prospect|partner|opportunity/i));
-   if(bot.name==='Brainy')return tasks.filter(t=>includes(t,/plan|dashboard|monetization|strategy|review|business/i));
+   if(bot.name==='Brainy')return tasks;
    if(bot.name==='Maily')return tasks.filter(t=>includes(t,/email|gmail|outreach|customer/i));
    return done;
  };
@@ -63,8 +63,8 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
       lines=['TASK BOARD CHECK',`Open tasks: ${open.length} · Unassigned: ${unassigned}`,`Open tasks without due dates: ${missingDue.length}`,'Suggested work queue:',...(queue.length?queue.map((t,i)=>`${i+1}. ${t.title} — ${t.status} · ${t.priority||'normal'}`):['Nothing waiting in the queue.']),'Next step: assign an owner and due date to the most important unassigned task.'];break;
     }
     case 'Deadline Bot': {
-      const upcoming=botOpen.filter(t=>t.due_date&&t.due_date>=today()).sort((a,b)=>a.due_date.localeCompare(b.due_date)).slice(0,5);
-      lines=['DEADLINE SCAN',`Overdue: ${overdue.length} · Upcoming dated tasks: ${upcoming.length} · Open tasks missing due dates: ${missingDue.length}`,'Overdue:',...(overdue.length?overdue.map(t=>`${t.title} — due ${t.due_date}`):['None.']),'Coming up:',...(upcoming.length?upcoming.map(t=>`${t.title} — ${t.due_date}`):['No upcoming dated tasks.'])];break;
+      const upcoming=open.filter(t=>t.due_date&&t.due_date>=today()).sort((a,b)=>a.due_date.localeCompare(b.due_date)).slice(0,5);
+      lines=['DEADLINE SCAN',`Overdue: ${overdue.length} · Upcoming dated tasks: ${upcoming.length} · Open tasks missing due dates: ${open.filter(t=>!t.due_date).length}`,'Scope: all open tasks on the Task Board.','Overdue:',...(overdue.length?overdue.map(t=>`${t.title} — due ${t.due_date}`):['None.']),'Coming up:',...(upcoming.length?upcoming.map(t=>`${t.title} — ${t.due_date}`):['No upcoming dated tasks.'])];break;
     }
     case 'Doc Bot': {
       const docs=tasks.filter(t=>includes(t,/document|media|file|drive|book|publish|workbook|pdf/i));
@@ -77,7 +77,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
     case 'Brainy': {
       const categories=[...new Set(tasks.map(t=>t.category||'General'))];
       const summary=categories.map(c=>`${c}: ${tasks.filter(t=>(t.category||'General')===c&&isOpen(t)).length} open`);
-      lines=['WORKSPACE ANALYSIS',`Total tasks: ${tasks.length} · Open: ${open.length} · Completed: ${done.length}`,`Open tasks missing an owner: ${missingOwner.length} · Missing a due date: ${missingDue.length}`,'Open work by project:',...(summary.length?summary:['No project categories yet.']),'Recommendation: resolve overdue and unassigned high-priority tasks before adding more projects.','This analysis uses only saved task-board data; it is not market or competitor research.'];break;
+      lines=['WORKSPACE ANALYSIS',`Total tasks: ${tasks.length} · Open: ${open.length} · Completed: ${done.length}`,`Open tasks missing an owner: ${open.filter(t=>!t.assigned_to).length} · Missing a due date: ${open.filter(t=>!t.due_date).length}`,'Scope: all open tasks on the Task Board.','Open work by project:',...(summary.length?summary:['No project categories yet.']),'Recommendation: resolve overdue and unassigned high-priority tasks before adding more projects.','This analysis uses only saved task-board data; it is not market or competitor research.'];break;
     }
     case 'Maily': {
       lines=['EMAIL DRAFT WORKSPACE','Use the draft builder below to prepare an editable message.','Safety: this workspace does not connect to Gmail and cannot send email. Every future send action must require your approval.'];break;
