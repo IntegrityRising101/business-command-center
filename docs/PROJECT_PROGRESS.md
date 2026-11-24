@@ -314,3 +314,12 @@ This record keeps the two related but separate products organized. The Business 
 - Added responsive styling for the Master Plan view.
 - Implementation commits: `8ecbbb97ac9a40b76440f7363965393e30108f46` (master task list), `fd134ddd84b41e8e6eb05cea6e6d3d4e8b9927ce` (README link), `681ed5b073cb45dcce4355fbb18f75f20b58ad4c` (MasterPlan component), `2ba22c125ef965333aba3eaf791677c6929619da` (navigation integration), and `5cb07a00957acf39cf2a011c884f82f4e2197e9b` (responsive styles).
 - **Pending verification:** no CI status was returned for the latest styling commit at the time of this entry. Reload the live app after deployment, open Master Plan, test each workstream link/filter, and confirm layout on mobile and desktop before marking the dashboard feature fully verified.
+
+
+### Work session — November 23, 2026: Task Board visibility and persistence verified
+- Fixed task status normalization and initial backlog insertion in `src/App.jsx` so task records map to the board's Planned, In Progress, and Done columns and missing backlog tasks can be seeded per user.
+- Fix commit: `88cd8a9da18401746a8f69a1df137755ff91318d`.
+- GitHub Actions deployment run [#45333500739](https://github.com/IntegrityRising101/business-command-center/actions/runs/45333500739) completed successfully.
+- Owner confirmed the Tasks board now displays its task cards. After refreshing, the app returns to Home; reopening Tasks shows the tasks are still present, confirming they persisted through refresh.
+- **Verified:** task-board cards render and remain saved after refresh.
+- **Still to test:** task creation, editing, due dates, completion, completion celebrations, and account-level data isolation.
