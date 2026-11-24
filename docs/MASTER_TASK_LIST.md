@@ -40,6 +40,10 @@ Live app: https://integrityrising101.github.io/business-command-center/
 - [ ] Test file access with a second account; confirm users cannot access another account's files.
 - [ ] Verify authentication and RLS for tasks, documents, and other user records.
 
+### P2 — Bot character experience (In Progress)
+- [ ] Add the owner-provided original AI Bot Team poster to `public/images/integrity-rising-ai-bot-team.png` and verify it displays on desktop and mobile; the code now includes the exact asset location and a graceful fallback, but the binary artwork has not yet been committed.
+- [ ] Test optional per-bot speech playback and stop controls in supported browsers; confirm silent operation unless the owner presses Speak.
+
 ### P2 — Cheer Bot personalization (Testing)
 - [ ] Verify completed tasks generate a project-aware Cheer Bot message using the task title and project, and that the personalized message appears in the Daily Log and Wall of Wins after refresh.
 
