@@ -262,3 +262,11 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Brainy and Deadline Bot now agree with Tasky's board-wide missing-due-date count of 27.
 - [x] Confirmed the reporting correction did not modify task records, owners, due dates, statuses, database schema, or permissions.
 - [ ] Follow up separately on Daily Log persistence and Bot Team mobile layout.
+
+
+### November 24, 2026 — Custom task options and dynamic project views
+- [x] Confirmed current `main` already supports typing custom Project/category and assignee values in the task form.
+- [x] Confirmed custom categories are included in Task Board filters.
+- [x] Updated Home project areas and Projects view to use the saved dynamic category list, so owner-created categories appear consistently.
+- [x] Kept Status and Priority as controlled choices.
+- [ ] Run build checks and owner live test after this follow-up pull request is merged.
