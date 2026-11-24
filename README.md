@@ -17,7 +17,9 @@ An all-in-one workspace for organizing business projects, content, social media,
 
 These are separate product identities; do not merge their codebases, databases, or private user data.
 
-**Project progress record and development to-do list:** [See completed work, open tasks, and next priorities](docs/PROJECT_PROGRESS.md).
+**Central task list:** [Integrity Rising Master Business Task List](docs/MASTER_TASK_LIST.md) — the owner-facing priorities and tasks across all three projects, with completed accomplishments separated from open work.
+
+**Detailed progress history:** [Project progress record](docs/PROJECT_PROGRESS.md).
 
 ## What It Helps You Organize
 - **AI projects:** Track AI-assisted projects, tools, prompts, and where finished content will be used.
