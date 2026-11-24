@@ -30,7 +30,7 @@ Repository: https://github.com/IntegrityRising101/business-command-center
 Live app: https://integrityrising101.github.io/business-command-center/
 
 ### P1 — Core verification (Testing)
-- [x] Verify the Tasks board displays task cards and that tasks remain saved after a page refresh (owner-confirmed November 23, 2026). A refresh returns to Home; reopening Tasks shows the saved tasks.
+- [ ] Verify the Tasks board displays task cards and that tasks remain saved after a page refresh. The owner supplied the current 12-card board contents on November 24; a fresh refresh-and-reopen persistence check is still needed.
 - [ ] Test task creation, editing, due dates, and completion.
 - [ ] Test completion celebrations and confirm dated achievements persist on the Wall of Accomplishments.
 - [ ] Test a PDF download; verify it saves with a readable filename.
@@ -118,7 +118,8 @@ Specification: [Business Rules, Department Rulebooks & Bot Permissions](BUSINESS
 ### November 23, 2026 — Business Command Center task board
 - [x] Fixed task-board status normalization and backlog seeding in `src/App.jsx` (commit `88cd8a9da18401746a8f69a1df137755ff91318d`).
 - [x] Confirmed the deployment workflow completed successfully (run `45333500739`).
-- [x] Owner verified that task cards appear in the Tasks board and remain saved after refreshing and reopening Tasks. Refresh currently returns the app to Home; this is expected navigation behavior, not task loss.
+- [x] Owner supplied the current Tasks board contents on November 24, showing 12 cards across Planned, In Progress, and Done.
+- [ ] Re-test persistence after refresh directly; the supplied task list alone does not verify refresh persistence.
 - [ ] Continue testing task creation, editing, due dates, completion, and related persistence separately.
 
 ### Previously completed or owner-confirmed
@@ -134,3 +135,31 @@ Specification: [Business Rules, Department Rulebooks & Bot Permissions](BUSINESS
 - [Project progress and detailed work history](PROJECT_PROGRESS.md)
 - [Business rules and bot permissions specification](BUSINESS_RULES_AND_BOT_PERMISSIONS_SPEC.md)
 
+
+
+## Current Task Board Snapshot — November 24, 2026
+
+Owner-provided snapshot of the Business Command Center Tasks board. This records the visible task names and statuses; it does not independently verify refresh persistence or task-editing behavior.
+
+### Planned (8)
+- [ ] **High** — Review Wellness App safety and support experience (Wellness App)
+- [ ] **Medium** — Refresh Integrity Rising website pages and navigation (Website)
+- [ ] **Medium** — Organize Gumroad, Stan Store, Google Site, and Fourthwall links (Website)
+- [ ] **Medium** — Build Academy course catalog (Academy)
+- [ ] **Medium** — Refresh website pages and navigation (Website)
+- [ ] **Medium** — Plan weekly social content (Marketing)
+- [ ] **Low** — Review merch designs and storefronts (Merch)
+- [ ] **High** — Organize Legacy Within publishing files (Books)
+
+### In Progress (2)
+- [ ] **High** — Complete Wellness and Growth App launch checklist (Wellness App)
+- [ ] **High** — Finish Wellness & Growth App launch list (Wellness App); due December 1, 2026
+
+### Done (2)
+- [x] **High** — Fix black-screen startup crash, merge PR #9 and verify live deployment (Operations); due November 23, 2026
+- [x] **Medium** — Due Date Column (Operations); due January 22, 2026
+
+### Cleanup candidates — review before changing
+- The two website refresh/navigation cards may overlap.
+- The two Wellness App launch cards may overlap.
+- Do not delete, merge, or change statuses until the owner confirms which cards should remain.
