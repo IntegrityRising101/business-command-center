@@ -67,3 +67,41 @@ body{background:radial-gradient(ellipse at top right,#1d3152,#0b1424 58%);color:
 /* Phase 2 — task assignment and approval flags */
 .bot-summary{grid-template-columns:repeat(4,minmax(0,1fr))}.task-approval{font-size:10px;color:#f0c58a;background:#44352b;border:1px solid #806047;border-radius:6px;padding:6px 8px;margin:8px 0 0}.approval-toggle{display:flex!important;flex-direction:row!important;align-items:center;gap:9px!important;line-height:1.5}.approval-toggle input{width:auto!important;accent-color:#c47c52}
 @media(max-width:560px){.bot-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Boss Bot Daily Briefing */
+.boss-briefing{display:flex;flex-direction:column;gap:15px}
+.boss-briefing-hero{display:flex;align-items:center;gap:16px;padding:22px;border:1px solid #52617b;border-radius:16px;background:radial-gradient(circle at 4% 10%,#314b47,#1b2b45 58%,#121f33)}
+.boss-briefing-crown{width:66px;height:66px;flex-shrink:0;display:grid;place-items:center;border-radius:19px;background:linear-gradient(145deg,#d18a61,#a85f3d);font-size:35px}
+.boss-briefing-title h2{font-family:'Playfair Display',serif;font-size:25px;margin:0;color:#f3f2e9}
+.boss-briefing-title p:not(.bot-kicker){margin:6px 0;color:#c7d0df;font-size:12px}
+.boss-briefing-title>small{color:#d18a61;font-size:10px}
+.boss-briefing-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.boss-briefing-stats article{padding:14px;border:1px solid #34445e;border-radius:11px;background:#172943}
+.boss-briefing-stats small,.boss-briefing-stats strong{display:block}
+.boss-briefing-stats small{font-size:11px;color:#aab6c9}
+.boss-briefing-stats strong{font-size:25px;color:#e8edf5;margin-top:5px}
+.boss-briefing-stats .attention-number,.attention-text{color:#ff9e91!important}
+.boss-briefing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.boss-briefing-panel{min-width:0;padding:17px;border:1px solid #34445e;border-radius:13px;background:linear-gradient(145deg,#1b2b45,#121f33)}
+.boss-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.boss-panel-heading h3{font-size:16px;margin:0;color:#f1f3ef}
+.boss-panel-heading button{border:0;background:none;color:#d18a61;font-size:11px;cursor:pointer;white-space:nowrap}
+.boss-count{min-width:28px;height:28px;display:grid;place-items:center;border:1px solid #806047;border-radius:50%;color:#f0c58a;font-size:12px}
+.boss-priority-list{list-style:none;padding:0;margin:0;counter-reset:boss-priority}
+.boss-priority-list li{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:11px 0;border-top:1px solid #34445e}
+.boss-priority-list li>div{min-width:0}
+.boss-priority-list strong,.boss-plain-list strong{display:block;font-size:12px;color:#e8edf5;overflow-wrap:anywhere}
+.boss-priority-list small,.boss-plain-list small{display:block;font-size:10px;color:#aab6c9;margin-top:4px}
+.boss-priority-list li>span{font-size:10px;color:#d18a61;white-space:nowrap}
+.boss-plain-list{list-style:none;padding:0;margin:0}
+.boss-plain-list li{padding:10px 0;border-top:1px solid #34445e}
+.boss-empty{font-size:12px;line-height:1.6;color:#aab6c9;padding:10px 0}
+.boss-team-summary{font-size:11px;color:#c7d0df}
+.boss-accomplishments{grid-column:1/-1}
+.boss-briefing-footnote{font-size:10px;line-height:1.6;color:#9aa8bd;margin:12px 0 0}
+.boss-briefing-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 16px;border:1px solid #52617b;border-radius:11px;background:#172943}
+.boss-briefing-footer strong{font-size:12px;color:#e6d39c}
+.boss-briefing-footer p{font-size:11px;line-height:1.6;color:#aab6c9;margin:5px 0 0}
+.boss-briefing-footer>span{font-size:10px;color:#d18a61;white-space:nowrap}
+@media(max-width:700px){.boss-briefing-grid{grid-template-columns:1fr}.boss-briefing-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.boss-briefing-footer{align-items:flex-start;flex-direction:column}.boss-briefing-hero{padding:16px}.boss-briefing-crown{width:52px;height:52px;font-size:28px}}
