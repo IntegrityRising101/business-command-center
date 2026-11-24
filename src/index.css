@@ -108,3 +108,18 @@ body{background:radial-gradient(ellipse at top right,#1d3152,#0b1424 58%);color:
 
 /* Cheer Bot completion celebration — visible above every workspace tab */
 .cheer-celebration-overlay{position:fixed;z-index:1200;top:18px;right:18px;width:min(440px,calc(100vw - 36px));pointer-events:none;animation:cheerEnter .45s cubic-bezier(.2,.85,.25,1.15)}.cheer-celebration-card{position:relative;display:grid;grid-template-columns:64px 1fr 28px;gap:12px;align-items:center;padding:17px 15px;border:1px solid #d18a61;border-radius:18px;background:linear-gradient(135deg,#172943 0%,#263d59 58%,#28473f 100%);box-shadow:0 16px 48px #0008;color:#fff;pointer-events:auto;overflow:hidden}.cheer-bot-avatar{width:58px;height:58px;display:grid;place-items:center;border-radius:17px;background:#d9c18a;color:#172943;font-size:37px;animation:cheerBounce .8s ease-in-out infinite alternate}.cheer-copy{display:flex;flex-direction:column;gap:4px}.cheer-copy small{font-size:9px;letter-spacing:1.3px;color:#e8c58e;font-weight:800}.cheer-copy strong{font-size:22px;letter-spacing:1.2px;color:#fff}.cheer-copy p{font-size:12px;line-height:1.45;color:#f0eee2;margin:0}.cheer-copy span{font-size:10px;color:#e8c58e}.cheer-celebration-card>button{align-self:start;border:0;background:transparent;color:#fff;font-size:23px;cursor:pointer}.cheer-confetti{position:absolute;top:3px;left:12px;right:34px;display:flex;justify-content:space-around;font-size:13px;opacity:.9;pointer-events:none;animation:cheerSparkle 1s ease-in-out infinite alternate}.cheer-copy{padding-top:13px}@keyframes cheerEnter{from{transform:translateY(-18px) scale(.92);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}@keyframes cheerBounce{from{transform:translateY(1px) rotate(-5deg)}to{transform:translateY(-7px) rotate(5deg)}}@keyframes cheerSparkle{from{transform:translateY(0);opacity:.5}to{transform:translateY(4px);opacity:1}}@media(max-width:560px){.cheer-celebration-overlay{top:10px;right:10px;width:calc(100vw - 20px)}.cheer-celebration-card{grid-template-columns:52px 1fr 24px;padding:15px 12px;gap:9px}.cheer-bot-avatar{width:48px;height:48px;font-size:31px}.cheer-copy strong{font-size:19px}}
+
+
+/* Testable bot workspaces */
+.bot-test-panel{display:grid;gap:9px;margin-top:15px;padding:13px;border:1px solid #52617b;border-radius:10px;background:#172943}
+.bot-test-panel label{display:grid;gap:5px;color:#c7d0df;font-size:11px;font-weight:700}
+.bot-test-panel input,.bot-test-panel textarea{width:100%;box-sizing:border-box;border:1px solid #52617b;border-radius:7px;padding:9px;background:#0f1b2c;color:#e8edf5;font:inherit;font-size:12px}
+.bot-test-panel button{justify-self:start;border:1px solid #52617b;border-radius:7px;padding:9px 12px;background:#263b57;color:#e8edf5;cursor:pointer}
+.bot-test-panel button.gold{background:linear-gradient(130deg,#d18a61,#a85f3d);color:#172120;border:0;font-weight:700}
+.bot-run-report{margin-top:14px;padding:13px;border:1px solid #527565;border-radius:10px;background:#142820}
+.bot-run-report>div{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.bot-run-report>div strong{color:#e6d39c;font-size:12px}
+.bot-run-report>div small{color:#aab6c9;font-size:10px}
+.bot-run-report pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#dbe7df;font:12px/1.65 inherit;margin:12px 0 0}
+.bot-test-message{margin:10px 0 0;padding:9px;border-radius:7px;background:#263b34;color:#dbe7df;font-size:11px}
+@media(max-width:560px){.bot-run-report>div{align-items:flex-start;flex-direction:column}.bot-test-panel button{width:100%}}

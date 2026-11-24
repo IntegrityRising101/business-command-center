@@ -393,3 +393,14 @@ This record keeps the two related but separate products organized. The Business 
 - Planned the change for Project and Assigned To: show existing suggestions while allowing a new free-text value, including a person, team, or bot name.
 - Keep Status and Priority as standard workflow fields to preserve consistent task-board and dashboard behavior.
 - **Pending:** pull-request checks, owner review/approval, merge, deployment, and live testing of custom-value save/filter behavior.
+
+
+### Work session — November 24, 2026: Testable bot workspaces started
+- Started a reviewable feature branch for nine interactive bot workspaces: Boss Bot, Tasky, Deadline Bot, Doc Bot, Scout, Brainy, Maily, Cheer Bot, and Program Manager Bot.
+- Each workspace is designed to run a rule-based check using saved task/activity data and save a report to Daily Log.
+- Maily's test tool creates an editable, copyable email draft only; it does not send.
+- Scout prepares a research checklist but does not claim to have fetched external sources.
+- Doc Bot proposes a folder structure but does not change stored files.
+- Program Manager Bot triages software tasks but does not modify code, data, permissions, or deployments.
+- **Pending:** build checks, owner review/approval, merge, deployment, and live testing of each bot workspace and report persistence.
+- These are testable in-app assistant workflows, not yet independent background AI agents or autonomous executors.
