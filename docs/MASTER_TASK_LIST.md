@@ -210,6 +210,11 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Owner confirmed Recent Activity / Recent Wins is visible and displays the completed entry “Test Bot Assignment” with Cheer Bot’s “You did it!” celebration.
 - [ ] Improve Recent Wins so each accomplishment is clickable and opens its related task or activity details. Current live entries are display-only; no click action is available yet.
 
+### Task Form custom options — planned
+- [ ] Let the owner type a new Project/category or assignee when the suggested options do not fit.
+- [ ] Ensure newly used project categories appear in Task Board filters and project views.
+- [ ] Keep Status and Priority as controlled choices so board columns and reporting remain consistent.
+
 ### November 24, 2026 — Cheer Bot on-screen completion celebration
 - [x] Implemented and merged PR #13; build checks passed and the GitHub Pages deployment completed.
 - [x] Owner tested the live app by creating “Test Cheer Bot Celebration,” marking it Done, and confirming Cheer Bot appeared with its celebration.
