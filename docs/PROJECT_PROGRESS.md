@@ -404,3 +404,12 @@ This record keeps the two related but separate products organized. The Business 
 - Program Manager Bot triages software tasks but does not modify code, data, permissions, or deployments.
 - **Pending:** build checks, owner review/approval, merge, deployment, and live testing of each bot workspace and report persistence.
 - These are testable in-app assistant workflows, not yet independent background AI agents or autonomous executors.
+
+
+### Work session — November 24, 2026: Nine bot workspaces live-tested; report-scope issue identified
+- Owner ran the workspace test for all nine bots in the live Business Command Center and supplied each report in chat. All nine returned a report.
+- The reports confirmed the current MVP behavior: rule-based checks over saved task/activity data; Scout prepares a research checklist but does not fetch sources; Doc Bot suggests folders but does not manipulate files; Maily drafts but cannot send; Program Manager Bot reports and recommends but does not change code or deploy.
+- Comparing the reports exposed inconsistent scopes: Deadline Bot selected only tasks with due dates before counting missing dates, and Brainy used only keyword-matched tasks for owner/date gap counts.
+- This is a reporting logic defect, not evidence that saved task records or due dates were changed.
+- Follow-up branch `fix/bot-reporting-consistency-20261124` updates Deadline Bot and Brainy to use the full open Task Board for shared owner/date metrics and makes their reporting scope explicit.
+- **Pending:** build checks, owner review, merge, deployment, and live retesting of the four shared-metric reports. No task data, ownership, due dates, statuses, database schema, or permissions are changed by this code correction.
