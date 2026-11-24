@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 
 const bots=[
  {name:'Boss Bot',emoji:'👑',role:'Team manager',description:'Turns your saved task board into a clear owner briefing with priorities, blockers, and approval reminders.',focus:'Team priorities',color:'gold',responsibilities:['Review open and completed work','Identify urgent tasks, blockers, and approval flags','Summarize the next best owner action'],assignment:'All workstreams'},
@@ -27,6 +27,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
  const [message,setMessage]=useState('');
  const [posterAvailable,setPosterAvailable]=useState(true);
  const [voiceMessage,setVoiceMessage]=useState('');
+ useEffect(()=>()=>{if('speechSynthesis' in window)window.speechSynthesis.cancel();},[selectedBot]);
  const open=tasks.filter(isOpen);
  const done=tasks.filter(t=>t.status==='Done');
  const overdue=open.filter(t=>t.due_date&&t.due_date<today());
