@@ -376,3 +376,10 @@ This record keeps the two related but separate products organized. The Business 
 - Owner confirmed the live Recent Activity / Recent Wins section is visible and shows “Test Bot Assignment” as completed, alongside Cheer Bot’s “You did it!” celebration message.
 - Owner confirmed the entries are currently display-only and cannot be opened by clicking.
 - Added a follow-up enhancement to make each accomplishment clickable and open its related task or activity details. This is a planned improvement, not yet implemented.
+
+
+### Work session — November 24, 2026: Cheer Bot on-screen celebration enhancement
+- Started implementation to make Cheer Bot appear globally after a task is marked Done, not only on the Home tab.
+- Celebration is designed to include the completed task title, animated bot avatar, festive visual accents, a dismiss control, and automatic dismissal.
+- The completion event is handled for both status changes and tasks saved directly as Done.
+- **Pending:** pull-request checks, owner review/approval, merge, deployment, and live testing on desktop and mobile.

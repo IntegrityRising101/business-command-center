@@ -209,3 +209,8 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 ### November 24, 2026 — Boss Briefing live test follow-up
 - [x] Owner confirmed Recent Activity / Recent Wins is visible and displays the completed entry “Test Bot Assignment” with Cheer Bot’s “You did it!” celebration.
 - [ ] Improve Recent Wins so each accomplishment is clickable and opens its related task or activity details. Current live entries are display-only; no click action is available yet.
+
+### November 24, 2026 — Cheer Bot on-screen completion celebration
+- [ ] Implement Cheer Bot pop-up celebration across all Command Center tabs whenever a task transitions to Done, whether completed from the Task Board, Home shortcut, or task editor.
+- [ ] Include the task title, animated bot avatar, celebratory visual effects, dismiss control, and automatic dismissal.
+- [ ] Verify desktop and mobile behavior after deployment.
