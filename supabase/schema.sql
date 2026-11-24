@@ -16,6 +16,8 @@ create table if not exists public.tasks (
 );
 
 alter table public.tasks add column if not exists due_date date;
+alter table public.tasks add column if not exists assigned_to text;
+alter table public.tasks add column if not exists approval_required boolean not null default false;
 
 create table if not exists public.daily_logs (
   id uuid primary key default gen_random_uuid(),

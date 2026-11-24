@@ -338,3 +338,13 @@ This record keeps the two related but separate products organized. The Business 
 - Added a P3 website-growth task list: improve homepage paths, post page/product-specific links, review product listing content, verify storefront links, capture weekly analytics, and track engagement/conversions where available.
 - This is a low-volume baseline. Views alone do not identify visitors, sales, conversion rates, or the cause of a traffic change.
 - Updated the Master Business Task List and Project Progress record; this documentation update does not change the live website.
+
+
+### Work session — November 24, 2026: Phase 2 task assignment foundation
+
+- Started a reviewable feature branch, `feature/phase-2-task-assignment`, for the Task Assignment & Organization phase.
+- Added task editor fields for assigning a task to a named helper bot and flagging that owner approval is required before execution.
+- Added task-card visibility for the assigned helper and approval flag, plus Bot Team counts for assigned, unassigned open, and approval-flagged tasks.
+- Added a Supabase migration and updated the reference schema for `assigned_to` and `approval_required` fields. Existing row-level security remains on the existing per-user `tasks` table; no new table or cross-user access path is introduced.
+- **Not yet live or verified:** the migration must be applied in Supabase; then task create/edit, persistence after refresh, and Bot Team counts must be tested. This branch is not merged or deployed.
+- This phase provides assignment tracking only. It does not create autonomous agents, run bot work, or grant execution permissions.

@@ -39,6 +39,12 @@ Live app: https://integrityrising101.github.io/business-command-center/
 - [ ] Test file access with a second account; confirm users cannot access another account's files.
 - [ ] Verify authentication and RLS for tasks, documents, and other user records.
 
+### P2 — Task assignment and organization (In Progress)
+- [ ] Apply the task-assignment database migration in Supabase before using the new fields.
+- [ ] Verify task assignment to each helper role persists after refresh.
+- [ ] Verify the Bot Team page reports assigned, unassigned, and approval-flagged tasks accurately.
+- [ ] Confirm owner-approval flags are visible and do not imply that bots can execute tasks autonomously.
+
 ### P2 — Program Manager Bot (Todo)
 - [ ] Design its software-management dashboard and task queue.
 - [ ] Connect feature requests, bug reports, assignments, test results, and GitHub deployment status.

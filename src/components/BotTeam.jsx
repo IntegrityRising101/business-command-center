@@ -16,7 +16,13 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks}){
  const done=tasks.filter(t=>t.status==='Done');
  const overdue=open.filter(t=>t.due_date&&t.due_date<new Date().toISOString().slice(0,10));
  const wins=logs.filter(l=>String(l.text||'').includes('🏆')).slice(0,8);
+ const assigned=tasks.filter(t=>t.assigned_to).length;
+ const unassigned=tasks.filter(t=>t.status!=='Done'&&!t.assigned_to).length;
+ const approvalNeeded=tasks.filter(t=>t.status!=='Done'&&t.approval_required).length;
  const getAssigned=(bot)=>{
+   const explicitlyAssigned=tasks.filter(t=>t.assigned_to===bot.name);
+   if(explicitlyAssigned.length)return explicitlyAssigned;
+   if(tasks.some(t=>t.assigned_to))return bot.name==='Boss Bot'?tasks:[];
    if(bot.name==='Boss Bot')return tasks;
    if(bot.name==='Tasky')return tasks.filter(t=>t.status!=='Done');
    if(bot.name==='Deadline Bot')return tasks.filter(t=>t.due_date);
@@ -32,7 +38,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks}){
    <div><p className="bot-kicker">YOUR FRIENDLY AI MANAGEMENT TEAM</p><h2>Meet the Bot Squad!</h2><p>Little helpers. Big purpose. One team working toward your goals.</p></div>
    <div className="boss-message"><strong>Boss Bot says:</strong><br/>“Hi! Let's make today count. Every step forward matters!”</div>
   </section>
-  <div className="bot-summary"><div><small>Open tasks</small><strong>{open.length}</strong></div><div><small>Completed</small><strong>{done.length}</strong></div><div><small>Needs attention</small><strong>{overdue.length}</strong></div><div><small>Celebrated wins</small><strong>{wins.length}</strong></div></div>
+  <div className="bot-summary"><div><small>Open tasks</small><strong>{open.length}</strong></div><div><small>Completed</small><strong>{done.length}</strong></div><div><small>Needs attention</small><strong>{overdue.length}</strong></div><div><small>Celebrated wins</small><strong>{wins.length}</strong></div><div><small>Assigned</small><strong>{assigned}</strong></div><div><small>Unassigned open</small><strong>{unassigned}</strong></div><div><small>Approval flagged</small><strong>{approvalNeeded}</strong></div></div>
   <div className="bot-section-heading"><div><p className="bot-kicker">THE CREW</p><h2>Meet your assistants</h2></div><span className="bot-status">Interactive profiles · staged rollout</span></div>
   <div className="bot-grid">{bots.map((bot,i)=><button type="button" className={'bot-card '+bot.color+' bot-card-button'} key={bot.name} onClick={()=>setSelectedBot(bot)} aria-label={'Open '+bot.name+' workspace'}>
    <div className="bot-card-top"><div className="bot-avatar" aria-hidden="true">{bot.emoji}</div><span className="bot-number">BOT {String(i+1).padStart(2,'0')}</span></div>
@@ -44,7 +50,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks}){
    <p className="bot-wall-intro">We celebrate progress, not perfection. Every recorded win deserves recognition.</p>
    {wins.length?<div className="bot-wins">{wins.map((w,i)=><article key={w.id||i}><span>🏅</span><div><strong>{w.text.replace(/^🏆\s*/,'')}</strong><small>{w.date||'Achievement recorded'}</small></div></article>)}</div>:<div className="bot-empty"><span>✨</span><strong>Your first celebration is waiting!</strong><p>Complete a task and Cheer Bot will add your win here.</p></div>}
   </section>
-  <p className="bot-footnote">Workspace status: profiles and task summaries are interactive. Research, Gmail, external actions, and autonomous automation are not connected yet. Boss Bot must request approval before major changes, security or permission changes, spending, or publishing/deploying significant updates. Email sending always requires your approval.</p>
+  <p className="bot-footnote">Workspace status: bot profiles, explicit task assignments, and task summaries are interactive. Research, Gmail, external actions, and autonomous automation are not connected yet. Boss Bot must request approval before major changes, security or permission changes, spending, or publishing/deploying significant updates. Email sending always requires your approval.</p>
   {selectedBot&&<div className="bot-workspace-shade" role="presentation" onClick={()=>setSelectedBot(null)}><section className="bot-workspace" role="dialog" aria-modal="true" aria-labelledby="bot-workspace-title" onClick={e=>e.stopPropagation()}>
     <div className="bot-workspace-heading"><div className="bot-avatar">{selectedBot.emoji}</div><div><p className="bot-kicker">ASSISTANT WORKSPACE</p><h2 id="bot-workspace-title">{selectedBot.name}</h2><strong>{selectedBot.role}</strong></div><button type="button" className="bot-close" onClick={()=>setSelectedBot(null)} aria-label="Close workspace">×</button></div>
     <p className="bot-workspace-description">{selectedBot.description}</p>
