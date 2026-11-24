@@ -231,14 +231,27 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [ ] Scout prepares a research checklist only; live source research is not yet connected.
 - [ ] Doc Bot recommends a folder structure only; it does not move, share, rename, or delete files.
 - [ ] Program Manager Bot reports software-task risks only; it does not edit code, database settings, permissions, or deploy.
-- [ ] Verify all nine workspaces on the live app, confirm reports persist in Daily Log, and test mobile layout.
+- [x] Verify all nine workspaces on the live app; all nine returned their expected rule-based reports.
+- [ ] Confirm reports persist in Daily Log and test the Bot Team layout on mobile.
 
 
 ### November 24, 2026 — Nine bot workspaces live-tested; reporting consistency fix queued
 - [x] Owner ran the workspace test for all nine bots on the live Business Command Center: Boss Bot, Tasky, Deadline Bot, Doc Bot, Scout, Brainy, Maily, Cheer Bot, and Program Manager Bot.
 - [x] All nine workspaces returned their expected rule-based reports. These are workspace tests, not proof of autonomous background execution.
-- [ ] Fix Deadline Bot to scan every open task when calculating missing due dates; its prior task selection included only dated tasks, which forced the missing-date count to zero.
-- [ ] Fix Brainy to report missing owners and due dates across the full open Task Board; its prior report used only keyword-matched tasks.
-- [ ] Re-run Boss Bot, Tasky, Deadline Bot, and Brainy after the correction and compare shared totals.
+- [x] Fix Deadline Bot to scan every open task when calculating missing due dates; its prior task selection included only dated tasks, which forced the missing-date count to zero.
+- [x] Fix Brainy to report missing owners and due dates across the full open Task Board; its prior report used only keyword-matched tasks.
+- [x] Re-run Deadline Bot and Brainy after the correction in a fresh Incognito session; both now agree with Tasky on the shared board-wide totals.
 - [ ] Confirm each bot report is recorded in Daily Log and check the Bot Team layout on mobile.
 - No task owners, due dates, task statuses, or stored records were changed during the initial tests.
+
+
+### November 24, 2026 — Bot reporting consistency fix merged and live-verified
+- [x] Merged PR #17, **Make bot task metrics use a consistent board-wide scope**, into `main`.
+- [x] Updated Deadline Bot to count missing due dates across all open Task Board tasks, rather than only dated tasks.
+- [x] Updated Brainy to calculate missing-owner and missing-due-date totals across all open Task Board tasks, rather than a keyword-filtered subset.
+- [x] Added an explicit scope statement to both reports: all open tasks on the Task Board.
+- [x] Owner re-tested Deadline Bot in a fresh Incognito session: 0 overdue, 5 upcoming dated tasks, and 27 open tasks missing due dates.
+- [x] Owner re-tested Brainy in the same fresh session: 38 total tasks, 34 open, 4 completed, 34 open tasks missing an owner, and 27 missing a due date.
+- [x] Brainy and Deadline Bot now agree with Tasky's board-wide missing-due-date count of 27.
+- [x] Confirmed the reporting correction did not modify task records, owners, due dates, statuses, database schema, or permissions.
+- [ ] Follow up separately on Daily Log persistence and Bot Team mobile layout.
