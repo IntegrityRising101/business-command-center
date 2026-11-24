@@ -323,3 +323,11 @@ This record keeps the two related but separate products organized. The Business 
 - Owner confirmed the Tasks board now displays its task cards. After refreshing, the app returns to Home; reopening Tasks shows the tasks are still present, confirming they persisted through refresh.
 - **Verified:** task-board cards render and remain saved after refresh.
 - **Still to test:** task creation, editing, due dates, completion, completion celebrations, and account-level data isolation.
+
+
+### Work session — November 24, 2026: Current Task Board snapshot recorded
+
+- Owner supplied the current Task Board contents: **8 Planned, 2 In Progress, and 2 Done** (12 cards total).
+- Recorded all 12 task titles, categories, priorities, and the supplied due dates in `docs/MASTER_TASK_LIST.md`.
+- Flagged two possible overlap pairs for owner review: the website refresh/navigation cards and the Wellness App launch cards. No cards were deleted, merged, or reclassified.
+- Persistence after refresh remains an explicit test item; the supplied list is treated as a board snapshot, not proof of a fresh refresh-and-reopen test.
