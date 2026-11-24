@@ -1,6 +1,6 @@
 # Integrity Rising — Project Progress Record
 
-Last updated: November 22, 2026
+Last updated: November 23, 2026
 
 This record keeps the two related but separate products organized. The Business Command Center is the internal business/work management tool. The Integrity Rising Wellness & Growth App is the community-facing wellness platform.
 
@@ -80,7 +80,7 @@ This record keeps the two related but separate products organized. The Business 
 ### Current development to-do list
 
 #### Priority 1 — Verify and repair core functions
-- [ ] Verify the latest GitHub Pages deployment and test the Bot Team tab on the live app.
+- [x] Verify the latest GitHub Pages deployment after PR #9 and confirm the live Business Command Center loads instead of showing a black screen (November 23, 2026).
 - [ ] Test task creation, editing, due dates, completion, and persistence after refresh.
 - [ ] Test task-completion celebrations and confirm achievements appear on the Wall of Accomplishments after refresh.
 - [ ] **Test Document & Media Center downloads** with a PDF first; confirm the browser saves it with a readable filename.
@@ -279,3 +279,18 @@ This record keeps the two related but separate products organized. The Business 
 - Multi-business requirement: each customer company has a separate tenant/workspace with database/server-side authorization and storage isolation. A business name or client-side filter is not sufficient.
 - Full specification: [Business Rules, Department Rulebooks & Bot Permissions](BUSINESS_RULES_AND_BOT_PERMISSIONS_SPEC.md).
 - **Status:** Requirements approved and documented. These features are planned; they have not yet been implemented or tested in the application.
+
+
+### Work session — November 23, 2026: Business Command Center startup crash fixed and live site verified
+
+- Diagnosed the live application's black-screen startup failure: a JavaScript temporal-dead-zone error, `ReferenceError: Cannot access 'Rt' before initialization`, caused by referencing the local `user` alias before it was initialized in `src/App.jsx`.
+- Corrected the folder-path expression to read the authenticated user ID directly from `session?.user?.id`, avoiding the premature alias reference.
+- Fixed the pull-request build workflow by removing npm dependency caching where the repository did not contain a package lockfile.
+- Pull request [#9 — Fix Command Center black-screen startup crash](https://github.com/IntegrityRising101/business-command-center/pull/9) passed its build checks and was merged with owner approval.
+- Merge commit: `126df4f1c537bcb2311e148ecaabbf53605d696e`.
+- GitHub Pages deployment workflow completed successfully after the merge.
+- Owner opened the live site and confirmed that the Business Command Center now works. **The black-screen startup issue is resolved and the live app is verified by the owner.**
+- Live application: https://integrityrising101.github.io/business-command-center/
+- No database schema, Supabase permissions, authentication configuration, or stored user data was changed as part of this repair.
+- Follow-up cleanup (not a launch blocker): investigate the missing `manifest.webmanifest` request and continue performance optimization after the core app remains stable.
+
