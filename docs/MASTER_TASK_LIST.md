@@ -211,6 +211,7 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [ ] Improve Recent Wins so each accomplishment is clickable and opens its related task or activity details. Current live entries are display-only; no click action is available yet.
 
 ### November 24, 2026 — Cheer Bot on-screen completion celebration
-- [ ] Implement Cheer Bot pop-up celebration across all Command Center tabs whenever a task transitions to Done, whether completed from the Task Board, Home shortcut, or task editor.
-- [ ] Include the task title, animated bot avatar, celebratory visual effects, dismiss control, and automatic dismissal.
-- [ ] Verify desktop and mobile behavior after deployment.
+- [x] Implemented and merged PR #13; build checks passed and the GitHub Pages deployment completed.
+- [x] Owner tested the live app by creating “Test Cheer Bot Celebration,” marking it Done, and confirming Cheer Bot appeared with its celebration.
+- [x] Verified the core completion-celebration flow in the live app. Separate desktop/mobile layout checks remain a follow-up.
+
