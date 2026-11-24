@@ -331,3 +331,10 @@ This record keeps the two related but separate products organized. The Business 
 - Recorded all 12 task titles, categories, priorities, and the supplied due dates in `docs/MASTER_TASK_LIST.md`.
 - Flagged two possible overlap pairs for owner review: the website refresh/navigation cards and the Wellness App launch cards. No cards were deleted, merged, or reclassified.
 - Persistence after refresh remains an explicit test item; the supplied list is treated as a board snapshot, not proof of a fresh refresh-and-reopen test.
+
+### Work session — November 24, 2026: Website analytics baseline and growth plan
+- Recorded the owner-provided Google Analytics screenshot for November 17–23, compared with November 10–16.
+- Reported views: 3 total (down 4, or 57.14%); previous period 7. Integrity Rising homepage: 2; All Products: 1; Winter T-Shirt: 0; Your Story Matters T-Shirt: 0; Integrity Within: 0.
+- Added a P3 website-growth task list: improve homepage paths, post page/product-specific links, review product listing content, verify storefront links, capture weekly analytics, and track engagement/conversions where available.
+- This is a low-volume baseline. Views alone do not identify visitors, sales, conversion rates, or the cause of a traffic change.
+- Updated the Master Business Task List and Project Progress record; this documentation update does not change the live website.
