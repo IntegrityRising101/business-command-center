@@ -1,4 +1,4 @@
-import {useMemo,useState} from 'react';
+import {useState} from 'react';
 
 const bots=[
  {name:'Boss Bot',emoji:'👑',role:'Team manager',description:'Turns your saved task board into a clear owner briefing with priorities, blockers, and approval reminders.',focus:'Team priorities',color:'gold',responsibilities:['Review open and completed work','Identify urgent tasks, blockers, and approval flags','Summarize the next best owner action'],assignment:'All workstreams'},
@@ -83,7 +83,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
       lines=['EMAIL DRAFT WORKSPACE','Use the draft builder below to prepare an editable message.','Safety: this workspace does not connect to Gmail and cannot send email. Every future send action must require your approval.'];break;
     }
     case 'Cheer Bot': {
-      lines=['WALL OF WINS',`Completed tasks: ${done.length} · Recorded celebrations: ${wins.length}`,'Recent wins:',...(wins.length?wins.slice(0,5).map(w=>String(w.text).replace(/^🏆\\s*/,'')):['Your next completed task will add a celebration.']),'You are making progress one step at a time. Keep rising!'];break;
+      lines=['WALL OF WINS',`Completed tasks: ${done.length} · Recorded celebrations: ${wins.length}`,'Recent wins:',...(wins.length?wins.slice(0,5).map(w=>String(w.text).replace(/^🏆\s*/,'')):['Your next completed task will add a celebration.']),'You are making progress one step at a time. Keep rising!'];break;
     }
     case 'Program Manager Bot': {
       const software=tasks.filter(t=>includes(t,/app|software|code|github|supabase|deploy|bug|test|release/i));
@@ -91,18 +91,18 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
       lines=['SOFTWARE DELIVERY TRIAGE',`Software-related tasks: ${software.length} · Open: ${software.filter(isOpen).length}`,`High-priority or undated open items: ${risks.length}`,'Review before a release:','• Build and automated checks pass','• Owner verifies the live behavior','• Database/security changes receive explicit approval','• Deployment is recorded and confirmed','This bot only reports and recommends in this test. It did not edit code, data, permissions, or deployment settings.'];break;
     }
    }
-   return lines.join('\\n');
+   return lines.join('\n');
  };
 
  const runBot=async bot=>{
    const text=buildReport(bot);
    setReport({name:bot.name,text,at:new Date().toLocaleString()});
    setMessage(`${bot.name} completed a workspace check.`);
-   if(onAddLog)await onAddLog(`🤖 ${bot.name} ran a test check — ${text.split('\\n')[1]||'Report prepared.'}`);
+   if(onAddLog)await onAddLog(`🤖 ${bot.name} ran a test check — ${text.split('\n')[1]||'Report prepared.'}`);
  };
  const makeDraft=()=>{
    const recipient=draftRecipient.trim()||'there';
-   const body=`Subject: A quick introduction to Integrity Rising\\n\\nHello ${recipient},\\n\\nI’m reaching out to introduce Integrity Rising, a community and learning platform focused on personal growth, accountability, leadership, and helping people move forward with purpose.\\n\\n${draftPurpose.trim()||'I would love to connect and explore whether there may be a helpful opportunity to work together.'}\\n\\nIf this sounds relevant, I’d be glad to share more information or learn about your work.\\n\\nThank you,\\nChristina\\nIntegrity Rising\\nUnited by Truth, Driven by Purpose`;
+   const body=`Subject: A quick introduction to Integrity Rising\n\nHello ${recipient},\n\nI’m reaching out to introduce Integrity Rising, a community and learning platform focused on personal growth, accountability, leadership, and helping people move forward with purpose.\n\n${draftPurpose.trim()||'I would love to connect and explore whether there may be a helpful opportunity to work together.'}\n\nIf this sounds relevant, I’d be glad to share more information or learn about your work.\n\nThank you,\nChristina\nIntegrity Rising\nUnited by Truth, Driven by Purpose`;
    setDraft(body);setMessage('Maily prepared an editable draft. Nothing was sent.');
  };
  const copyDraft=async()=>{
@@ -117,7 +117,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
   <div className="bot-grid">{bots.map((bot,i)=><button type="button" className={'bot-card '+bot.color+' bot-card-button'} key={bot.name} onClick={()=>{setSelectedBot(bot);setReport(null);setMessage('')}} aria-label={'Open '+bot.name+' workspace'}>
    <div className="bot-card-top"><div className="bot-avatar" aria-hidden="true">{bot.emoji}</div><span className="bot-number">BOT {String(i+1).padStart(2,'0')}</span></div><h3>{bot.name}</h3><strong className="bot-role">{bot.role}</strong><p>{bot.description}</p><div className="bot-focus"><span>FOCUS</span>{bot.focus}</div><span className="bot-state">Testable workspace</span><span className="bot-open-hint">Open & run test →</span>
   </button>)}</div>
-  <section className="bot-wall"><div className="bot-section-heading"><div><p className="bot-kicker">EVERY STEP COUNTS</p><h2>🏆 Wall of Accomplishments</h2></div><button className="gold" onClick={onOpenTasks}>View tasks</button></div><p className="bot-wall-intro">We celebrate progress, not perfection. Every recorded win deserves recognition.</p>{wins.length?<div className="bot-wins">{wins.map((w,i)=><article key={w.id||i}><span>🏅</span><div><strong>{String(w.text).replace(/^🏆\\s*/,'')}</strong><small>{w.date||'Achievement recorded'}</small></div></article>)}</div>:<div className="bot-empty"><span>✨</span><strong>Your first celebration is waiting!</strong><p>Complete a task and Cheer Bot will add your win here.</p></div>}</section>
+  <section className="bot-wall"><div className="bot-section-heading"><div><p className="bot-kicker">EVERY STEP COUNTS</p><h2>🏆 Wall of Accomplishments</h2></div><button className="gold" onClick={onOpenTasks}>View tasks</button></div><p className="bot-wall-intro">We celebrate progress, not perfection. Every recorded win deserves recognition.</p>{wins.length?<div className="bot-wins">{wins.map((w,i)=><article key={w.id||i}><span>🏅</span><div><strong>{String(w.text).replace(/^🏆\s*/,'')}</strong><small>{w.date||'Achievement recorded'}</small></div></article>)}</div>:<div className="bot-empty"><span>✨</span><strong>Your first celebration is waiting!</strong><p>Complete a task and Cheer Bot will add your win here.</p></div>}</section>
   <p className="bot-footnote">Important: these are testable, rule-based assistant workspaces using your saved task and activity data—not independent background AI agents yet. Scout prepares research checklists but does not fetch sources in this version. Maily creates drafts but cannot send. Doc Bot does not move files. Program Manager Bot does not edit code or deploy. Paid services and higher-risk actions remain behind owner approval.</p>
   {selectedBot&&<div className="bot-workspace-shade" role="presentation" onClick={()=>setSelectedBot(null)}><section className="bot-workspace" role="dialog" aria-modal="true" aria-labelledby="bot-workspace-title" onClick={e=>e.stopPropagation()}>
    <div className="bot-workspace-heading"><div className="bot-avatar">{selectedBot.emoji}</div><div><p className="bot-kicker">ASSISTANT WORKSPACE</p><h2 id="bot-workspace-title">{selectedBot.name}</h2><strong>{selectedBot.role}</strong></div><button type="button" className="bot-close" onClick={()=>setSelectedBot(null)} aria-label="Close workspace">×</button></div>
