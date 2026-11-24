@@ -413,3 +413,16 @@ This record keeps the two related but separate products organized. The Business 
 - This is a reporting logic defect, not evidence that saved task records or due dates were changed.
 - Follow-up branch `fix/bot-reporting-consistency-20261124` updates Deadline Bot and Brainy to use the full open Task Board for shared owner/date metrics and makes their reporting scope explicit.
 - **Pending:** build checks, owner review, merge, deployment, and live retesting of the four shared-metric reports. No task data, ownership, due dates, statuses, database schema, or permissions are changed by this code correction.
+
+
+### Work session — November 24, 2026: Bot reporting consistency fix merged and live-verified
+- Merged PR #17, **Make bot task metrics use a consistent board-wide scope**, into `main`.
+- Corrected Deadline Bot so missing due dates are counted across all open Task Board tasks, not only the dated subset.
+- Corrected Brainy so missing-owner and missing-due-date metrics use the full open Task Board, not only keyword-matched tasks.
+- Both reports now state their scope explicitly: all open tasks on the Task Board.
+- Owner tested Deadline Bot in a fresh Incognito session. It reported 0 overdue tasks, 5 upcoming dated tasks, and 27 open tasks missing due dates.
+- Owner tested Brainy in the same fresh session. It reported 38 total tasks, 34 open, 4 completed, 34 open tasks missing an owner, and 27 missing a due date.
+- Brainy and Deadline Bot now agree with Tasky's board-wide missing-due-date count of 27. The stale-report discrepancy is resolved.
+- The correction changed reporting logic only; no task records, owners, due dates, statuses, database schema, or permissions were changed.
+- **Verified:** PR #17 merged and both corrected reports passed owner live testing.
+- **Remaining follow-up:** verify Daily Log report persistence and check Bot Team layout on mobile.
