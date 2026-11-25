@@ -11,7 +11,7 @@ const toneReply=(bot,text,tasks,memory)=>{
  else if(/team|handoff|collaborat|help/.test(words))focus='I can help prepare a team handoff. I will identify a suitable specialist, but this MVP does not run independent bot-to-bot conversations yet.';
  else if(/privacy|private|secure|data/.test(words))focus='Your conversation is stored in your signed-in workspace under owner-only row-level security. This version does not send chat content to an external AI provider.';
  else if(/hello|hi |hey/.test(words))focus='Hello! I am ready to help. What would you like to work on first?';
- return 'I am '+(bot===TEAM?'your Team Inbox coordinator':bot)+'. '+focus+(memory.length?' I can also see '+memory.length+' approved memory note(s) for this workspace.':'')+' This is the starter chat foundation; live generative AI responses are not connected yet.';
+ const guidance=memory.map(m=>m.content).filter(Boolean);\n return 'I am '+(bot===TEAM?'your Team Inbox coordinator':bot)+'. '+focus+(guidance.length?' I will follow this approved guidance: '+guidance.join(' | '):'')+' This is the starter chat foundation; live generative AI responses are not connected yet.';
 };
 
 export default function BotChat({userId,bot,tasks=[],bots=[]}){
