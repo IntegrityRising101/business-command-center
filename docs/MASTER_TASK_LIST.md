@@ -300,11 +300,14 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - Note: the workspace test output is verified; separate record-by-record validation of approval and assignment totals is not implied.
 
 
-### November 24, 2026 — Boss Bot assignment coordination
-- [ ] Implement Boss Bot as the central task-assignment coordinator (Issue #27).
-- [ ] Recommend a best-fit bot/team assignee and explain the reason for each eligible unassigned task.
-- [ ] Permit routine low-risk assignments only within owner-approved rules; preserve existing manual assignments.
-- [ ] Keep owner-approval and high-impact work awaiting explicit owner approval.
-- [ ] Verify assignment persistence after save/refresh and accurate assigned/unassigned briefing counts.
-- Guardrail: this is assignment coordination, not autonomous task execution. Automatic assignment is **not yet implemented**.
+### November 24–25, 2026 — Boss Bot assignment coordination
+- [x] Owner approved Boss Bot as the central task-assignment coordinator (Issue #27).
+- [x] Implemented task-by-task bot recommendations with a reason and owner-review flags in PR #28.
+- [x] Added individual Assign controls and an explicit bulk action for eligible routine work.
+- [x] Assignment writes update only `assigned_to`, preserve existing assignees, and skip tasks already assigned or completed.
+- [x] Sensitive work and tasks already flagged for owner approval remain held for the owner.
+- [x] GitHub build checks passed for PR #28.
+- [ ] Merge PR #28, deploy, and verify recommendation display plus save/refresh persistence in the live app.
+- Guardrail: Boss Bot coordinates assignments only; it does not execute assigned work or grant new permissions. No task records are changed until the owner uses an Assign control in the deployed app.
+- The previous 31 unassigned-task count is a reported baseline; it must be refreshed after deployment before making new count claims.
 - Mobile Bot Team layout remains pending until the owner has mobile access.
