@@ -99,7 +99,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog,onApplyAs
 
  const getBossRecommendations=()=>open.filter(task=>!task.assigned_to).map(task=>{
   const text=[task.title,task.category,task.notes].filter(Boolean).join(' ').toLowerCase();
-  const sensitive=/(security|privacy|permission|auth|authentication|database|schema|billing|payment|spend|purchase|publish|publishing|deployment|deploy|external communication|send email|legal|policy|lulu)/i.test(text);
+  const sensitive=/(security|privacy|permission|auth|authentication|database|schema|billing|payment|spend|purchase|monetization|financial|finance|income|expense|fundrais|donation|grant|revenue|email|outreach|communication|send|publish|publishing|deployment|deploy|legal|policy|lulu)/i.test(text);
   if(task.approval_required||sensitive)return {task,bot:null,blocked:true,reason:task.approval_required?'Owner approval is already required.':'Sensitive or high-impact work stays with the owner for review.'};
   let suggestedBot='Tasky',reason='Routine coordination and follow-up work.';
   if(/wellness app|software|github|supabase|code|bug|test|release|website|navigation|mobile app/.test(text)){suggestedBot='Program Manager Bot';reason='Software, app, website, or testing work fits development coordination.';}
