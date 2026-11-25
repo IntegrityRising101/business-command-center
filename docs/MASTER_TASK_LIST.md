@@ -122,6 +122,12 @@ Repository: https://github.com/IntegrityRising101/Project-Haven-DV-Support-Hidde
 
 Specification: [Business Rules, Department Rulebooks & Bot Permissions](BUSINESS_RULES_AND_BOT_PERMISSIONS_SPEC.md).
 
+### November 24, 2026 — Custom project categories live verification
+- [x] Confirmed PR #20 was merged and GitHub Pages deployment completed successfully.
+- [x] Owner verified Home → Project Areas: custom project categories are visible.
+- [x] Owner verified Projects view: custom project categories are visible there as well.
+- [x] Marked the dynamic project-area views as live-tested; no task records were changed.
+
 ## Completed accomplishments
 
 ### November 23, 2026 — Business Command Center
@@ -269,4 +275,4 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Confirmed custom categories are included in Task Board filters.
 - [x] Updated Home project areas and Projects view to use the saved dynamic category list, so owner-created categories appear consistently.
 - [x] Kept Status and Priority as controlled choices.
-- [ ] Run build checks and owner live test after this follow-up pull request is merged.
+- [x] PR #20 build/deployment completed successfully; owner live-tested Home → Project Areas and Projects view on November 24, 2026, and confirmed custom categories appear in both views.
