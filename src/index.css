@@ -135,3 +135,21 @@ body{background:radial-gradient(ellipse at top right,#1d3152,#0b1424 58%);color:
 .bot-voice-controls button:first-child{background:linear-gradient(130deg,#d6b65d,#a98235);color:#172120;border:0}
 .bot-voice-controls small{flex-basis:100%;color:#aab6c9;font-size:10px}
 @media(max-width:560px){.bot-original-art img{max-height:420px}.bot-voice-controls{align-items:stretch;flex-direction:column}.bot-voice-controls button{width:100%}}
+
+/* Boss Bot assignment coordinator */
+.boss-assignment-panel{margin-top:1.25rem;padding:1rem;border:1px solid rgba(196,124,82,.45);border-radius:16px;background:rgba(23,41,67,.55)}
+.boss-assignment-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.boss-assignment-heading h3{margin:.2rem 0 .35rem}
+.boss-assignment-heading p:not(.bot-kicker){margin:.2rem 0;color:var(--muted,#aab6c8);font-size:.9rem}
+.boss-assignment-count{border:1px solid rgba(196,124,82,.55);border-radius:999px;padding:.35rem .7rem;font-weight:700;white-space:nowrap}
+.boss-assignment-guardrail{margin:.9rem 0;padding:.75rem;border-radius:10px;background:rgba(196,124,82,.12);font-size:.88rem;line-height:1.5}
+.boss-recommendation-list{display:grid;gap:.65rem}
+.boss-recommendation{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem;border:1px solid rgba(199,208,223,.15);border-radius:10px;background:rgba(11,20,36,.48)}
+.boss-recommendation-main{min-width:0}
+.boss-recommendation-main strong{display:block;line-height:1.35}
+.boss-recommendation-main small{display:block;margin-top:.2rem;color:#aebbd0}
+.boss-recommendation-main p{margin:.4rem 0 0;font-size:.88rem;line-height:1.4;color:#d3dbea}
+.boss-recommendation button{flex-shrink:0}
+.boss-assign-all{margin-top:.9rem}
+.boss-assignment-note{display:block;margin-top:.75rem;color:#aebbd0;line-height:1.45}
+@media(max-width:640px){.boss-recommendation{align-items:flex-start;flex-direction:column}.boss-recommendation button{width:100%}.boss-assignment-panel{padding:.8rem}}

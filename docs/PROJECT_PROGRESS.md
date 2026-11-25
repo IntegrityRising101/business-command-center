@@ -464,3 +464,14 @@ This record keeps the two related but separate products organized. The Business 
 - Proposed behavior: recommend best-fit bot/team assignees; assign routine low-risk tasks only within owner-approved rules; explain recommendations; preserve existing manual assignments; and route ambiguous, high-impact, or owner-approval work to the owner.
 - Guardrails: no bypassing approval for security/permissions, data/schema changes, spending, external communications, or significant publishing/deployment.
 - Status: **Planned, not implemented or tested yet.** Boss Bot currently reports assignment counts; automatic assignment has not been verified.
+
+
+## November 25, 2026 — Boss Bot assignment coordinator implementation
+
+- Owner-approved coordinator feature implemented in PR #28: https://github.com/IntegrityRising101/business-command-center/pull/28.
+- Boss Bot now recommends a best-fit helper for each open, unassigned task and explains the recommendation.
+- The owner can assign a task individually or apply all eligible routine recommendations with an explicit bulk action.
+- Tasks already marked as requiring owner approval, plus sensitive/high-impact work involving security, privacy, permissions, authentication, database/schema, finance/spending, external communications, publishing, or deployment, are held for owner review.
+- Assignment updates change only the `assigned_to` field, preserve existing manual assignments, and do not change status, due dates, or grant task-execution permissions.
+- GitHub build checks passed for the PR commit. Merge, deployment, and live save/refresh verification remain pending.
+- No task records have been changed by this code update. The previous 31-unassigned count remains a historical briefing result until refreshed after deployment.

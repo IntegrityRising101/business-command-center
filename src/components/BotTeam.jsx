@@ -18,7 +18,7 @@ const priorityRank=t=>({high:0,medium:1,low:2}[String(t.priority||'').toLowerCas
 const dueLabel=t=>t.due_date||'No due date';
 const includes=(t,re)=>re.test([t.title,t.category,t.notes].filter(Boolean).join(' '));
 
-export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
+export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog,onApplyAssignments}){
  const [selectedBot,setSelectedBot]=useState(null);
  const [report,setReport]=useState(null);
  const [draft,setDraft]=useState('');
@@ -97,6 +97,20 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
    return lines.join('\n');
  };
 
+ const getBossRecommendations=()=>open.filter(task=>!task.assigned_to).map(task=>{
+  const text=[task.title,task.category,task.notes].filter(Boolean).join(' ').toLowerCase();
+  const sensitive=/(security|privacy|permission|auth|authentication|database|schema|billing|payment|spend|purchase|monetization|financial|finance|income|expense|fundrais|donation|grant|revenue|email|outreach|communication|send|publish|publishing|deployment|deploy|legal|policy|lulu)/i.test(text);
+  if(task.approval_required||sensitive)return {task,bot:null,blocked:true,reason:task.approval_required?'Owner approval is already required.':'Sensitive or high-impact work stays with the owner for review.'};
+  let suggestedBot='Tasky',reason='Routine coordination and follow-up work.';
+  if(/wellness app|software|github|supabase|code|bug|test|release|website|navigation|mobile app/.test(text)){suggestedBot='Program Manager Bot';reason='Software, app, website, or testing work fits development coordination.';}
+  else if(/book|document|file|workbook|course catalog|academy|publishing workspace/.test(text)){suggestedBot='Doc Bot';reason='Document organization and course-material work fit Doc Bot.';}
+  else if(/research|resource|prospect|competitor|funding|partner|opportunity/.test(text)){suggestedBot='Scout';reason='Research and opportunity discovery fit Scout.';}
+  else if(/social|marketing|content calendar|campaign|merch|storefront/.test(text)){suggestedBot='Tasky';reason='Routine marketing and storefront coordination; publishing remains owner-reviewed.';}
+  return {task,bot:suggestedBot,blocked:false,reason};
+ });
+ const bossRecommendations=selectedBot?.name==='Boss Bot'?getBossRecommendations():[];
+ const eligibleBossRecommendations=bossRecommendations.filter(item=>!item.blocked&&item.bot);
+ const applySafeAssignments=async()=>{if(!onApplyAssignments||!eligibleBossRecommendations.length)return;setMessage('Boss Bot is saving eligible routine assignments…');const results=await onApplyAssignments(eligibleBossRecommendations);const succeeded=results.filter(item=>item.ok).length;const failed=results.length-succeeded;setMessage(succeeded+' routine task assignment(s) saved.'+(failed?' '+failed+' task(s) were skipped and remain for review.':''));};
  const runBot=async bot=>{
    const text=buildReport(bot);
    setReport({name:bot.name,text,at:new Date().toLocaleString()});
@@ -145,6 +159,13 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog}){
    <h3>Responsibilities</h3><ul>{selectedBot.responsibilities.map(item=><li key={item}>{item}</li>)}</ul>
    <h3>Current assignments</h3><p className="bot-assignment-label">{selectedBot.assignment}</p>
    {getAssigned(selectedBot).length?<div className="bot-assigned-list">{getAssigned(selectedBot).slice(0,6).map(task=><article key={task.id}><span>{task.title}</span><small>{task.status} · {task.priority||'normal'} priority</small></article>)}</div>:<p className="bot-no-assignments">No matching tasks yet. Run a workspace check to see general recommendations.</p>}
+   {selectedBot.name==='Boss Bot'&&<section className="boss-assignment-panel">
+    <div className="boss-assignment-heading"><div><p className="bot-kicker">ASSIGNMENT COORDINATION</p><h3>Boss Bot's task recommendations</h3><p>Review suggested helpers for open, unassigned work. Existing assignments are never changed.</p></div><span className="boss-assignment-count">{eligibleBossRecommendations.length} eligible</span></div>
+    <div className="boss-assignment-guardrail"><strong>Owner approval stays in control.</strong> Tasks already flagged for approval and sensitive work (security, privacy, permissions, database/schema, spending, external messages, publishing, or deployment) are held for your decision.</div>
+    {bossRecommendations.length?<div className="boss-recommendation-list">{bossRecommendations.map(item=><article className="boss-recommendation" key={item.task.id}><div className="boss-recommendation-main"><strong>{item.task.title}</strong><small>{item.task.category||'General'} · {item.task.priority||'normal'} priority{item.task.due_date?' · Due '+item.task.due_date:''}</small><p>{item.blocked?'🔒 Owner review required — '+item.reason:'Suggested: '+item.bot+' — '+item.reason}</p></div>{!item.blocked&&<button type="button" className="gold" disabled={!onApplyAssignments} onClick={async()=>{setMessage('Saving assignment…');const result=await onApplyAssignments([item]);setMessage(result.some(x=>x.ok)?item.task.title+' assigned to '+item.bot+'.':'No change made. '+(result[0]?.error||''));}}>Assign</button>}</article>)}</div>:<p className="bot-no-assignments">No unassigned open tasks need a recommendation. 🎉</p>}
+    {eligibleBossRecommendations.length>1&&<button type="button" className="gold boss-assign-all" disabled={!onApplyAssignments} onClick={applySafeAssignments}>Assign all {eligibleBossRecommendations.length} eligible routine tasks</button>}
+    <small className="boss-assignment-note">Assignments update only the selected task's Assigned To field. They do not start work, change status, alter due dates, or grant execution permissions.</small>
+   </section>}
    {selectedBot.name==='Maily'&&<div className="bot-test-panel"><h3>Draft a test email</h3><label>Recipient name (optional)<input value={draftRecipient} onChange={e=>setDraftRecipient(e.target.value)} placeholder="Name or organization"/></label><label>Purpose<textarea rows="2" value={draftPurpose} onChange={e=>setDraftPurpose(e.target.value)}/></label><button type="button" className="gold" onClick={makeDraft}>Create email draft</button>{draft&&<><label>Editable draft<textarea rows="12" value={draft} onChange={e=>setDraft(e.target.value)}/></label><button type="button" onClick={copyDraft}>Copy draft</button></>}</div>}
    <div className="bot-workspace-actions"><button type="button" onClick={()=>runBot(selectedBot)}>Run workspace test</button><button type="button" onClick={()=>{setSelectedBot(null);onOpenTasks?.()}}>Open task board</button><button type="button" className="gold" onClick={()=>setSelectedBot(null)}>Close</button></div>
    <div className="bot-voice-controls"><button type="button" onClick={speakBot}>🔊 Speak {selectedBot.name}</button><button type="button" onClick={stopBotVoice}>Stop voice</button><small aria-live="polite">{voiceMessage||'Voice plays only when you press Speak.'}</small></div>
