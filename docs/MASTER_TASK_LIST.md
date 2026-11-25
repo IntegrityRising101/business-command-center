@@ -270,3 +270,79 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Updated Home project areas and Projects view to use the saved dynamic category list, so owner-created categories appear consistently.
 - [x] Kept Status and Priority as controlled choices.
 - [ ] Run build checks and owner live test after this follow-up pull request is merged.
+
+## Expanded AI Management Team Roadmap — Owner Approved November 24, 2026
+
+This section expands the existing bot roadmap into a coordinated, phased management system. Approval means the roadmap is authorized for planning and implementation; it does not mean features, integrations, autonomous agents, or paid services are already active.
+
+### Phase 1 — Reliability and shared operating foundation (P1)
+- [ ] Verify bot reports persist in Daily Log after refresh and after signing out/in.
+- [ ] Verify Daily Log entries show bot name, run time, task/data scope, result, and any errors.
+- [ ] Verify Bot Team layout and controls on common mobile screen sizes.
+- [ ] Add a shared bot task queue with owner, department, priority, due date, status, dependencies, and blocker fields.
+- [ ] Add a durable activity history for assignments, status changes, bot runs, approvals, denials, and failures.
+- [ ] Verify the assigned/unassigned/approval-required summary counts against saved task records.
+- [ ] Commit and verify the owner-provided Bot Team poster asset if the source file is available.
+
+### Phase 2 — Boss Bot coordination and bot-to-bot handoffs (P2)
+- [ ] Give Boss Bot a consolidated view of every enabled bot's assignments, workload, status, deadlines, and blockers.
+- [ ] Allow Boss Bot to propose assignments to specialist bots using their approved role and permissions.
+- [ ] Add explicit handoff records: sending bot, receiving bot, task, context, expected output, due date, and handoff status.
+- [ ] Allow receiving bots to accept, request clarification, report blocked, or return completed work.
+- [ ] Prevent circular handoffs, duplicate assignments, and conflicting simultaneous edits.
+- [ ] Require owner review for changes to business priorities and high-impact assignments.
+- [ ] Produce daily owner briefings and weekly progress/recognition reports from verified activity.
+
+### Phase 3 — Company governance, department rulebooks, and approvals (P1/P2)
+- [ ] Implement the Master Company Rulebook and editable department rulebooks from the approved specification.
+- [ ] Add bot profiles with enable/disable controls, allowed departments/data, permitted actions, autonomy scope, and reporting cadence.
+- [ ] Implement an approval inbox with action summary, requesting bot, business reason, estimated cost, affected records/audience, and approve/deny controls.
+- [ ] Enforce approval gates in the backend, not only in the interface.
+- [ ] Add rule version history, conflict detection, stop-and-escalate behavior, and auditable decisions.
+- [ ] Test tenant isolation and least-privilege access with separate business accounts.
+- [ ] Preserve the owner approval requirement for spending, paid activation, sensitive external communications, confidential sharing, legal/financial commitments, security/permission changes, important deletion/retention changes, and significant publishing/deployment.
+
+### Phase 4 — Specialist bot capability upgrades (P2/P3)
+- [ ] Tasky: assignment recommendations, duplicate detection, workload balancing, and task lifecycle reporting.
+- [ ] Deadline Bot: configurable reminders, overdue escalation, dependency-aware forecasts, and missing-date queues.
+- [ ] Doc Bot: searchable document index, approved folder organization, metadata, version tracking, and safe preview/download workflows.
+- [ ] Scout: source-backed live research, prospect/opportunity discovery, citations, relevance notes, and a human review queue.
+- [ ] Brainy: verified KPI dashboards, trend analysis, sales/traffic reporting when connected data exists, and clearly scoped recommendations.
+- [ ] Maily: personalized draft generation, contact/context review, approval workflow, and sending only after explicit owner approval through a properly authorized integration.
+- [ ] Cheer Bot: dated achievements, project-aware celebrations, streaks, milestone tracking, and weekly Wall of Wins reporting.
+- [ ] Program Manager Bot: GitHub issue/PR/build monitoring, low-risk repair proposals, repair logs, automated tests, and stop-and-escalate controls. No major code, schema, security, or deployment action without approval.
+
+### Phase 5 — Department manager bots (P2/P3)
+- [ ] Marketing Manager: content calendar, campaign planning, brand checks, channel-specific drafts, and performance review.
+- [ ] Finance Manager: categorized expense/revenue summaries, budget tracking, invoice/report preparation, and variance alerts; no payments, transfers, or financial commitments.
+- [ ] Customer Care Manager: support inbox triage, FAQ suggestions, feedback themes, and response drafts; external replies require approval.
+- [ ] Academy Manager: course catalog, lesson/workbook production queue, student-support drafts, and course completion reporting.
+- [ ] Publishing Manager: book manuscript status, editorial checklist, Lulu/KDP specifications, cover/interior file tracking, and launch calendar.
+- [ ] Website & Store Manager: WordPress/storefront content queue, product-page checks, broken-link monitoring, and analytics summaries when connected.
+- [ ] Operations Manager: cross-department workload, SOPs, supply/resource checklists, and weekly operations review.
+- [ ] Allow owners to enable only the departments they use and customize responsibilities through the rulebook.
+
+### Phase 6 — Integrations, research, and business intelligence (P2/P3)
+- [ ] Evaluate and implement supported Google Drive, Docs, Sheets, and Slides workflows with account authorization and owner-controlled sharing.
+- [ ] Evaluate Gmail integration for draft/review/send workflows; never send without explicit approval.
+- [ ] Add source links, retrieval date, confidence/limitations, and research history to Scout and Brainy outputs.
+- [ ] Add optional 14-day competitor/business-gap reviews and prospect discovery with visible provider pricing, usage limits, and opt-in controls.
+- [ ] Add calendar/task reminders only after the owner reviews permissions and any paid costs.
+- [ ] Keep each external integration disconnected until the owner explicitly connects and authorizes it.
+
+### Phase 7 — Automation, cost controls, and commercial readiness (P3)
+- [ ] Create an automation center for recurring schedules, trigger conditions, run history, failures, and pause/resume controls.
+- [ ] Display the current automation-slot limit and require owner choice before replacing an existing active automation.
+- [ ] Add a cost dashboard showing free vs paid capabilities, estimated usage, provider fees, and spending caps before activation.
+- [ ] Add plan/feature entitlements without implying paid capabilities are active before configuration.
+- [ ] Test automation failures, duplicate runs, retries, rate limits, and owner notifications.
+- [ ] Complete privacy, security, tenant isolation, billing, and support checks before commercial launch.
+
+### Definition of done for every bot upgrade
+- [ ] Role, scope, inputs, outputs, and limitations are documented.
+- [ ] Permissions follow least privilege and are enforced server-side.
+- [ ] Bot reports distinguish verified facts, recommendations, and unavailable data.
+- [ ] Actions and approvals are recorded in an auditable history.
+- [ ] Automated tests pass and the owner verifies the live workflow.
+- [ ] Mobile usability is checked.
+- [ ] Any paid provider, recurring fee, or third-party data access is disclosed before activation.
