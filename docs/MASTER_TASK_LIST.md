@@ -285,3 +285,8 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Owner confirmed all five task names matched across both views.
 - [x] Weekly summary/history consistency check passed.
 - [ ] Check responsive Bot Team and task views on mobile.
+
+
+### November 24, 2026 — Bot Team desktop layout check
+- [x] Owner confirmed on laptop that all Bot Team cards and information are visible with no overlap or cut-off.
+- [ ] Mobile-responsive check: **Pending — owner does not currently have mobile access**; this does not block continued desktop testing.
