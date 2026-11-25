@@ -270,3 +270,11 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Updated Home project areas and Projects view to use the saved dynamic category list, so owner-created categories appear consistently.
 - [x] Kept Status and Priority as controlled choices.
 - [ ] Run build checks and owner live test after this follow-up pull request is merged.
+
+
+### November 24, 2026 — Live bot celebration and assignment tests
+- [x] Re-tested Cheer Bot: changing the existing test task from Done to In Progress and back to Done triggered a new celebration.
+- [x] Re-tested task assignment: assigned the test task to Tasky, saved, refreshed, and confirmed the assignment persisted.
+- [x] Both owner-confirmed live tests passed.
+- [ ] Verify weekly Boss Bot totals against Completed Tasks history.
+- [ ] Check the responsive Bot Team and task views on mobile.
