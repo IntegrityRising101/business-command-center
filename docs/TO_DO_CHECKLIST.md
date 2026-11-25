@@ -104,3 +104,35 @@
 - [ ] Connect a model-backed response service only after provider disclosure, data-sharing controls, and owner approval are designed.
 
 Status: code is on a draft pull request, not deployed. Current replies are rule-based; this is not yet live generative AI or autonomous bot-to-bot teamwork.
+
+
+## Phase 8 — Bot workforce, Owner Office & reporting
+
+### Existing features confirmed
+- [x] Bot Team on-screen pop-up/entry point — owner confirmed November 25, 2026; preserve existing behavior.
+- [x] Boss Bot Owner Briefing workspace — owner tested November 24, 2026.
+- [x] Cheer Bot repeat completion celebration — owner tested November 24, 2026.
+- [x] Weekly Boss Briefing and Completed Tasks history reconciled by owner — November 24, 2026.
+- [x] Bot growth milestone levels documented in GitHub issue #35.
+
+### Chat foundation — draft PR #36
+- [x] Individual bot conversation UI and persistent message storage code prepared.
+- [x] Shared Team Inbox and recipient selection prepared.
+- [x] Owner-approved memory suggestion controls prepared.
+- [x] Supabase RLS migration and setup guide prepared.
+- [x] GitHub build checks passed.
+- [ ] Apply Supabase migration and test persistence.
+- [ ] Verify two-account isolation and memory approval/revocation.
+- [ ] Complete Android/desktop QA, then merge and deploy.
+
+### Owner Office & Secretary Bot — GitHub issue #37
+- [ ] Add Owner Office navigation tab with owner-only access.
+- [ ] Show Boss Bot's existing strategic briefing without duplicating it.
+- [ ] Add Secretary Bot with customizable warm, professional female-presenting personality.
+- [ ] Generate daily and weekly reports from verified completed-task records.
+- [ ] Include task, project, assigned person/bot, completion date, and evidence link when available.
+- [ ] Flag missing timestamps/evidence and ambiguous records for owner review.
+- [ ] Add report history, reviewed status, correction, and refresh controls.
+- [ ] Reconcile Secretary Bot reports against Completed Tasks history.
+- [ ] Test privacy and desktop/Android layouts.
+
