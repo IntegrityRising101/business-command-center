@@ -19,9 +19,12 @@ export default function BossBriefing({tasks=[],logs=[],onOpenTasks,onOpenBotTeam
     return rank(a)-rank(b) || String(a.due_date||'9999').localeCompare(String(b.due_date||'9999'));
   }).slice(0,3);
   const assignedBots = [...new Set(open.map(task=>task.assigned_to).filter(Boolean))];
-  const wins = logs.filter(log=>String(log.text||'').includes('🏆')).slice(0,5);
-  const recent = logs.slice(0,5);
-  const completedToday = completed.filter(task=>String(task.updated_at||task.created_at||'').slice(0,10)===today).length;
+  const weekStart = Date.now() - 7*24*60*60*1000;
+  const datedCompletions = completed.filter(task=>task.completed_at && !Number.isNaN(Date.parse(task.completed_at))).sort((a,b)=>Date.parse(b.completed_at)-Date.parse(a.completed_at));
+  const winsThisWeek = datedCompletions.filter(task=>Date.parse(task.completed_at)>=weekStart);
+  const recentWins = datedCompletions.slice(0,5);
+  const completedToday = datedCompletions.filter(task=>String(task.completed_at).slice(0,10)===today).length;
+  const completionDate = value => new Date(value).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
 
   return <main className="boss-briefing">
     <section className="boss-briefing-hero">
@@ -60,8 +63,9 @@ export default function BossBriefing({tasks=[],logs=[],onOpenTasks,onOpenBotTeam
     </section>
     <section className="boss-briefing-panel boss-accomplishments">
       <div className="boss-panel-heading"><div><p className="bot-kicker">PROGRESS COUNTS</p><h3>Wins & recent activity</h3></div><span className="boss-count">{completed.length} completed</span></div>
-      {wins.length ? <ul className="boss-plain-list">{wins.map((log,index)=><li key={log.id||index}><strong>🏆 {String(log.text).replace(/^🏆\s*/,'')}</strong><small>{log.date||'Achievement recorded'}</small></li>)}</ul> : recent.length ? <ul className="boss-plain-list">{recent.map((log,index)=><li key={log.id||index}><strong>{log.text}</strong><small>{log.date||'Recent entry'}</small></li>)}</ul> : <p className="boss-empty">Your next win will appear here when it is recorded in Daily Log.</p>}
-      <p className="boss-briefing-footnote">Completed today: {completedToday} task(s), based on saved task timestamps when available. This panel summarizes your saved workspace; it does not independently execute bot assignments.</p>
+      <p className="boss-team-summary">{winsThisWeek.length} task{winsThisWeek.length===1?'':'s'} completed in the last 7 days.</p>
+      {recentWins.length ? <ul className="boss-plain-list">{recentWins.map(task=><li key={task.id}><strong>🏆 {task.title}</strong><small>{task.category||'General'} · Completed {completionDate(task.completed_at)}</small></li>)}</ul> : <p className="boss-empty">Your next completed task will appear here with its saved completion date. Every step forward counts! ✨</p>}
+      <p className="boss-briefing-footnote">Completed today: {completedToday} task(s). Weekly wins are calculated from saved completion timestamps, not daily notes. This panel summarizes your saved workspace; it does not independently execute bot assignments.</p>
     </section>
     <section className="boss-briefing-footer">
       <div><strong>Boss Bot's operating rule</strong><p>Recommendations and tracking only. Owner approval is required for sensitive changes, spending, external messages, permissions, and significant publishing or deployment.</p></div>
