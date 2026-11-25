@@ -35,7 +35,7 @@ Live app: https://integrityrising101.github.io/business-command-center/
 - [ ] Test custom Project and Assigned To values in the task form and confirm they persist and appear in task filters.
 - [ ] Test completion celebrations and confirm dated achievements persist on the Wall of Accomplishments.
 - [ ] Test a PDF download; verify it saves with a readable filename.
-- [ ] Test folder creation, navigation, and uploads inside folders.
+- [ ] Test folder creation, navigation, and uploads inside folders.\n- [ ] Test Doc Bot auto-sorting for clear filenames and Needs Review routing for uncertain files.\n- [ ] Test owner-selected upload destinations and moving an existing file between folders.
 - [ ] Test PDF/image previews and supported audio/video playback, including mobile browsers.
 - [ ] Test file access with a second account; confirm users cannot access another account's files.
 - [ ] Verify authentication and RLS for tasks, documents, and other user records.
@@ -238,7 +238,7 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [ ] Each workspace runs a rule-based test against saved task/activity data and can save a test report to Daily Log.
 - [ ] Maily can create and edit an email draft and copy it; no sending capability is enabled.
 - [ ] Scout prepares a research checklist only; live source research is not yet connected.
-- [ ] Doc Bot recommends a folder structure only; it does not move, share, rename, or delete files.
+- [ ] Verify Doc Bot's rule-based filename/type suggestions, owner-selected upload destination, and explicit move controls on the live app. Doc Bot must never delete or share files.
 - [ ] Program Manager Bot reports software-task risks only; it does not edit code, database settings, permissions, or deploy.
 - [x] Verify all nine workspaces on the live app; all nine returned their expected rule-based reports.
 - [ ] Confirm reports persist in Daily Log and test the Bot Team layout on mobile.
@@ -313,3 +313,4 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - Guardrail: Boss Bot coordinates assignments only; it does not execute assigned work or grant new permissions. No task records are changed until the owner uses an Assign control in the deployed app.
 - The previous 31 unassigned-task count is a reported baseline; it must be refreshed after deployment before making new count claims.
 - Mobile Bot Team layout remains pending until the owner has mobile access.
+\n\n### November 25, 2026 — Doc Bot filing assistant implementation\n- [x] Added Doc Bot upload sorting based on filename keywords and file type; uncertain matches route to **Needs Review**. This is a transparent rule-based MVP, not document-content AI.\n- [x] Added owner override options to keep uploads in the current folder or choose a specific standard folder.\n- [x] Added an explicit per-file **Move to folder** control for existing files.\n- [x] Documented privacy and safety boundaries: no content inspection, external AI transfer, automatic deletion, or automatic movement of existing files.\n- [x] Added the Doc Bot filing specification and live verification checklist.\n- [ ] Wait for GitHub Pages deployment, then test auto-sort, manual destination, and move behavior with sample files.\n
