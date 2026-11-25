@@ -2,19 +2,6 @@ import {useEffect,useMemo,useState} from 'react';
 import {supabase} from '../lib/supabase';
 
 const TEAM='Team Inbox';
-const toneReply=(bot,text,tasks,memory,recipient)=>{
- const words=String(text||'').toLowerCase();
- const open=tasks.filter(t=>t.status!=='Done').length;
- let focus='I can help organize the next step. Tell me the outcome you want, any deadline, and what constraints I should respect.';
- if(/task|assign|priority|deadline|due/.test(words))focus='I can help review the task board. There are currently '+open+' open tasks. I can suggest an owner and next step, but I will not change assignments or carry out work without required approval.';
- else if(/remember|memory|learn|feedback|prefer/.test(words))focus='I can turn a useful preference into a memory suggestion. It will remain pending until you review and approve it.';
- else if(/team|handoff|collaborat|help/.test(words))focus='I can help prepare a team handoff. I will identify a suitable specialist, but this MVP does not run independent bot-to-bot conversations yet.';
- else if(/privacy|private|secure|data/.test(words))focus='Your conversation is stored in your signed-in workspace under owner-only row-level security. This version does not send chat content to an external AI provider.';
- else if(/hello|hi |hey/.test(words))focus='Hello! I am ready to help. What would you like to work on first?';
- const guidance=memory.map(m=>m.content).filter(Boolean);
- return 'I am '+(bot===TEAM?'your Team Inbox coordinator':bot)+'. '+(bot===TEAM?'This message is addressed to '+(recipient||'the whole team')+'. ':'')+focus+(guidance.length?' I will follow this approved guidance: '+guidance.join(' | '):'')+' This is the starter chat foundation; live generative AI responses are not connected yet.';
-};
-
 export default function BotChat({userId,bot,tasks=[],bots=[]}){
  const [tab,setTab]=useState('chat');
  const [conversations,setConversations]=useState([]);
@@ -79,14 +66,18 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     if(memError)throw memError;
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
-   const usable=memories.filter(m=>m.status==='approved'&&(m.bot_name===currentName||m.bot_name===TEAM));
-   const response=toneReply(currentName,body,tasks,usable,recipient);
-   const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:currentName===TEAM?'Team Coordinator':currentName,body:response}).select().single();
+   setNotice('GPT is generating a response…');
+   const {data:gptData,error:gptError}=await supabase.functions.invoke('gpt-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
+   if(gptError)throw new Error(gptData?.error||gptError.message||'GPT connection failed.');
+   if(gptData?.error)throw new Error(gptData.error);
+   const response=String(gptData?.reply||'').trim();
+   if(!response)throw new Error('GPT returned an empty response. Please try again.');
+   const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:currentName===TEAM?'GPT · Team Coordinator':'GPT · '+currentName,body:response}).select().single();
    if(botError)throw botError;
    setMessages(prev=>[...prev,botMessage]);
    await supabase.from('bot_conversations').update({updated_at:new Date().toISOString()}).eq('id',thread.id).eq('user_id',userId);
    setConversations(prev=>prev.map(c=>c.id===thread.id?{...c,updated_at:new Date().toISOString()}:c));
-   setRemember(false);setNotice('Message saved. Starter response generated locally; no external AI provider was contacted.');
+   setRemember(false);setNotice('GPT response received and saved to your private conversation.');
   }catch(err){setNotice('Message was not fully saved: '+(err.message||'Please try again.'))}
   finally{setBusy(false)}
  };
@@ -123,10 +114,10 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
    {memories.filter(m=>m.status==='approved').map(m=><article className="bot-memory-item" key={m.id}><div><strong>{m.bot_name}</strong><p>{m.content}</p><small>Approved {m.approved_at?new Date(m.approved_at).toLocaleString():'by owner'}</small></div><button onClick={()=>reject(m)}>Revoke</button></article>)}
    {!memories.length&&<p className="muted">No memory notes yet. You decide what gets saved.</p>}
   </div>:<div className="bot-chat-thread">
-   <div className="bot-chat-security">🔒 Private to your signed-in account · No third-party AI provider connected · Owner approval required for saved memory and consequential actions.</div>
+   <div className="bot-chat-security">🔒 Private to your signed-in account · GPT connected through a secure server function · Owner approval required for saved memory and consequential actions.</div>
    {messages.map(m=><article className={'bot-chat-message '+(m.sender_type==='owner'?'owner':'bot')} key={m.id}><strong>{m.sender_name}</strong><p>{m.body}</p><small>{new Date(m.created_at).toLocaleString()}</small>{m.sender_type==='owner'&&<button onClick={()=>{setCandidate(m.body);setTab('memory')}}>Suggest as memory</button>}</article>)}
    {!messages.length&&<div className="bot-chat-empty"><span>💬</span><strong>Start a conversation with {currentName===TEAM?'the team':currentName}</strong><p>Ask a question, request help planning a task, or share feedback.</p></div>}
-   <form onSubmit={send} className="bot-chat-compose"><label className="bot-chat-remember"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/> Also submit this message as a memory suggestion for owner approval</label><textarea rows="3" value={text} onChange={e=>setText(e.target.value)} placeholder={'Message '+(currentName===TEAM?'the team':currentName)+'…'}/><div><small>Messages are saved to your private workspace. Responses are rule-based until an AI provider is deliberately configured.</small><button className="gold" disabled={!text.trim()||busy}>{busy?'Sending…':'Send message'}</button></div></form>
+   <form onSubmit={send} className="bot-chat-compose"><label className="bot-chat-remember"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/> Also submit this message as a memory suggestion for owner approval</label><textarea rows="3" value={text} onChange={e=>setText(e.target.value)} placeholder={'Message '+(currentName===TEAM?'the team':currentName)+'…'}/><div><small>Messages are saved to your private workspace. Responses are generated by GPT through a secure server function.</small><button className="gold" disabled={!text.trim()||busy}>{busy?'Sending…':'Send message'}</button></div></form>
   </div>}
   <p className="bot-chat-status" role="status">{notice}</p>
  </section>;
