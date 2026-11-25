@@ -442,3 +442,8 @@ This record keeps the two related but separate products organized. The Business 
 - [x] Owner confirmed all five task names match between Boss Briefing and Completed Tasks history.
 - [x] Weekly wins-to-history count and name comparison passed in the live app.
 - [ ] Check responsive Bot Team and task views on mobile.
+
+
+### November 24, 2026 — Bot Team desktop layout check
+- [x] Owner opened the live Bot Team view on a laptop and confirmed all bot cards and their information were visible, with no overlap or cut-off.
+- [ ] Mobile-responsive Bot Team check remains **Pending — owner does not currently have mobile access**. Continue desktop verification; mobile access is not a blocker for other work.
