@@ -314,3 +314,11 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - The previous 31 unassigned-task count is a reported baseline; it must be refreshed after deployment before making new count claims.
 - Mobile Bot Team layout remains pending until the owner has mobile access.
 \n\n### November 25, 2026 — Doc Bot filing assistant implementation\n- [x] Added Doc Bot upload sorting based on filename keywords and file type; uncertain matches route to **Needs Review**. This is a transparent rule-based MVP, not document-content AI.\n- [x] Added owner override options to keep uploads in the current folder or choose a specific standard folder.\n- [x] Added an explicit per-file **Move to folder** control for existing files.\n- [x] Documented privacy and safety boundaries: no content inspection, external AI transfer, automatic deletion, or automatic movement of existing files.\n- [x] Added the Doc Bot filing specification and live verification checklist.\n- [ ] Wait for GitHub Pages deployment, then test auto-sort, manual destination, and move behavior with sample files.\n
+
+### November 25, 2026 — Live GPT chat integration
+- [x] Replaced local rule-based starter replies with secure Supabase Edge Function invocation.
+- [x] Added GPT function with signed-in user verification, conversation ownership checks, RLS-scoped history and owner-approved memory context.
+- [x] Added bot-specific guidance and default model `gpt-4o-mini`.
+- [x] Documented API-key security, separate API billing, privacy, deployment and verification.
+- [ ] Deploy `gpt-chat` to Supabase and add `OPENAI_API_KEY` as a Function secret.
+- [ ] Test live replies, follow-ups, memory, persistence and cross-account isolation.
