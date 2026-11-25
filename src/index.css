@@ -153,3 +153,35 @@ body{background:radial-gradient(ellipse at top right,#1d3152,#0b1424 58%);color:
 .boss-assign-all{margin-top:.9rem}
 .boss-assignment-note{display:block;margin-top:.75rem;color:#aebbd0;line-height:1.45}
 @media(max-width:640px){.boss-recommendation{align-items:flex-start;flex-direction:column}.boss-recommendation button{width:100%}.boss-assignment-panel{padding:.8rem}}
+
+
+/* Individual bot chats, team inbox, and owner-approved memory */
+.bot-chat-panel{margin-top:18px;border:1px solid #52617b;border-radius:13px;background:#101d30;overflow:hidden}
+.bot-chat-tabs{display:flex;gap:7px;flex-wrap:wrap;padding:11px;border-bottom:1px solid #34445e;background:#172943}
+.bot-chat-tabs button{border:1px solid #52617b;border-radius:8px;padding:9px 11px;background:#223650;color:#dbe4f1;font-size:11px;cursor:pointer}
+.bot-chat-tabs button.active{background:linear-gradient(130deg,#d6b65d,#a98235);border-color:#d6b65d;color:#172120;font-weight:800}
+.bot-chat-security{padding:10px 12px;border:1px solid #527565;border-radius:8px;background:#142820;color:#c9e0d1;font-size:10px;line-height:1.5}
+.bot-chat-thread{display:grid;gap:12px;padding:13px}
+.bot-chat-message{max-width:88%;padding:11px;border:1px solid #40516a;border-radius:11px;background:#1b2b45}
+.bot-chat-message.owner{justify-self:end;background:#263d59;border-color:#8c7545}
+.bot-chat-message strong{font-size:11px;color:#e6d39c}
+.bot-chat-message p{margin:6px 0;color:#e8edf5;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot-chat-message small,.bot-chat-message button{font-size:10px;color:#aab6c9}
+.bot-chat-message button{display:block;margin-top:7px;border:0;background:none;color:#e6d39c;cursor:pointer}
+.bot-chat-empty{display:grid;justify-items:center;text-align:center;padding:24px 12px;color:#c7d0df}
+.bot-chat-empty span{font-size:30px}.bot-chat-empty strong{margin-top:7px;color:#f1f3ef}.bot-chat-empty p{font-size:11px}
+.bot-chat-compose{display:grid;gap:9px;padding:12px;border:1px solid #34445e;border-radius:10px;background:#172943}
+.bot-chat-compose textarea,.bot-memory-add textarea{box-sizing:border-box;width:100%;border:1px solid #52617b;border-radius:8px;padding:10px;background:#0f1b2c;color:#e8edf5;font:inherit;font-size:12px;resize:vertical}
+.bot-chat-compose>div{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bot-chat-compose small{max-width:70%;font-size:10px;line-height:1.5;color:#aab6c9}
+.bot-chat-compose button,.bot-memory-view>button,.bot-memory-item button{border:1px solid #52617b;border-radius:8px;padding:9px 12px;background:#263b57;color:#e8edf5;font-size:11px;cursor:pointer}
+.bot-chat-compose button.gold,.bot-memory-view>button.gold,.bot-memory-item button.gold{background:linear-gradient(130deg,#d6b65d,#a98235);color:#172120;border:0;font-weight:800}
+.bot-chat-compose button:disabled,.bot-memory-view button:disabled{opacity:.5;cursor:not-allowed}
+.bot-chat-remember{display:flex;align-items:center;gap:8px;color:#e6d39c;font-size:10px}.bot-chat-remember input{accent-color:#d6b65d}
+.bot-chat-status{margin:0;padding:10px 13px;border-top:1px solid #34445e;color:#aab6c9;font-size:10px;line-height:1.5}
+.bot-chat-teambar{display:grid;gap:6px;padding:12px;background:#172943}.bot-chat-teambar strong{color:#e6d39c}.bot-chat-teambar span{font-size:11px;color:#aab6c9}
+.bot-memory-view{display:grid;gap:10px;padding:14px}.bot-memory-view h3,.bot-memory-view h4{margin:5px 0;color:#e6d39c}.bot-memory-view p{font-size:12px;line-height:1.5;color:#c7d0df}
+.bot-memory-add{display:grid;gap:7px;color:#e8edf5;font-size:11px;font-weight:700}
+.bot-memory-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:11px;border:1px solid #40516a;border-radius:9px;background:#172943}
+.bot-memory-item strong{color:#e6d39c;font-size:11px}.bot-memory-item p{margin:5px 0}.bot-memory-item small{font-size:10px;color:#aab6c9}.bot-memory-item>div:last-child{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:560px){.bot-chat-tabs{display:grid;grid-template-columns:1fr}.bot-chat-tabs button{width:100%}.bot-chat-message{max-width:100%}.bot-chat-compose>div{align-items:stretch;flex-direction:column}.bot-chat-compose small{max-width:none}.bot-chat-compose button{width:100%}.bot-memory-item{flex-direction:column}.bot-memory-item>div:last-child{width:100%}.bot-memory-item button{flex:1}}

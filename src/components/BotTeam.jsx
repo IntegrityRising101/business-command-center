@@ -1,3 +1,4 @@
+import BotChat from './BotChat';
 import {useEffect,useState} from 'react';
 
 const bots=[
@@ -18,7 +19,7 @@ const priorityRank=t=>({high:0,medium:1,low:2}[String(t.priority||'').toLowerCas
 const dueLabel=t=>t.due_date||'No due date';
 const includes=(t,re)=>re.test([t.title,t.category,t.notes].filter(Boolean).join(' '));
 
-export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog,onApplyAssignments}){
+export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,onApplyAssignments}){
  const [selectedBot,setSelectedBot]=useState(null);
  const [report,setReport]=useState(null);
  const [draft,setDraft]=useState('');
@@ -157,6 +158,7 @@ export default function BotTeam({tasks=[],logs=[],onOpenTasks,onAddLog,onApplyAs
    <p className="bot-workspace-description">{selectedBot.description}</p>
    <div className="bot-workspace-stats"><div><small>Related tasks</small><strong>{getAssigned(selectedBot).length}</strong></div><div><small>Open tasks</small><strong>{getAssigned(selectedBot).filter(isOpen).length}</strong></div><div><small>Completed</small><strong>{getAssigned(selectedBot).filter(t=>t.status==='Done').length}</strong></div></div>
    <h3>Responsibilities</h3><ul>{selectedBot.responsibilities.map(item=><li key={item}>{item}</li>)}</ul>
+   <BotChat userId={userId} bot={selectedBot} tasks={tasks} bots={bots}/>
    <h3>Current assignments</h3><p className="bot-assignment-label">{selectedBot.assignment}</p>
    {getAssigned(selectedBot).length?<div className="bot-assigned-list">{getAssigned(selectedBot).slice(0,6).map(task=><article key={task.id}><span>{task.title}</span><small>{task.status} · {task.priority||'normal'} priority</small></article>)}</div>:<p className="bot-no-assignments">No matching tasks yet. Run a workspace check to see general recommendations.</p>}
    {selectedBot.name==='Boss Bot'&&<section className="boss-assignment-panel">

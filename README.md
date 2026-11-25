@@ -90,3 +90,7 @@ Do not commit local environment files or private credentials.
 Maintained by **Integrity Rising**.
 
 **United by Truth, Driven by Purpose.**
+
+
+## Bot chat foundation
+Individual bot conversations, a shared Team Inbox, and owner-approved memory are being introduced in the current development branch. The Supabase migration and required setup, privacy notes, limitations, and verification checklist are documented in [Bot Chat, Team Inbox, and Owner-Approved Memory](docs/BOT_CHAT_TEAM_MEMORY.md). This MVP uses local rule-based starter replies; it is not yet connected to a generative AI provider or independent background agents.

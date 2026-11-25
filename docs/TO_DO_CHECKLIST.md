@@ -91,3 +91,16 @@
 
 ## Next task
 - **Next:** Use the Supabase client in the app UI and verify the GitHub Actions build succeeds. Then implement authentication and user-isolated data.
+
+## Bot chat and approved memory foundation (in development)
+- [x] Add per-bot persistent conversation UI and Supabase-backed message storage code.
+- [x] Add shared owner-visible Team Inbox thread.
+- [x] Add pending / approved / rejected memory suggestions with owner approve, dismiss, and revoke controls.
+- [x] Add owner-scoped Supabase RLS migration for conversations, messages, and memories.
+- [x] Document database setup, MVP limitations, and verification steps.
+- [ ] Apply the migration in the Supabase project.
+- [ ] Verify per-bot history, Team Inbox persistence, memory approval/revocation, and cross-account isolation.
+- [ ] Run automated build and test Android and desktop layouts.
+- [ ] Connect a model-backed response service only after provider disclosure, data-sharing controls, and owner approval are designed.
+
+Status: code is on a draft pull request, not deployed. Current replies are rule-based; this is not yet live generative AI or autonomous bot-to-bot teamwork.
