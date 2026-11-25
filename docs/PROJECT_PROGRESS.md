@@ -433,7 +433,8 @@ This record keeps the two related but separate products organized. The Business 
 - [x] Owner assigned the same task to Tasky, saved it, refreshed the live Business Command Center, reopened the task, and confirmed Tasky remained assigned.
 - [x] Both live checks passed: a fresh completion event triggered Cheer Bot, and the bot assignment persisted after refresh.
 - [x] Reused the existing temporary test task; no additional test task was created.
-- [ ] Follow up on weekly Boss Bot totals versus the Completed Tasks history and test the mobile layout.
+- [x] Verify weekly Boss Bot totals versus Completed Tasks history (completed November 24, 2026).
+- [ ] Test the mobile layout when mobile access is available.
 
 
 ### November 24, 2026 — Weekly Boss Briefing totals verified
@@ -455,3 +456,11 @@ This record keeps the two related but separate products organized. The Business 
 - [x] Boss Bot surfaced the three highest-priority tasks: Prepare public launch security and policy checklist; Complete Wellness and Growth App launch checklist; Create the publishing workspace for *The Architecture Is Yours* (each high priority, due December 1, 2026).
 - [x] Recommended owner action: review the highest-priority item and confirm its next step.
 - This verifies the workspace test returned a briefing. The owner-approval flags and assignment totals are reported values; separate record-by-record audit remains a possible follow-up.
+
+
+### November 24, 2026 — Boss Bot assignment-coordinator request
+- [x] Owner approved the proposed direction: make Boss Bot the central task-assignment coordinator.
+- [x] Created GitHub issue #27 to track implementation: https://github.com/IntegrityRising101/business-command-center/issues/27.
+- Proposed behavior: recommend best-fit bot/team assignees; assign routine low-risk tasks only within owner-approved rules; explain recommendations; preserve existing manual assignments; and route ambiguous, high-impact, or owner-approval work to the owner.
+- Guardrails: no bypassing approval for security/permissions, data/schema changes, spending, external communications, or significant publishing/deployment.
+- Status: **Planned, not implemented or tested yet.** Boss Bot currently reports assignment counts; automatic assignment has not been verified.
