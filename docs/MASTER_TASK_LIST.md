@@ -298,3 +298,13 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [x] Surfaced the three high-priority tasks due December 1, 2026: public launch security/policy checklist; Wellness & Growth App launch checklist; publishing workspace for *The Architecture Is Yours*.
 - [x] Recommended reviewing the highest-priority item and confirming its next step.
 - Note: the workspace test output is verified; separate record-by-record validation of approval and assignment totals is not implied.
+
+
+### November 24, 2026 — Boss Bot assignment coordination
+- [ ] Implement Boss Bot as the central task-assignment coordinator (Issue #27).
+- [ ] Recommend a best-fit bot/team assignee and explain the reason for each eligible unassigned task.
+- [ ] Permit routine low-risk assignments only within owner-approved rules; preserve existing manual assignments.
+- [ ] Keep owner-approval and high-impact work awaiting explicit owner approval.
+- [ ] Verify assignment persistence after save/refresh and accurate assigned/unassigned briefing counts.
+- Guardrail: this is assignment coordination, not autonomous task execution. Automatic assignment is **not yet implemented**.
+- Mobile Bot Team layout remains pending until the owner has mobile access.
