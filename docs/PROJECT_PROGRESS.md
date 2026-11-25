@@ -487,3 +487,18 @@ This record keeps the two related but separate products organized. The Business 
 - [ ] Re-run the Boss Briefing after deployment to refresh open/completed/overdue/approval/unassigned counts; do not treat the prior 31 unassigned figure as current.
 - December 1 top priorities from the last verified Boss Briefing: public launch security/policy checklist; Wellness & Growth App launch checklist; publishing workspace for *The Architecture Is Yours*.
 - Launch discipline: finish and verify P1 safety, privacy, authentication, RLS, account-isolation, and core workflows before public launch. Project Haven must not be described or released as secure/anonymous/high-risk-ready until its safety review and real-device tests pass.
+
+
+## November 25, 2026 — Bot team milestones and Owner Office direction
+
+- [x] Owner confirmed the Bot Team already has an on-screen pop-up/entry point. Record this as an existing capability; do not create duplicate pop-up work.
+- [x] Confirmed Boss Bot already has an Owner Briefing workspace and previously completed owner testing.
+- [x] Confirmed Cheer Bot's repeat completion celebration was owner-tested on November 24.
+- [x] Confirmed weekly Boss Briefing totals and task names matched Completed Tasks history in owner testing on November 24.
+- [x] Added the bot growth-level framework to GitHub issue #35, with evidence-based milestones and no automatic permission increases.
+- [x] Added the chat/team inbox/approved memory foundation to draft PR #36; GitHub build checks passed. The feature is not merged or deployed, and Supabase setup plus privacy/mobile verification remain outstanding.
+- [x] Created GitHub issue #37 for the Owner Office tab and Secretary Bot reporting role.
+- Owner Office direction: a private owner-only space for Boss Bot strategic briefings, Secretary Bot verified completion reports, approvals, alerts, and report history.
+- Secretary Bot direction: warm, professional, customizable female-presenting administrative assistant; reports only verified completions with task/assignee/date/evidence and flags incomplete records.
+- Boss Bot remains the team manager; Secretary Bot handles administrative reporting. Their reports must remain clearly labeled and must not duplicate or overwrite each other.
+- **Not yet implemented:** Owner Office tab, Secretary Bot, automated daily/weekly Secretary reports, and report history. Tracked in issue #37.
