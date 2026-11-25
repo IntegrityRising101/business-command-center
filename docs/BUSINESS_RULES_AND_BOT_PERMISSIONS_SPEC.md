@@ -55,6 +55,13 @@ Every bot must follow the approved business plan and applicable rulebooks, acces
 
 Keep an auditable history of relevant bot actions, approvals, and rule versions. Boss Bot oversees accountability and weekly recognition reports.
 
+
+
+### Boss Bot — owner-confirmed role (November 24, 2026)
+- **Responsibilities:** Review open and completed work; identify urgent tasks, blockers, and approval flags; summarize the next best owner action.
+- **Current assignment scope:** All workstreams.
+- Boss Bot coordinates across workstreams, recommends suitable task owners, and escalates approval-required work. It does not bypass task-level approval gates or claim that recommendations have been applied until the saved task records confirm the assignment.
+
 ## 6. Multi-business privacy and tenant isolation
 This product serves multiple independent companies. Implementation must:
 - Give each business a unique tenant/workspace identifier.
