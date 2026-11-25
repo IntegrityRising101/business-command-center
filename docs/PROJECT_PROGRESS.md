@@ -473,5 +473,17 @@ This record keeps the two related but separate products organized. The Business 
 - The owner can assign a task individually or apply all eligible routine recommendations with an explicit bulk action.
 - Tasks already marked as requiring owner approval, plus sensitive/high-impact work involving security, privacy, permissions, authentication, database/schema, finance/spending, external communications, publishing, or deployment, are held for owner review.
 - Assignment updates change only the `assigned_to` field, preserve existing manual assignments, and do not change status, due dates, or grant task-execution permissions.
-- GitHub build checks passed for the PR commit. Merge, deployment, and live save/refresh verification remain pending.
-- No task records have been changed by this code update. The previous 31-unassigned count remains a historical briefing result until refreshed after deployment.
+- GitHub build checks passed; PR #28 was merged to `main` as commit `ca6f2450a175fd9dc5d0f882bee9eafe867bf956`.
+- GitHub Pages deployment run `45530546227` completed successfully.
+- Live owner verification of recommendations, protected-task holds, and assignment save/refresh persistence remains pending.
+- No task records were changed by the code update; assignments change only when the owner selects Assign in the deployed app. The previous 31-unassigned count remains a historical briefing result until refreshed after deployment.
+
+
+## November 24, 2026 — Boss Bot coordinator deployment and December 1 launch focus
+
+- [x] Merged PR #28 into `main` (merge commit `ca6f2450a175fd9dc5d0f882bee9eafe867bf956`).
+- [x] GitHub Pages deployment completed successfully (run `45530546227`).
+- [ ] Owner live test: open Boss Bot, inspect the recommendation list, verify owner-review holds, assign one suitable routine task, refresh, and confirm the assignee persists.
+- [ ] Re-run the Boss Briefing after deployment to refresh open/completed/overdue/approval/unassigned counts; do not treat the prior 31 unassigned figure as current.
+- December 1 top priorities from the last verified Boss Briefing: public launch security/policy checklist; Wellness & Growth App launch checklist; publishing workspace for *The Architecture Is Yours*.
+- Launch discipline: finish and verify P1 safety, privacy, authentication, RLS, account-isolation, and core workflows before public launch. Project Haven must not be described or released as secure/anonymous/high-risk-ready until its safety review and real-device tests pass.
