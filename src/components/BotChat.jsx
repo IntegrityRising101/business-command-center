@@ -2,7 +2,7 @@ import {useEffect,useMemo,useState} from 'react';
 import {supabase} from '../lib/supabase';
 
 const TEAM='Team Inbox';
-const toneReply=(bot,text,tasks,memory)=>{
+const toneReply=(bot,text,tasks,memory,recipient)=>{
  const words=String(text||'').toLowerCase();
  const open=tasks.filter(t=>t.status!=='Done').length;
  let focus='I can help organize the next step. Tell me the outcome you want, any deadline, and what constraints I should respect.';
@@ -12,7 +12,7 @@ const toneReply=(bot,text,tasks,memory)=>{
  else if(/privacy|private|secure|data/.test(words))focus='Your conversation is stored in your signed-in workspace under owner-only row-level security. This version does not send chat content to an external AI provider.';
  else if(/hello|hi |hey/.test(words))focus='Hello! I am ready to help. What would you like to work on first?';
  const guidance=memory.map(m=>m.content).filter(Boolean);
- return 'I am '+(bot===TEAM?'your Team Inbox coordinator':bot)+'. '+focus+(guidance.length?' I will follow this approved guidance: '+guidance.join(' | '):'')+' This is the starter chat foundation; live generative AI responses are not connected yet.';
+ return 'I am '+(bot===TEAM?'your Team Inbox coordinator':bot)+'. '+(bot===TEAM?'This message is addressed to '+(recipient||'the whole team')+'. ':'')+focus+(guidance.length?' I will follow this approved guidance: '+guidance.join(' | '):'')+' This is the starter chat foundation; live generative AI responses are not connected yet.';
 };
 
 export default function BotChat({userId,bot,tasks=[],bots=[]}){
@@ -26,6 +26,7 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
  const [busy,setBusy]=useState(false);
  const [notice,setNotice]=useState('Loading private conversations…');
  const [candidate,setCandidate]=useState('');
+ const [recipient,setRecipient]=useState('Whole team');
  const activeBot=bot?.name||TEAM;
  const currentName=tab==='team'?TEAM:activeBot;
  const approved=useMemo(()=>memories.filter(m=>m.status==='approved'&&(m.bot_name===currentName||m.bot_name===TEAM)),[memories,currentName]);
@@ -79,7 +80,7 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
    const usable=memories.filter(m=>m.status==='approved'&&(m.bot_name===currentName||m.bot_name===TEAM));
-   const response=toneReply(currentName,body,tasks,usable);
+   const response=toneReply(currentName,body,tasks,usable,recipient);
    const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:currentName===TEAM?'Team Coordinator':currentName,body:response}).select().single();
    if(botError)throw botError;
    setMessages(prev=>[...prev,botMessage]);
@@ -112,7 +113,7 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
    <button className={tab==='team'?'active':''} onClick={()=>setTab('team')}>🤝 Team Inbox</button>
    <button className={tab==='memory'?'active':''} onClick={()=>setTab('memory')}>🧠 Approved Memory ({approved.length})</button>
   </div>
-  {tab==='team'&&<div className="bot-chat-teambar"><strong>Team Inbox</strong><span>Shared owner-visible thread for team requests and handoff planning</span></div>}
+  {tab==='team'&&<div className="bot-chat-teambar"><strong>Team Inbox</strong><span>Shared owner-visible thread for team requests and handoff planning</span><label>Address this message to<select value={recipient} onChange={e=>setRecipient(e.target.value)}><option>Whole team</option>{bots.map(b=><option key={b.name}>{b.name}</option>)}</select></label></div>}
   {tab==='memory'?<div className="bot-memory-view">
    <h3>Owner-controlled memory</h3><p>Only approved notes are available as context to this bot. New suggestions never become permanent automatically.</p>
    <label className="bot-memory-add">Suggest a memory for {currentName}<textarea rows="3" value={candidate} onChange={e=>setCandidate(e.target.value)} placeholder="Example: Keep reports concise and include a clear next action."/></label><button className="gold" disabled={!candidate.trim()} onClick={suggest}>Submit for owner approval</button>
