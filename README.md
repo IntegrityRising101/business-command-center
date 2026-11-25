@@ -34,7 +34,7 @@ These are separate product identities; do not merge their codebases, databases, 
 - **Program Manager Bot:** Oversees development tasks, bug reports, testing, deployment checks, and change records.
 - **Tasky:** Tracks assignments, priorities, due dates, and completion.
 - **Deadline Bot:** Monitors upcoming and overdue work.
-- **Doc Bot:** Organizes business documents and records.
+- **Doc Bot:** Organizes business documents and records. The Document Center includes owner-controlled automatic filing suggestions based on filenames and file types, a Needs Review folder for uncertain matches, and explicit move controls. Doc Bot never deletes files.
 - **Scout:** Researches prospects, competitors, business gaps, and opportunities.
 - **Brainy:** Provides business analysis and source-grounded reporting.
 - **Maily:** Prepares outreach emails for owner review.
@@ -43,7 +43,7 @@ These are separate product identities; do not merge their codebases, databases, 
 ### Program Manager Bot permissions
 The owner has approved limited automatic repair authority for basic, low-risk fixes, such as clear spelling/text corrections, known broken links, minor display issues, and straightforward code fixes. Each repair must be logged and tested.
 
-Approval is required before major code changes, database or Supabase changes, authentication/security or permission changes, paid services or spending, external communications, and significant publishing or deployment actions. If a repair fails or risk is unclear, the bot must stop and notify the owner. These are planned permissions, not active features until implemented and tested.
+Approval is required before major code changes, database or Supabase changes, authentication/security or permission changes, paid services or spending, external communications, and significant publishing or deployment actions. If a repair fails or risk is unclear, the bot must stop and notify the owner. These permissions apply to implemented features; planned features remain inactive until built and tested.
 
 ### Company rules and bot permissions (Planned)
 Each business will have one **Master Company Rulebook** and may create separate department rulebooks for Marketing, Finance, Customer Service, HR, and custom departments. Owners can start with editable templates, write rules from scratch, or combine both approaches.
