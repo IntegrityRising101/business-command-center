@@ -100,3 +100,12 @@ Individual bot conversations, a shared Team Inbox, and owner-approved memory are
 
 ## Live GPT Chat
 Bot Team chat uses a secure Supabase Edge Function. See [docs/LIVE_GPT_CHAT.md](docs/LIVE_GPT_CHAT.md). Store the OpenAI API key only as a Supabase Function secret.
+
+
+## Social Media Manager Bot (Planned)
+The Social Media Manager Bot is planned for Facebook, Instagram, LinkedIn, TikTok, YouTube, and X. Its approved product direction includes a platform-specific content calendar, draft previews, owner approval queue, secure official-API connections, controlled scheduling/publishing, and weekly analytics.
+
+**Specification:** [Social Media Manager Bot — Integration & Approval Specification](docs/social-media/SOCIAL_MEDIA_MANAGER_BOT_SPEC.md)  
+**Implementation tracker:** [GitHub issue #40](https://github.com/IntegrityRising101/business-command-center/issues/40)
+
+All six platforms start Not Connected and publishing remains disabled until each integration is authorized and tested. Every post requires owner approval by default. The project follows the $0-first rule; paid API tiers, tools, subscriptions, and advertising require separate explicit approval. This is a planned feature, not a claim that social accounts are connected or posts are being published today.
