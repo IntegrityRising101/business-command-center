@@ -21,6 +21,8 @@ These are separate product identities; do not merge their codebases, databases, 
 
 **Detailed progress history:** [Project progress record](docs/PROJECT_PROGRESS.md).
 
+**Public launch security & policy checklist (both products):** [Open the shared owner checklist](docs/PUBLIC_LAUNCH_SECURITY_POLICY_CHECKLIST.md).
+
 ## What It Helps You Organize
 - **AI projects:** Track AI-assisted projects, tools, prompts, and where finished content will be used.
 - **Social media and website work:** Organize posts, campaigns, updates, and deadlines.
