@@ -28,7 +28,7 @@ A successful GitHub build or deployment is not proof of database security, priva
 | Check | Current status | Evidence / next action |
 |---|---|---|
 | Account access, authentication, registration, sign-in/out and password recovery | Owner-confirmed complete — November 26, 2026 | Owner confirmed the Wellness & Growth App account access/authentication work is finished. Do not ask for repeat testing. Reconcile related tracker issues separately; this owner confirmation does not certify unrelated security controls. |
-| Supabase RLS and member-to-member data isolation | Open | Test with separate member accounts and moderator account; inspect policies and confirm private records cannot cross accounts. |
+| Supabase RLS and member-to-member data isolation | Code review started; live verification open | Reviewed migrations 001, 002, 003, 005 and 008 in the repository. Owner-only wellness/journal policies, profile self-write policies, moderator helper and chat-report policies are present in source. This does not prove they are applied or effective in the live Supabase project. Next: inspect live migration history and test separate member/moderator accounts. Also resolve the existing duplicate migration number 005 before any migration changes; do not rename, reorder, or rerun migrations blindly. |
 | Moderator permissions and confidential report access | In progress | Existing moderator controls have owner-reported successful tests; still verify authenticated moderator access and confidential report visibility as specified in app TODO. |
 | Privacy policy, terms, community guidelines and consent | Open | Track against Issue #18; verify the published versions are accessible in the app. |
 | Data collection, retention, export/deletion and sensitive wellness data | Open | Document what is collected, who can access it, retention/deletion process, and keep private wellness/journal data out of public feeds and AI requests unless separately reviewed and consented. |
@@ -68,3 +68,5 @@ Do not mark either product publicly launch-ready until its own checks above have
 
 ## Working rule
 Keep detailed engineering work in each product's existing repository and issue tracker. This document is the shared owner-facing index; it links to existing tasks rather than replacing them or creating duplicate engineering issues. Record the test date, environment, account role used, result, and any follow-up issue before changing a status to Verified.
+
+**Database audit note — November 26, 2026:** Repository SQL was reviewed read-only. No database statements were run and no Supabase settings or migrations were changed. Source review found a migration-number collision: 005_auto_create_member_profiles.sql and 005_topic_based_member_chat_rooms.sql. Confirm the target project's migration history before applying or changing either file. Live RLS verification remains open.
