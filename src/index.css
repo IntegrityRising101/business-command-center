@@ -186,3 +186,9 @@ body{background:radial-gradient(ellipse at top right,#1d3152,#0b1424 58%);color:
 .bot-memory-item strong{color:#e6d39c;font-size:11px}.bot-memory-item p{margin:5px 0}.bot-memory-item small{font-size:10px;color:#aab6c9}.bot-memory-item>div:last-child{display:flex;gap:6px;flex-wrap:wrap}
 @media(max-width:560px){.bot-chat-tabs{display:grid;grid-template-columns:1fr}.bot-chat-tabs button{width:100%}.bot-chat-message{max-width:100%}.bot-chat-compose>div{align-items:stretch;flex-direction:column}.bot-chat-compose small{max-width:none}.bot-chat-compose button{width:100%}.bot-memory-item{flex-direction:column}.bot-memory-item>div:last-child{width:100%}.bot-memory-item button{flex:1}}
 \n.docbot-upload-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.docbot-target-label{display:flex;flex-direction:column;gap:6px;max-width:360px;margin:12px 0;color:#e8edf5;font-size:13px}.docbot-target-label select,.document-actions select{background:#172943;color:#e8edf5;border:1px solid #52617b;border-radius:7px;padding:9px;max-width:100%}.document-actions select{font-size:12px;min-width:130px}.document-upload-button{margin-top:8px}\n
+
+/* Integrity Rising AI Bot Squad portrait sprite */
+.bot-avatar-art{background-repeat:no-repeat;background-size:300% 300%;background-color:#061b25!important;border:2px solid #d8ad48!important;overflow:hidden;background-position:0 0;}
+.bot-card .bot-avatar-art{width:58px;height:58px;border-radius:16px;}
+.bot-workspace-heading .bot-avatar-art{width:66px;height:66px;border-radius:18px;flex:0 0 auto;}
+.bot-original-art img{display:block;width:100%;max-width:720px;max-height:520px;object-fit:contain;margin:0 auto;border-radius:18px;border:1px solid #8a7446;}
