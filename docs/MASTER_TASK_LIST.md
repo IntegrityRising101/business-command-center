@@ -13,6 +13,22 @@ This is the central owner-facing task list for Integrity Rising. Keep completed 
 - Ask the owner before spending, paid activation, external communication, sharing files, security/permission changes, major data/schema changes, or significant publishing/deployment.
 - Program Manager Bot may only auto-fix clearly low-risk issues; it must log and test repairs, and stop if uncertain.
 
+## Free-first development policy — owner approved November 25, 2026
+
+- Keep Business Command Center development at **$0 whenever practical** until the business earns revenue.
+- Do not purchase API credits, subscriptions, paid integrations, upgrades, or services without the owner's explicit approval.
+- Prefer existing code, free/open-source tools, and transparent rule-based automation for core workflows.
+- Keep paid AI integration dormant/optional until the owner chooses to fund it. Do not make core task, document, deadline, or reporting workflows depend on paid AI.
+- Clearly label any feature that would incur a cost before enabling it; never imply that a free trial or free tier is guaranteed to remain free.
+- Protect the existing Wellness & Growth App setup; keep Business Command Center credentials and projects separate.
+
+### Free-first implementation priorities
+- [ ] Keep all nine bot workspaces useful with transparent rule-based reports and saved task data.
+- [ ] Improve task assignment, deadline tracking, document organization, and progress reporting without paid AI.
+- [ ] Verify bot reports and task actions persist after refresh.
+- [ ] Add clear status messaging when optional paid AI is unavailable, without blocking core app features.
+- [ ] Review all planned integrations for cost before implementation.
+
 ## Priority dashboard
 
 | Priority | Workstream | Current focus |
@@ -315,10 +331,11 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - Mobile Bot Team layout remains pending until the owner has mobile access.
 \n\n### November 25, 2026 — Doc Bot filing assistant implementation\n- [x] Added Doc Bot upload sorting based on filename keywords and file type; uncertain matches route to **Needs Review**. This is a transparent rule-based MVP, not document-content AI.\n- [x] Added owner override options to keep uploads in the current folder or choose a specific standard folder.\n- [x] Added an explicit per-file **Move to folder** control for existing files.\n- [x] Documented privacy and safety boundaries: no content inspection, external AI transfer, automatic deletion, or automatic movement of existing files.\n- [x] Added the Doc Bot filing specification and live verification checklist.\n- [ ] Wait for GitHub Pages deployment, then test auto-sort, manual destination, and move behavior with sample files.\n
 
-### November 25, 2026 — Live GPT chat integration
-- [x] Replaced local rule-based starter replies with secure Supabase Edge Function invocation.
-- [x] Added GPT function with signed-in user verification, conversation ownership checks, RLS-scoped history and owner-approved memory context.
-- [x] Added bot-specific guidance and default model `gpt-4o-mini`.
-- [x] Documented API-key security, separate API billing, privacy, deployment and verification.
-- [ ] Deploy `gpt-chat` to Supabase and add `OPENAI_API_KEY` as a Function secret.
-- [ ] Test live replies, follow-ups, memory, persistence and cross-account isolation.
+### November 25–26, 2026 — Optional GPT chat integration (blocked by API quota)
+- [x] Added the OpenAI API key as a Supabase Edge Function secret; the secret name is `OPENAI_API_KEY`. Never store the key in source code or GitHub.
+- [x] Tested the Edge Function and inspected its runtime logs.
+- [x] Confirmed the initial invalid-key error was caused by a Supabase publishable key being used in place of an OpenAI key; the replacement key passed authentication.
+- [x] Confirmed the current OpenAI API project has no remaining credits (`insufficient_quota`). No credits were purchased.
+- [ ] Reconcile the deployed function's display name and actual Invoke URL (recent logs show requests to `/functions/v1/super-api`; do not assume the endpoint is `/gpt-chat`).
+- [ ] Keep paid GPT responses optional and non-blocking; use rule-based bot workspaces while API quota is unavailable.
+- [ ] Only after the owner explicitly approves spending and API quota is available, test live replies, follow-ups, memory, persistence and cross-account isolation.
