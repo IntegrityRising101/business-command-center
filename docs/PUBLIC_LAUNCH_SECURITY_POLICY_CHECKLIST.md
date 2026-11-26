@@ -7,6 +7,7 @@
 
 ## Status rules
 - **Verified:** The exact control was tested on the live or designated test system and evidence/date are recorded.
+- **Owner-confirmed complete:** The owner has confirmed the work is complete. Do not ask the owner to repeat it; retain any separate evidence/reconciliation work that remains.
 - **In progress:** Work or review has started, but verification is incomplete.
 - **Open:** Not yet verified.
 - **Owner approval required:** Do not publish or deploy a significant change without the owner's approval.
@@ -26,7 +27,7 @@ A successful GitHub build or deployment is not proof of database security, priva
 
 | Check | Current status | Evidence / next action |
 |---|---|---|
-| Account access, authentication, registration, sign-in/out and password recovery | In progress | Recovery code exists; verify Supabase URL allowlist, GitHub Actions secrets presence, and full test-account journey. Never expose secret values. |
+| Account access, authentication, registration, sign-in/out and password recovery | Owner-confirmed complete — November 26, 2026 | Owner confirmed the Wellness & Growth App account access/authentication work is finished. Do not ask for repeat testing. Reconcile related tracker issues separately; this owner confirmation does not certify unrelated security controls. |
 | Supabase RLS and member-to-member data isolation | Open | Test with separate member accounts and moderator account; inspect policies and confirm private records cannot cross accounts. |
 | Moderator permissions and confidential report access | In progress | Existing moderator controls have owner-reported successful tests; still verify authenticated moderator access and confidential report visibility as specified in app TODO. |
 | Privacy policy, terms, community guidelines and consent | Open | Track against Issue #18; verify the published versions are accessible in the app. |
