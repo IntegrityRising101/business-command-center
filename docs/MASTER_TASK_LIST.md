@@ -339,3 +339,17 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - [ ] Reconcile the deployed function's display name and actual Invoke URL (recent logs show requests to `/functions/v1/super-api`; do not assume the endpoint is `/gpt-chat`).
 - [ ] Keep paid GPT responses optional and non-blocking; use rule-based bot workspaces while API quota is unavailable.
 - [ ] Only after the owner explicitly approves spending and API quota is available, test live replies, follow-ups, memory, persistence and cross-account isolation.
+
+
+### November 26, 2026 — Social Media Manager Bot approved plan
+- [x] Recorded the owner's selected platforms: Facebook, Instagram, LinkedIn, TikTok, YouTube, and X.
+- [x] Created the integration, security, content lifecycle, approval, and phased rollout specification at `docs/social-media/SOCIAL_MEDIA_MANAGER_BOT_SPEC.md`.
+- [x] Created GitHub issue #40 to track implementation: https://github.com/IntegrityRising101/business-command-center/issues/40.
+- [ ] Build the Social Media Manager Bot workspace, campaign library, content calendar, platform-specific previews, and copy/export workflow.
+- [ ] Build the owner approval queue, exact-version approval snapshots, audit history, and pause/cancel controls.
+- [ ] Verify official API access, current platform requirements, costs, and app-review needs before connecting accounts.
+- [ ] Implement secure server-side OAuth/token storage and per-platform connection status.
+- [ ] Implement and test approved publishing one platform at a time; do not enable publishing before authorization, owner approval, and test verification.
+- [ ] Add authorized analytics imports and weekly performance reporting.
+
+**Guardrails:** $0-first; no paid integrations or ads without explicit approval. All platforms begin Not Connected; publishing is disabled; every post requires owner approval. Sensitive DV/survivor, health, recovery, legal/financial, personal-data, crisis, and fundraising content requires fresh owner review. Replies and DMs remain drafts; no autonomous moderation, deletion, or commitments.
