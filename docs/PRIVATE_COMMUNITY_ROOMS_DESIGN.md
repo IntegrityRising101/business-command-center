@@ -110,7 +110,7 @@ Record date, environment, test identity/role, expected result, actual result, an
 ## 7. Rollout sequence
 
 1. Inspect current live room rows, full table constraints, grants, triggers, policies, realtime configuration, and app queries.
-2. Resolve the repository's duplicate migration number 005 and confirm the target project's migration history. Do not reorder or rerun migrations blindly.
+2. Resolve both repository migration-number collisions: `005_auto_create_member_profiles.sql` and `005_topic_based_member_chat_rooms.sql` share `005`; `008_community_chat_rooms.sql` and `008_security_hardening.sql` share `008`. Inspect dependency comments and actual target-project migration history before proposing a safe canonical sequence. Do not rename, reorder, or rerun migrations blindly. The migration-history queries previously run in Supabase did not expose the checked `supabase_migrations.schema_migrations` table, so the live history remains unresolved.
 3. Finalize the schema and RLS design, including moderator membership-management authority and delete behavior.
 4. Review the exact migration and policy SQL with the owner.
 5. Obtain explicit owner approval before applying any database migration or policy change.
