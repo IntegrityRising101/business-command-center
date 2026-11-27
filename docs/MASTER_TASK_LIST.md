@@ -331,14 +331,22 @@ This is a low-traffic baseline; percentages can swing sharply with a small numbe
 - Mobile Bot Team layout remains pending until the owner has mobile access.
 \n\n### November 25, 2026 — Doc Bot filing assistant implementation\n- [x] Added Doc Bot upload sorting based on filename keywords and file type; uncertain matches route to **Needs Review**. This is a transparent rule-based MVP, not document-content AI.\n- [x] Added owner override options to keep uploads in the current folder or choose a specific standard folder.\n- [x] Added an explicit per-file **Move to folder** control for existing files.\n- [x] Documented privacy and safety boundaries: no content inspection, external AI transfer, automatic deletion, or automatic movement of existing files.\n- [x] Added the Doc Bot filing specification and live verification checklist.\n- [ ] Wait for GitHub Pages deployment, then test auto-sort, manual destination, and move behavior with sample files.\n
 
-### November 25–26, 2026 — Optional GPT chat integration (blocked by API quota)
-- [x] Added the OpenAI API key as a Supabase Edge Function secret; the secret name is `OPENAI_API_KEY`. Never store the key in source code or GitHub.
-- [x] Tested the Edge Function and inspected its runtime logs.
-- [x] Confirmed the initial invalid-key error was caused by a Supabase publishable key being used in place of an OpenAI key; the replacement key passed authentication.
-- [x] Confirmed the current OpenAI API project has no remaining credits (`insufficient_quota`). No credits were purchased.
-- [ ] Reconcile the deployed function's display name and actual Invoke URL (recent logs show requests to `/functions/v1/super-api`; do not assume the endpoint is `/gpt-chat`).
-- [ ] Keep paid GPT responses optional and non-blocking; use rule-based bot workspaces while API quota is unavailable.
-- [ ] Only after the owner explicitly approves spending and API quota is available, test live replies, follow-ups, memory, persistence and cross-account isolation.
+### November 25–27, 2026 — Gemini-only bot chat integration
+
+- [x] Confirmed the app invokes the Supabase Edge Function named `gpt-chat`.
+- [x] Confirmed the repository's `gpt-chat` function already calls Google Gemini; it does not call OpenAI.
+- [x] Confirmed the previous `/functions/v1/super-api` log entries do not match the endpoint invoked by the current repository's BotChat component. The deployed endpoint still needs live verification.
+- [x] Updated the Edge Function to use Supabase's automatically injected `SUPABASE_URL` and default `SUPABASE_PUBLISHABLE_KEYS` rather than a hardcoded project URL.
+- [x] Added individual specialties for all nine current bots and Team Inbox.
+- [x] Added a clear Gemini free-tier quota message; no paid fallback is configured.
+- [x] Replaced the outdated OpenAI setup guide with Gemini-only deployment and security instructions.
+- [ ] Add `GEMINI_API_KEY` to the Business Command Center Supabase Function Secrets if it is not already present. Never put the value in GitHub or browser code.
+- [ ] Deploy `gpt-chat` to the Business Command Center Supabase project. GitHub Pages deployment does not deploy Edge Functions.
+- [ ] Verify live logs show `/functions/v1/gpt-chat`, not `/functions/v1/super-api`.
+- [ ] Test all nine specialist chats, Team Inbox, chat persistence, approved-memory handling, free-tier quota messaging, and cross-account isolation.
+- [ ] Keep rule-based bot workspace reports available when Gemini is unavailable.
+
+**Cost guardrail:** Gemini free-tier only. No OpenAI, no paid fallback, no purchase, and no billing changes. Supabase keys remain platform-injected; the Gemini key remains server-side in Supabase Function Secrets.
 
 
 ### November 26, 2026 — Social Media Manager Bot approved plan
