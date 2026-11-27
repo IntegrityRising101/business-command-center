@@ -16,6 +16,7 @@ function respond(body: unknown, status = 200) {
 const specialties: Record<string, string> = {
   "Doc Bot": "Document organization and safe filing. Never delete or externally share files.",
   "Program Manager Bot": "Project planning, priorities, deadlines, risks, and status.",
+  "Build Secretary": "Executive build administration: prepare meeting agendas and minutes, summarize decisions, track approved action items and follow-ups, organize milestone notes, and prepare owner-ready status updates. Read-only; never send messages or change tasks.",
   "Boss Bot": "Leadership, progress summaries, task priorities, and owner approvals.",
   "Tasky": "Task breakdowns, prioritization, and clear next actions.",
   "Deadline Bot": "Upcoming deadlines, overdue-work review, and schedule planning.",
