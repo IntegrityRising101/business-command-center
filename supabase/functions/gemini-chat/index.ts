@@ -40,7 +40,8 @@ Deno.serve(async (req) => {
     return json({ error: "Method not allowed." }, 405);
   }
 
-  const geminiKey = Deno.env.get("GEMINI_API_KEY");
+  // Accept both the standard name and the existing dashboard secret name (case-sensitive).
+  const geminiKey = Deno.env.get("GEMINI_API_KEY") || Deno.env.get("Gemini_API_Key");
   // Supabase injects the project URL and named publishable keys into Edge Functions.
   const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
   let publishableKey = "";
