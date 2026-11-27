@@ -66,18 +66,18 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     if(memError)throw memError;
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
-   setNotice('AI is generating a response…');
-   const {data:gptData,error:gptError}=await supabase.functions.invoke('gpt-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
-   if(gptError)throw new Error(gptData?.error||gptError.message||'AI connection failed.');
-   if(gptData?.error)throw new Error(gptData.error);
-   const response=String(gptData?.reply||'').trim();
-   if(!response)throw new Error('GPT returned an empty response. Please try again.');
-   const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:currentName===TEAM?'AI · Team Coordinator':'AI · '+currentName,body:response}).select().single();
+   setNotice('Gemini is generating a response…');
+   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gpt-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
+   if(geminiError)throw new Error(geminiData?.error||geminiError.message||'Gemini connection failed.');
+   if(geminiData?.error)throw new Error(geminiData.error);
+   const response=String(geminiData?.reply||'').trim();
+   if(!response)throw new Error('Gemini returned an empty response. Please try again.');
+   const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:currentName===TEAM?'Gemini · Team Coordinator':'Gemini · '+currentName,body:response}).select().single();
    if(botError)throw botError;
    setMessages(prev=>[...prev,botMessage]);
    await supabase.from('bot_conversations').update({updated_at:new Date().toISOString()}).eq('id',thread.id).eq('user_id',userId);
    setConversations(prev=>prev.map(c=>c.id===thread.id?{...c,updated_at:new Date().toISOString()}:c));
-   setRemember(false);setNotice('AI response received and saved to your private conversation.');
+   setRemember(false);setNotice('Gemini response received and saved to your private conversation.');
   }catch(err){setNotice('Message was not fully saved: '+(err.message||'Please try again.'))}
   finally{setBusy(false)}
  };
