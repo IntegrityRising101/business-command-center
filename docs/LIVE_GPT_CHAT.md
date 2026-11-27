@@ -1,53 +1,70 @@
 # Gemini Chat (Free-Tier Setup)
 
-The Business Command Center chat uses **Google Gemini only**. There is no OpenAI dependency and no paid fallback. The nine Bot Team workspaces still have their rule-based reports if Gemini is unavailable or its free quota is reached.
+The Business Command Center's live bot chat uses **Google Gemini only**. There is no OpenAI dependency and no paid fallback. The rule-based bot workspace reports remain available if Gemini is unavailable or its free quota is reached.
 
-## What the code currently uses
+## One source of truth — current implementation
 
-- Frontend invokes the existing Supabase Edge Function named `gpt-chat` from `src/components/BotChat.jsx`. The function slug is retained for compatibility; it does not mean the provider is GPT.
-- Server function: `supabase/functions/gpt-chat/index.ts`.
-- Provider: Gemini API, using `GEMINI_API_KEY` as a server-side Supabase Function Secret.
-- Default model: `gemini-3.5-flash-lite`. The model can be overridden with `GEMINI_MODEL`, but do not choose a paid-only model.
-- Supabase automatically supplies `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEYS`; the function reads the `default` publishable key and uses the signed-in user's bearer token so Row Level Security remains in effect. It does not fall back to deprecated `SUPABASE_ANON_KEY`; if the publishable-key map is unavailable, the function returns a configuration error.
+- Frontend: `src/components/BotChat.jsx`.
+- Frontend function call: `supabase.functions.invoke('gemini-chat', ...)`.
+- Edge Function source: `supabase/functions/gemini-chat/index.ts`.
+- Required function slug: **`gemini-chat`**.
+- Provider: Google Gemini API.
+- Secret accepted by the current function: **`GEMINI_API_KEY`** (preferred) or the existing case-sensitive legacy name `Gemini_API_Key`.
+- Default model in the current source: `gemini-3.5-flash-lite`; it can be overridden by `GEMINI_MODEL`.
 
-## Configure the secret
+Do not create another function named `super-api` or `gpt-chat` for this current implementation. The current BotChat component does not call either endpoint. A log entry for `/functions/v1/super-api` is from a different/older caller or a manual request; it does not show that `gemini-chat` was reached.
 
-In the Supabase Dashboard for the **Business Command Center's own Supabase project**:
+## Authentication flow
 
-1. Open **Edge Functions → Secrets**.
-2. Add a secret named `GEMINI_API_KEY`.
-3. Paste the Gemini API key as its value and save.
-4. Do not put the key in GitHub, React/Vite code, a public website, or a chat message.
+The browser must have an active Supabase user session. BotChat obtains the current session access token and sends it as:
 
-No user-created `SUPABASE_*` secret is needed. Supabase reserves that prefix and injects its own project URL and API key variables.
+```http
+Authorization: Bearer <signed-in-user-access-token>
+```
+
+The function validates that token with Supabase Auth, checks that the conversation belongs to that user, and queries only that user's chat history and approved memories. Never use the publishable/anon API key as the bearer token. The publishable key belongs in the `apikey` header; the user JWT belongs in `Authorization`.
+
+## Configure the Gemini secret
+
+In the **Business Command Center's own Supabase project** → **Edge Functions** → **Secrets**:
+
+1. Keep one Gemini key secret named `GEMINI_API_KEY` (recommended). The current code also supports `Gemini_API_Key` for backward compatibility.
+2. Store the Gemini key as the secret value. Never put it in GitHub source, Vite/browser code, a public website, or chat.
+3. Do not create user-defined `SUPABASE_*` secrets. Supabase provides the project URL and API-key environment values to Edge Functions.
+
+The function uses `SUPABASE_URL` and the Supabase publishable-key map, with a legacy anon-key fallback in the current source.
 
 ## Deploy the Edge Function
 
-From the repository root, after linking the Supabase CLI to the Business Command Center project:
+Deploy the function separately from GitHub Pages. GitHub Pages builds/deploys the browser app; it does **not** deploy Supabase Edge Functions.
+
+From the repository root, linked to the correct Business Command Center Supabase project:
 
 ```bash
-supabase functions deploy gpt-chat
+supabase functions deploy gemini-chat
 ```
 
-GitHub Pages deployment does **not** deploy Supabase Edge Functions. Deploying this function is a separate step. The app invokes `/functions/v1/gpt-chat`; older logs showing `/functions/v1/super-api` indicate a different or older deployed endpoint and do not prove this function was called.
+Do not deploy `gpt-chat` or `super-api` for the current frontend source.
 
-## Free-tier and privacy behavior
+## Interpret errors correctly
 
-- Gemini free-tier access is subject to model availability, rate limits, and daily quotas. It is not unlimited.
-- When Gemini returns HTTP 429, the app should show a clear quota message. It must not switch to OpenAI or any paid provider.
-- The function reads only the signed-in owner's conversation and approved memory, checks conversation ownership, and uses the user's authorization token with Supabase Row Level Security.
-- Pending memory suggestions are not sent as approved memory context.
-- The function has no tools to move files, change tasks, publish, send email, spend money, change permissions, or deploy code.
-- Avoid placing highly sensitive personal or health information in AI chats.
+- `GET /functions/v1/super-api` is not the current BotChat request. The current BotChat call is a **POST** to `/functions/v1/gemini-chat`.
+- `Please sign in again.` is returned when the function handler receives no `Authorization: Bearer ...` header.
+- `Sign-in could not be verified.` means the supplied bearer token could not be validated by Supabase Auth.
+- `Conversation not found or access denied.` means the conversation ID is not owned by the authenticated user, or the row is not visible under RLS.
+- `AI service configuration is incomplete.` is a function-secret/environment configuration problem, not a sign-in problem.
+- HTTP 429 from Gemini means its free-tier quota/rate limit has been reached. There is no paid AI fallback.
 
 ## Verification checklist
 
-- [ ] Confirm `GEMINI_API_KEY` exists in the Business Command Center Supabase project's Function Secrets (never reveal its value).
-- [ ] Deploy `gpt-chat` to that same project.
-- [ ] Confirm the live app request and Supabase logs show `/functions/v1/gpt-chat`, not the old `super-api` endpoint.
-- [ ] Test one signed-in message in each of the nine bot chats and in Team Inbox.
-- [ ] Confirm each bot responds with its own specialty.
-- [ ] Refresh and confirm chat history persists.
+- [ ] Confirm the live app is the latest build containing the `gemini-chat` invocation.
+- [ ] Confirm `gemini-chat` is deployed in the same Supabase project whose URL is used by the app.
+- [ ] Confirm a signed-in message creates a **POST** request to `/functions/v1/gemini-chat`, not `super-api`.
+- [ ] Confirm the request carries the signed-in user's access token in the Authorization bearer header.
+- [ ] Test one signed-in message in each bot chat and Team Inbox.
+- [ ] Refresh and confirm conversation history persists.
 - [ ] Confirm pending memory is excluded and approved memory is included.
 - [ ] Test Gemini quota/error handling and cross-account isolation.
 - [ ] Confirm rule-based workspace reports remain available when Gemini is unavailable.
+
+Do not expose API keys, access tokens, or full Authorization headers in screenshots, logs, issues, or chat.
