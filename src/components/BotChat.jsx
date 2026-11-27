@@ -67,7 +67,12 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
    setNotice('Gemini is generating a response…');
-   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gemini-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
+   const {data:{session},error:sessionError}=await supabase.auth.getSession();
+   if(sessionError||!session?.access_token)throw new Error('Your sign-in session has expired. Please sign out and sign back in.');
+   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gemini-chat',{
+    body:{conversation_id:thread.id,bot_name:currentName},
+    headers:{Authorization:`Bearer ${session.access_token}`}
+   });
    if(geminiError)throw new Error(geminiData?.error||geminiError.message||'Gemini connection failed.');
    if(geminiData?.error)throw new Error(geminiData.error);
    const response=String(geminiData?.reply||'').trim();
