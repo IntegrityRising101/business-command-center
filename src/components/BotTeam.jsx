@@ -11,7 +11,8 @@ const bots=[
  {name:'Maily',emoji:'💌',role:'Outreach assistant',description:'Creates editable email drafts for your review. It never sends messages.',focus:'Email drafts',color:'gold',responsibilities:['Prepare a reusable outreach draft','Keep tone professional and human','Require owner approval before any sending integration'],assignment:'Email workspace'},
  {name:'Cheer Bot',emoji:'🎉',role:'Celebration captain',description:'Creates a personal celebration for each completed task using its title and project, then adds the message to the Wall of Wins.',focus:'Wall of wins',color:'teal',responsibilities:['Celebrate completed tasks','Show recorded wins','Encourage progress, not perfection'],assignment:'Completed tasks and daily log'},
  {name:'Program Manager Bot',emoji:'🛠️',role:'Software project manager',description:'Reviews software-related tasks, testing needs, and release risks. It proposes fixes but does not change code or deploy.',focus:'Build and release health',color:'blue',responsibilities:['Triage software and testing tasks','Identify release blockers and missing checks','Request approval before risky changes or deployment'],assignment:'Software and app work'},
- {name:'Build Secretary',emoji:'🗂️',role:'Executive build secretary',description:'Keeps build work organized with meeting notes, decision records, action-item follow-ups, milestone summaries, and owner-ready status updates.',focus:'Build records and follow-ups',color:'gold',responsibilities:['Prepare build meeting agendas and concise progress notes','Track decisions, action items, owners, and due dates from approved task data','Prepare follow-up reminders and owner-ready status summaries','Keep records organized; never send messages or change tasks without approval'],assignment:'Build notes, decisions, and follow-up tasks'}
+ {name:'Build Secretary',emoji:'🗂️',role:'Executive build secretary',description:'Keeps build work organized with meeting notes, decision records, action-item follow-ups, milestone summaries, and owner-ready status updates.',focus:'Build records and follow-ups',color:'gold',responsibilities:['Prepare build meeting agendas and concise progress notes','Track decisions, action items, owners, and due dates from approved task data','Prepare follow-up reminders and owner-ready status summaries','Keep records organized; never send messages or change tasks without approval'],assignment:'Build notes, decisions, and follow-up tasks'},
+ {name:'Secretary Bot',emoji:'🗂️',role:'Verified reporting secretary',description:'Prepares daily and weekly accomplishment reports from saved task records, flags missing completion evidence, and keeps owner-ready updates organized.',focus:'Verified reports',color:'gold',responsibilities:['Report completed tasks only when a saved completion timestamp exists','Flag Done tasks with missing timestamps for owner verification','Separate in-progress, overdue, approval, and unassigned work','Prepare report summaries without sending messages or changing records'],assignment:'Owner Office reports'}
 ];
 
 const botPortraitStyle=index=>({backgroundImage:"url('/business-command-center/images/bot-squad-portraits.svg')",backgroundSize:'300% 300%',backgroundPosition:`${(index%3)*50}% ${Math.floor((index%9)/3)*50}%`});
@@ -50,6 +51,7 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
    if(bot.name==='Brainy')return tasks;
    if(bot.name==='Maily')return tasks.filter(t=>includes(t,/email|gmail|outreach|customer/i));
    if(bot.name==='Build Secretary')return tasks.filter(t=>includes(t,/build|meeting|agenda|minutes|decision|action item|follow.?up|status report|milestone|release|launch|documentation/i));
+   if(bot.name==='Secretary Bot')return tasks;
    return done;
  };
 
@@ -61,6 +63,13 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
    const missingOwner=botOpen.filter(t=>!t.assigned_to);
    let lines=[];
    switch(bot.name){
+    case 'Secretary Bot': {
+      const verified=tasks.filter(t=>t.status==='Done'&&t.completed_at);
+      const needsReview=tasks.filter(t=>t.status==='Done'&&!t.completed_at);
+      const lastSeven=Date.now()-7*24*60*60*1000;
+      const weekly=verified.filter(t=>Date.parse(t.completed_at)>=lastSeven);
+      lines=['SECRETARY BOT · VERIFIED ADMINISTRATIVE REPORT',`Verified completed tasks on record: ${verified.length}`,`Verified completions in the last 7 days: ${weekly.length}`,`Marked Done but missing completion timestamp: ${needsReview.length}`,`Open work: ${open.length} · Overdue: ${overdue.length} · Owner approvals: ${approvalNeeded}`,'Verified recent completions:',...(weekly.length?weekly.slice(0,8).map(t=>`• ${t.title} — ${t.category||'General'} · ${t.assigned_to||'No assignee'} · ${t.completed_at}`):['No verified completions in the last 7 days.']),'Verification queue:',...(needsReview.length?needsReview.slice(0,8).map(t=>`• ${t.title} — completion date needs owner verification`):['No missing completion timestamps found.']),'This report uses saved task records only. It does not invent completion dates, evidence, approvals, or deliverables.'];break;
+    }
     case 'Boss Bot': {
       const top=[...open].sort((a,b)=>priorityRank(a)-priorityRank(b)||(a.due_date||'9999').localeCompare(b.due_date||'9999')).slice(0,3);
       lines=['OWNER BRIEFING',`Open tasks: ${open.length} · Completed: ${done.length} · Overdue: ${overdue.length}`,`Owner approvals flagged: ${approvalNeeded} · Unassigned open tasks: ${unassigned}`,'Top priorities:',...(top.length?top.map((t,i)=>`${i+1}. ${t.title} — ${t.priority||'normal'} · ${dueLabel(t)}`):['No open tasks right now.']),'Recommended owner action: review the highest-priority item and confirm its next step.'];break;
