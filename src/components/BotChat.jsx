@@ -67,7 +67,7 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
    setNotice('Gemini is generating a response…');
-   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gpt-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
+   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gemini-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
    if(geminiError)throw new Error(geminiData?.error||geminiError.message||'Gemini connection failed.');
    if(geminiData?.error)throw new Error(geminiData.error);
    const response=String(geminiData?.reply||'').trim();
