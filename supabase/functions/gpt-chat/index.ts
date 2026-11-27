@@ -47,11 +47,8 @@ Deno.serve(async (req) => {
   try {
     const keyMap = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}");
     publishableKey = keyMap.default || "";
-  } catch {
-    publishableKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
-  }
-  if (!publishableKey) {
-    publishableKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
+  } catch (error) {
+    console.error("Could not read SUPABASE_PUBLISHABLE_KEYS:", error);
   }
 
   if (!geminiKey || !supabaseUrl || !publishableKey) {
