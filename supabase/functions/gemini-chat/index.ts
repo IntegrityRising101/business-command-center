@@ -50,6 +50,10 @@ Deno.serve(async (req) => {
   } catch (error) {
     console.error("Could not read SUPABASE_PUBLISHABLE_KEYS:", error);
   }
+  // Backward-compatible fallback for projects that still expose the legacy anon key.
+  if (!publishableKey) {
+    publishableKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
+  }
 
   if (!geminiKey || !supabaseUrl || !publishableKey) {
     console.error("Function configuration missing:", {
@@ -106,7 +110,7 @@ Deno.serve(async (req) => {
       .select("sender_type, body")
       .eq("conversation_id", payload.conversation_id)
       .eq("user_id", userId)
-      .order("created_at", { ascending: true })
+      .order("created_at", { ascending: false })
       .limit(24),
     db.from("bot_memories")
       .select("content")
@@ -125,7 +129,8 @@ Deno.serve(async (req) => {
     return json({ error: "Could not load private chat context." }, 500);
   }
 
-  const contents = (history.data || []).map((message) => ({
+  // Fetch the newest 24 messages efficiently, then restore chronological order for Gemini.
+  const contents = [...(history.data || [])].reverse().map((message) => ({
     role: message.sender_type === "owner" ? "user" : "model",
     parts: [{ text: String(message.body || "").slice(0, 12000) }],
   }));
