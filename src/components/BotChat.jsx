@@ -76,7 +76,11 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     body:{conversation_id:thread.id,bot_name:respondingBot},
     headers:{Authorization:`Bearer ${session.access_token}`}
    });
-   if(geminiError)throw new Error(geminiData?.error||geminiError.message||'Gemini connection failed.');
+   if(geminiError){
+    let functionMessage=geminiData?.error;
+    try{if(!functionMessage&&geminiError.context?.json){const detail=await geminiError.context.clone().json();functionMessage=detail?.error;}}catch{}
+    throw new Error(functionMessage||geminiError.message||'Gemini connection failed.');
+   }
    if(geminiData?.error)throw new Error(geminiData.error);
    const response=String(geminiData?.reply||'').trim();
    if(!response)throw new Error('Gemini returned an empty response. Please try again.');
