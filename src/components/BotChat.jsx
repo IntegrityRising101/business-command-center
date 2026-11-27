@@ -78,7 +78,16 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
    });
    if(geminiError){
     let functionMessage=geminiData?.error;
-    try{if(!functionMessage&&geminiError.context?.json){const detail=await geminiError.context.clone().json();functionMessage=detail?.error;}}catch{}
+    try{
+     const context=geminiError.context;
+     if(!functionMessage&&context&&typeof context.clone==='function'){
+      const detail=await context.clone().json();
+      functionMessage=detail?.error||detail?.message;
+     }
+    }catch{}
+    if(!functionMessage&&/failed to send a request|failed to fetch|networkerror|load failed/i.test(geminiError.message||'')){
+     throw new Error('The Supabase integrity-bot-chat function could not be reached. Check GitHub Actions → Deploy Integrity Bot Chat and confirm the latest deployment succeeded.');
+    }
     throw new Error(functionMessage||geminiError.message||'Gemini connection failed.');
    }
    if(geminiData?.error)throw new Error(geminiData.error);
