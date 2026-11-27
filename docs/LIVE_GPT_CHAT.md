@@ -8,7 +8,7 @@ The Business Command Center chat uses **Google Gemini only**. There is no OpenAI
 - Server function: `supabase/functions/gpt-chat/index.ts`.
 - Provider: Gemini API, using `GEMINI_API_KEY` as a server-side Supabase Function Secret.
 - Default model: `gemini-3.5-flash-lite`. The model can be overridden with `GEMINI_MODEL`, but do not choose a paid-only model.
-- Supabase automatically supplies `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEYS`; the function reads the `default` publishable key and uses the signed-in user's bearer token so Row Level Security remains in effect.
+- Supabase automatically supplies `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEYS`; the function reads the `default` publishable key and uses the signed-in user's bearer token so Row Level Security remains in effect. It does not fall back to deprecated `SUPABASE_ANON_KEY`; if the publishable-key map is unavailable, the function returns a configuration error.
 
 ## Configure the secret
 
