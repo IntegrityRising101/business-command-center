@@ -72,7 +72,7 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
    const respondingBot=currentName===TEAM&&recipient!=='Whole team'?recipient:currentName;
    const {data:{session},error:sessionError}=await supabase.auth.getSession();
    if(sessionError||!session?.access_token)throw new Error('Your sign-in session has expired. Please sign out and sign back in.');
-   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gemini-chat',{
+   const {data:geminiData,error:geminiError}=await supabase.functions.invoke('integrity-bot-chat',{
     body:{conversation_id:thread.id,bot_name:respondingBot},
     headers:{Authorization:`Bearer ${session.access_token}`}
    });
