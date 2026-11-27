@@ -35,9 +35,11 @@ Deno.serve(async (req) => {
   }
 
   const geminiKey = Deno.env.get("GEMINI_API_KEY");
-  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  // APP_SUPABASE_URL is an optional project-specific fallback. SUPABASE_URL is provided by Supabase Edge Functions.
+  const supabaseUrl = Deno.env.get("APP_SUPABASE_URL") || Deno.env.get("SUPABASE_URL") || "https://hdbmdhhfaeuszylarfkk.supabase.co";
 
-  let publishableKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
+  // User-created secrets cannot use the reserved SUPABASE_ prefix.
+  let publishableKey = Deno.env.get("APP_SUPABASE_KEY") || Deno.env.get("SUPABASE_ANON_KEY") || "";
   if (!publishableKey) {
     try {
       const keyMap = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}");
