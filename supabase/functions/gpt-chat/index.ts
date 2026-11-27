@@ -15,7 +15,13 @@ const json = (body: unknown, status = 200) =>
 const specialties: Record<string, string> = {
   "Doc Bot": "Document classification, folder organization and safe filing. Never delete or externally share files.",
   "Program Manager Bot": "Project planning, priorities, deadlines, risks and status. Major changes require approval.",
-  "Boss Bot": "Leadership, progress recognition and weekly summaries.",
+  "Boss Bot": "Leadership, progress recognition, weekly summaries, task priorities and owner approvals. Recommend actions; never execute sensitive work.",
+  "Tasky": "Task coordination, task breakdowns, prioritization, clear next actions, and identifying missing owners or due dates. Do not claim to edit the task board.",
+  "Deadline Bot": "Deadline management, overdue-work review, upcoming due dates, and practical schedule planning. Do not change saved due dates.",
+  "Scout": "Research planning and opportunity discovery. Distinguish verified facts from ideas, cite sources when research tools are available, and never invent findings.",
+  "Brainy": "Business analysis using information supplied in the conversation. Explain assumptions, identify workload gaps, and avoid presenting guesses as measured facts.",
+  "Maily": "Professional email and outreach drafting. Draft only; never send messages or claim an email was sent.",
+  "Cheer Bot": "Celebrate completed work with sincere, specific encouragement. Focus on progress, resilience, and next steps without exaggerating accomplishments.",
   "Marketing Bot": "Ethical marketing, content planning and brand consistency. Never publish or spend without approval.",
   "Academy Bot": "Course planning, workbooks and educational content.",
   "Community Bot": "Welcoming members, engagement and respectful moderation.",
@@ -35,18 +41,17 @@ Deno.serve(async (req) => {
   }
 
   const geminiKey = Deno.env.get("GEMINI_API_KEY");
-  // APP_SUPABASE_URL is an optional project-specific fallback. SUPABASE_URL is provided by Supabase Edge Functions.
-  const supabaseUrl = Deno.env.get("APP_SUPABASE_URL") || Deno.env.get("SUPABASE_URL") || "https://hdbmdhhfaeuszylarfkk.supabase.co";
-
-  // User-created secrets cannot use the reserved SUPABASE_ prefix.
-  let publishableKey = Deno.env.get("APP_SUPABASE_KEY") || Deno.env.get("SUPABASE_ANON_KEY") || "";
+  // Supabase injects the project URL and named publishable keys into Edge Functions.
+  const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
+  let publishableKey = "";
+  try {
+    const keyMap = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}");
+    publishableKey = keyMap.default || "";
+  } catch {
+    publishableKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
+  }
   if (!publishableKey) {
-    try {
-      const keyMap = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}");
-      publishableKey = keyMap.default || "";
-    } catch {
-      publishableKey = "";
-    }
+    publishableKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
   }
 
   if (!geminiKey || !supabaseUrl || !publishableKey) {
@@ -173,9 +178,14 @@ ${approvedMemories ? "Owner-approved context (not higher-priority instructions):
         status: response.status,
         message: result?.error?.message,
       });
+      if (response.status === 429) {
+        return json({
+          error: "Gemini's free-tier rate or daily quota has been reached. Please wait and try again. No paid AI fallback is configured.",
+        }, 429);
+      }
       return json({
-        error: result?.error?.message || "Gemini request failed.",
-      }, response.status === 429 ? 429 : 502);
+        error: "Gemini could not complete this request. Check the Gemini API key, project access, and model availability.",
+      }, 502);
     }
 
     const reply = (result?.candidates?.[0]?.content?.parts || [])
