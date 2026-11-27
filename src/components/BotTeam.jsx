@@ -14,7 +14,7 @@ const bots=[
  {name:'Build Secretary',emoji:'🗂️',role:'Executive build secretary',description:'Keeps build work organized with meeting notes, decision records, action-item follow-ups, milestone summaries, and owner-ready status updates.',focus:'Build records and follow-ups',color:'gold',responsibilities:['Prepare build meeting agendas and concise progress notes','Track decisions, action items, owners, and due dates from approved task data','Prepare follow-up reminders and owner-ready status summaries','Keep records organized; never send messages or change tasks without approval'],assignment:'Build notes, decisions, and follow-up tasks'}
 ];
 
-const botPortraitStyle=index=>({backgroundImage:"url('/business-command-center/images/bot-squad-portraits.svg')",backgroundSize:'300% 300%',backgroundPosition:`${(index%3)*50}% ${Math.floor(index/3)*50}%`});
+const botPortraitStyle=index=>({backgroundImage:"url('/business-command-center/images/bot-squad-portraits.svg')",backgroundSize:'300% 300%',backgroundPosition:`${(index%3)*50}% ${Math.floor((index%9)/3)*50}%`});
 const today=()=>new Date().toISOString().slice(0,10);
 const isOpen=t=>t.status!=='Done';
 const priorityRank=t=>({high:0,medium:1,low:2}[String(t.priority||'').toLowerCase()]??3);
