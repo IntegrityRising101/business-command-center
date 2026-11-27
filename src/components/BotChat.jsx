@@ -72,9 +72,10 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
    const respondingBot=currentName===TEAM&&recipient!=='Whole team'?recipient:currentName;
    const {data:{session},error:sessionError}=await supabase.auth.getSession();
    if(sessionError||!session?.access_token)throw new Error('Your sign-in session has expired. Please sign out and sign back in.');
+   // The Supabase client attaches the current session token automatically.
+   // Do not override Authorization here; this avoids a stale or malformed header.
    const {data:geminiData,error:geminiError}=await supabase.functions.invoke('integrity-bot-chat',{
-    body:{conversation_id:thread.id,bot_name:respondingBot},
-    headers:{Authorization:`Bearer ${session.access_token}`}
+    body:{conversation_id:thread.id,bot_name:respondingBot}
    });
    if(geminiError){
     let functionMessage=geminiData?.error;
