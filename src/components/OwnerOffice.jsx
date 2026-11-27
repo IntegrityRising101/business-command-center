@@ -39,7 +39,7 @@ export default function OwnerOffice({tasks=[],logs=[],onOpenTasks,onOpenBotTeam,
  const open=tasks.filter(t=>t.status!=='Done');
  const overdue=open.filter(t=>t.due_date&&t.due_date<todayKey());
  const approvals=open.filter(t=>t.approval_required);
- const generate=async()=>{const report=buildSecretaryReport(tasks,reportType);await onSaveReport(REPORT_PREFIX+JSON.stringify(report));setSelected(report);setNotice(reportType==='daily'?'Daily Secretary report saved to report history.':'Weekly Secretary report saved to report history.')};
+ const generate=async()=>{const report=buildSecretaryReport(tasks,reportType);setNotice('Saving report…');const saved=await onSaveReport(REPORT_PREFIX+JSON.stringify(report));if(saved===false){setNotice('Report could not be saved. Check the cloud sync message and try again.');return}setSelected(report);setNotice(reportType==='daily'?'Daily Secretary report saved to report history.':'Weekly Secretary report saved to report history.')};
  const report=selected||history[0]?.report;
  const showReport=r=>setSelected(r);
  return <main className="owner-office">
