@@ -56,10 +56,12 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
  const send=async e=>{
   e?.preventDefault();const body=text.trim();if(!body||busy)return;
   setBusy(true);setNotice('Saving your message…');
+  let userMessageSaved=false;
   try{
    const thread=await getOrCreate();
    const {data:userMessage,error:userError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'owner',sender_name:'You',body}).select().single();
    if(userError)throw userError;
+   userMessageSaved=true;
    setMessages(prev=>[...prev,userMessage]);setText('');
    if(remember){
     const {data:mem,error:memError}=await supabase.from('bot_memories').insert({user_id:userId,bot_name:currentName,content:body,status:'pending',source_message_id:userMessage.id}).select().single();
@@ -67,23 +69,24 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
    setNotice('Gemini is generating a response…');
+   const respondingBot=currentName===TEAM&&recipient!=='Whole team'?recipient:currentName;
    const {data:{session},error:sessionError}=await supabase.auth.getSession();
    if(sessionError||!session?.access_token)throw new Error('Your sign-in session has expired. Please sign out and sign back in.');
    const {data:geminiData,error:geminiError}=await supabase.functions.invoke('gemini-chat',{
-    body:{conversation_id:thread.id,bot_name:currentName},
+    body:{conversation_id:thread.id,bot_name:respondingBot},
     headers:{Authorization:`Bearer ${session.access_token}`}
    });
    if(geminiError)throw new Error(geminiData?.error||geminiError.message||'Gemini connection failed.');
    if(geminiData?.error)throw new Error(geminiData.error);
    const response=String(geminiData?.reply||'').trim();
    if(!response)throw new Error('Gemini returned an empty response. Please try again.');
-   const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:currentName===TEAM?'Gemini · Team Coordinator':'Gemini · '+currentName,body:response}).select().single();
+   const {data:botMessage,error:botError}=await supabase.from('bot_messages').insert({user_id:userId,conversation_id:thread.id,sender_type:'bot',sender_name:respondingBot===TEAM?'Gemini · Team Coordinator':'Gemini · '+respondingBot,body:response}).select().single();
    if(botError)throw botError;
    setMessages(prev=>[...prev,botMessage]);
    await supabase.from('bot_conversations').update({updated_at:new Date().toISOString()}).eq('id',thread.id).eq('user_id',userId);
    setConversations(prev=>prev.map(c=>c.id===thread.id?{...c,updated_at:new Date().toISOString()}:c));
    setRemember(false);setNotice('Gemini response received and saved to your private conversation.');
-  }catch(err){setNotice('Message was not fully saved: '+(err.message||'Please try again.'))}
+  }catch(err){setNotice(userMessageSaved?'Your message is saved, but Gemini did not reply: '+(err.message||'Please try again.'):'Message was not saved: '+(err.message||'Please try again.'))}
   finally{setBusy(false)}
  };
  const approve=async memory=>{
