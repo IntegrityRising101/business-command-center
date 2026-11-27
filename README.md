@@ -34,6 +34,7 @@ These are separate product identities; do not merge their codebases, databases, 
 ## AI Management Team (Planned)
 - **Boss Bot:** Coordinates the team, prioritizes work, tracks milestones, flags blockers, and reports progress.
 - **Program Manager Bot:** Oversees development tasks, bug reports, testing, deployment checks, and change records.
+- **Program Manager Bot operating standard:** Product and bot improvements, evidence-labeled health checks, security verification boundaries, research quality, and approval rules — [read the operating standard](docs/PROGRAM_MANAGER_BOT.md).
 - **Tasky:** Tracks assignments, priorities, due dates, and completion.
 - **Deadline Bot:** Monitors upcoming and overdue work.
 - **Doc Bot:** Organizes business documents and records. The Document Center includes owner-controlled automatic filing suggestions based on filenames and file types, a Needs Review folder for uncertain matches, and explicit move controls. Doc Bot never deletes files.
