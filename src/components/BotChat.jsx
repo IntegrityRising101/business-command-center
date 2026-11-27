@@ -67,7 +67,7 @@ export default function BotChat({userId,bot,tasks=[],bots=[]}){
     setMemories(prev=>[mem,...prev]);setNotice('Message saved. Memory suggestion is waiting for your approval.');
    }
    setNotice('GPT is generating a response…');
-   const {data:gptData,error:gptError}=await supabase.functions.invoke('gpt-chat',{body:{conversation_id:thread.id,bot_name:currentName}});
+   const {data:gptData,error:gptError}=await supabase.functions.invoke('super-api',{body:{conversation_id:thread.id,bot_name:currentName}});
    if(gptError)throw new Error(gptData?.error||gptError.message||'GPT connection failed.');
    if(gptData?.error)throw new Error(gptData.error);
    const response=String(gptData?.reply||'').trim();
