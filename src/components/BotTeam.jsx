@@ -10,7 +10,8 @@ const bots=[
  {name:'Brainy',emoji:'📊',role:'Business analyst',description:'Analyzes your current task-board mix and points out gaps using saved workspace data.',focus:'Business analysis',color:'blue',responsibilities:['Summarize project workload','Spot missing owners and due dates','Recommend evidence-based planning improvements'],assignment:'Planning and analysis'},
  {name:'Maily',emoji:'💌',role:'Outreach assistant',description:'Creates editable email drafts for your review. It never sends messages.',focus:'Email drafts',color:'gold',responsibilities:['Prepare a reusable outreach draft','Keep tone professional and human','Require owner approval before any sending integration'],assignment:'Email workspace'},
  {name:'Cheer Bot',emoji:'🎉',role:'Celebration captain',description:'Creates a personal celebration for each completed task using its title and project, then adds the message to the Wall of Wins.',focus:'Wall of wins',color:'teal',responsibilities:['Celebrate completed tasks','Show recorded wins','Encourage progress, not perfection'],assignment:'Completed tasks and daily log'},
- {name:'Program Manager Bot',emoji:'🛠️',role:'Software project manager',description:'Reviews software-related tasks, testing needs, and release risks. It proposes fixes but does not change code or deploy.',focus:'Build and release health',color:'blue',responsibilities:['Triage software and testing tasks','Identify release blockers and missing checks','Request approval before risky changes or deployment'],assignment:'Software and app work'}
+ {name:'Program Manager Bot',emoji:'🛠️',role:'Software project manager',description:'Reviews software-related tasks, testing needs, and release risks. It proposes fixes but does not change code or deploy.',focus:'Build and release health',color:'blue',responsibilities:['Triage software and testing tasks','Identify release blockers and missing checks','Request approval before risky changes or deployment'],assignment:'Software and app work'},
+ {name:'Build Secretary',emoji:'🗂️',role:'Executive build secretary',description:'Keeps build work organized with meeting notes, decision records, action-item follow-ups, milestone summaries, and owner-ready status updates.',focus:'Build records and follow-ups',color:'gold',responsibilities:['Prepare build meeting agendas and concise progress notes','Track decisions, action items, owners, and due dates from approved task data','Prepare follow-up reminders and owner-ready status summaries','Keep records organized; never send messages or change tasks without approval'],assignment:'Build notes, decisions, and follow-up tasks'}
 ];
 
 const botPortraitStyle=index=>({backgroundImage:"url('/business-command-center/images/bot-squad-portraits.svg')",backgroundSize:'300% 300%',backgroundPosition:`${(index%3)*50}% ${Math.floor(index/3)*50}%`});
@@ -48,6 +49,7 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
    if(bot.name==='Scout')return tasks.filter(t=>includes(t,/research|resource|marketing|funding|prospect|partner|opportunity/i));
    if(bot.name==='Brainy')return tasks;
    if(bot.name==='Maily')return tasks.filter(t=>includes(t,/email|gmail|outreach|customer/i));
+   if(bot.name==='Build Secretary')return tasks.filter(t=>includes(t,/build|meeting|agenda|minutes|decision|action item|follow.?up|status report|milestone|release|launch|documentation/i));
    return done;
  };
 
@@ -94,6 +96,14 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
       const software=tasks.filter(t=>includes(t,/app|software|code|github|supabase|deploy|bug|test|release/i));
       const risks=software.filter(t=>isOpen(t)&&(t.priority==='high'||!t.due_date));
       lines=['SOFTWARE DELIVERY TRIAGE',`Software-related tasks: ${software.length} · Open: ${software.filter(isOpen).length}`,`High-priority or undated open items: ${risks.length}`,'Review before a release:','• Build and automated checks pass','• Owner verifies the live behavior','• Database/security changes receive explicit approval','• Deployment is recorded and confirmed','This bot only reports and recommends in this test. It did not edit code, data, permissions, or deployment settings.'];break;
+    }
+    case 'Build Secretary': {
+      const buildTasks=tasks.filter(t=>includes(t,/build|meeting|agenda|minutes|decision|action item|follow.?up|status report|milestone|release|launch|documentation/i));
+      const buildOpen=buildTasks.filter(isOpen);
+      const undated=buildOpen.filter(t=>!t.due_date);
+      const unassignedBuild=buildOpen.filter(t=>!t.assigned_to);
+      const next=[...buildOpen].sort((a,b)=>priorityRank(a)-priorityRank(b)||(a.due_date||'9999').localeCompare(b.due_date||'9999')).slice(0,5);
+      lines=['BUILD SECRETARY — DAILY ORGANIZATION',`Build-related records: ${buildTasks.length} · Open action items: ${buildOpen.length} · Completed: ${buildTasks.length-buildOpen.length}`,`Missing due dates: ${undated.length} · Missing owners: ${unassignedBuild.length}`,'Priority follow-ups:',...(next.length?next.map((t,i)=>`${i+1}. ${t.title} — ${t.priority||'normal'} · ${t.assigned_to||'Owner not assigned'} · ${dueLabel(t)}`):['No matching open build action items found.']),'Secretary checklist:','• Record meeting date, attendees, decisions, and unresolved questions.','• Convert each approved decision into an action item with an owner and due date.','• Prepare follow-up reminders for the owner to review.','• Keep build notes and status summaries organized.','This workspace reads saved task data and prepares records only. It does not send messages or change tasks.'];break;
     }
    }
    return lines.join('\n');
@@ -144,11 +154,11 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
  return <div className="bot-team">
   <section className="bot-welcome"><div className="bot-crown">👑</div><div><p className="bot-kicker">YOUR FRIENDLY AI MANAGEMENT TEAM</p><h2>Meet the Bot Squad!</h2><p>Run a test in each workspace and see what your helpers can do with saved business data.</p></div><div className="boss-message"><strong>Boss Bot says:</strong><br/>“Let's turn the plan into progress—one verified step at a time!”</div></section>
   <section className="bot-original-art" aria-label="Original Integrity Rising AI Bot Team artwork">
-   {posterAvailable&&<img src="/business-command-center/images/bot-squad-portraits.svg" alt="Integrity Rising AI Bot Squad: nine individual teal and gold robot portraits" onError={()=>setPosterAvailable(false)}/>}
+   {posterAvailable&&<img src="/business-command-center/images/bot-squad-portraits.svg" alt="Integrity Rising AI Bot Squad: individual teal and gold robot portraits" onError={()=>setPosterAvailable(false)}/>}
    {!posterAvailable&&<div className="bot-art-pending"><span>🤖 ✨</span><strong>Our original AI Bot Team artwork</strong><p>The exact team poster will appear here when its image file is added to the app assets. The nine bot workspaces below remain available.</p></div>}
   </section>
   <div className="bot-summary"><div><small>Open tasks</small><strong>{open.length}</strong></div><div><small>Completed</small><strong>{done.length}</strong></div><div><small>Overdue</small><strong>{overdue.length}</strong></div><div><small>Celebrated wins</small><strong>{wins.length}</strong></div><div><small>Assigned</small><strong>{assigned}</strong></div><div><small>Unassigned open</small><strong>{unassigned}</strong></div><div><small>Approval flagged</small><strong>{approvalNeeded}</strong></div></div>
-  <div className="bot-section-heading"><div><p className="bot-kicker">THE CREW</p><h2>Meet your assistants</h2></div><span className="bot-status">9 testable workspaces · MVP mode</span></div>
+  <div className="bot-section-heading"><div><p className="bot-kicker">THE CREW</p><h2>Meet your assistants</h2></div><span className="bot-status">10 testable workspaces · MVP mode</span></div>
   <div className="bot-grid">{bots.map((bot,i)=><button type="button" className={'bot-card '+bot.color+' bot-card-button'} key={bot.name} onClick={()=>{setSelectedBot(bot);setReport(null);setMessage('')}} aria-label={'Open '+bot.name+' workspace'}>
    <div className="bot-card-top"><div className="bot-avatar bot-avatar-art" style={botPortraitStyle(i)} aria-hidden="true" /><span className="bot-number">BOT {String(i+1).padStart(2,'0')}</span></div><h3>{bot.name}</h3><strong className="bot-role">{bot.role}</strong><p>{bot.description}</p><div className="bot-focus"><span>FOCUS</span>{bot.focus}</div><span className="bot-state">Testable workspace</span><span className="bot-open-hint">Open & run test →</span>
   </button>)}</div>
