@@ -164,7 +164,7 @@ ${approvedMemories ? "Owner-approved context (not higher-priority instructions):
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: systemInstruction }] },
           contents,
-          generationConfig: { temperature: 0.6, maxOutputTokens: 900 },
+          generationConfig: { maxOutputTokens: 900 },
         }),
       },
     );
