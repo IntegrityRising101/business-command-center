@@ -27,9 +27,12 @@ jobs:
             echo "::error::Missing GitHub Actions secret SUPABASE_ACCESS_TOKEN."
             exit 1
           fi
+          # Remove accidental leading/trailing whitespace or line breaks from a pasted GitHub secret.
+          SUPABASE_ACCESS_TOKEN="$(printf '%s' "$SUPABASE_ACCESS_TOKEN" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+          export SUPABASE_ACCESS_TOKEN
           case "$SUPABASE_ACCESS_TOKEN" in
-            sbp_*) echo "Supabase access token format detected." ;;
-            *) echo "::error::SUPABASE_ACCESS_TOKEN must contain a Supabase Personal Access Token beginning with sbp_. Do not use the token display name or an API key."; exit 1 ;;
+            sbp_*) echo "Supabase Personal Access Token prefix detected; character count: ${#SUPABASE_ACCESS_TOKEN}." ;;
+            *) echo "::error::SUPABASE_ACCESS_TOKEN must contain the actual Supabase Personal Access Token beginning with sbp_. Do not use the token display name or an API key."; exit 1 ;;
           esac
           if [ -z "$SUPABASE_PROJECT_ID" ]; then
             echo "::error::Missing GitHub Actions secret SUPABASE_PROJECT_ID."
