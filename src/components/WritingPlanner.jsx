@@ -1,4 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
+import './WritingPlanner.css';
 
 const DRAFTS_KEY='ir_bcc_writer_drafts_v1';
 const EVENTS_KEY='ir_bcc_planner_events_v1';
