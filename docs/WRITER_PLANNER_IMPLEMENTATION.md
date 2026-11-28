@@ -54,6 +54,6 @@ Do not replace existing Home, Owner Office, Boss Briefing, Master Plan, Tasks, C
 1. Inspect current auth, task data, bot chat, private storage, navigation, and package/build setup.
 2. Add shared UI foundations for Writing Studio and Planner.
 3. Wire the new workspaces into the main navigation.
-4. Implement private persistence and safe schema/RLS, after reviewing current live schema and migration state.
+4. Implemented on this feature branch: `writing_planner_items` migration with owner-only RLS and cloud read/write/delete wiring for signed-in users. The migration is not yet applied to the production Supabase database; cloud sync will remain unavailable until the PR is accepted and the migration is deliberately applied. Signed-out storage remains browser-local.
 5. Add model-backed Writer Bot actions and source-aware research only after the endpoint contract is verified.
 6. Add calendar-to-task connections, manager review, completed library, and time tracking in separate testable phases.
