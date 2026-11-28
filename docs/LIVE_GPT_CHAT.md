@@ -12,7 +12,7 @@ The Business Command Center's live bot chat uses **Google Gemini only**. There i
 - Secret accepted by the current function: **`GEMINI_API_KEY`** (preferred) or the existing case-sensitive legacy name `Gemini_API_Key`.
 - Tracked GitHub source currently names `gemini-3.5-flash-lite`, but the deployed Supabase version 7 source retrieved on November 28, 2026 uses `gemini-3.8-flash`. This is deployment drift. Reconcile the intended model before deploying function code; do not overwrite the live function from stale source.
 
-Do not create another function named `super-api` or `gpt-chat` for this current implementation. The current BotChat component does not call either endpoint. A log entry for `/functions/v1/super-api` is from a different/older caller or a manual request; it does not show that `integrity-bot-chat` was reached.
+Do not create another function named `super-api`, `gpt-chat`, or `gemini-chat` for this current implementation. The current BotChat component calls `integrity-bot-chat`. A log entry for `/functions/v1/super-api` is from a different/older caller or a manual request.
 
 ## Authentication flow
 
@@ -48,7 +48,7 @@ Do not deploy `gpt-chat` or `super-api` for the current frontend source.
 
 ## Interpret errors correctly
 
-- `GET /functions/v1/super-api` is not the current BotChat request. The current BotChat call is a **POST** to `/functions/v1/gemini-chat`.
+- Requests to `/functions/v1/super-api`, `/functions/v1/gpt-chat`, and `/functions/v1/gemini-chat` are not the current BotChat request. The current BotChat call is a **POST** to `/functions/v1/integrity-bot-chat`.
 - `Please sign in again.` is returned when the function handler receives no `Authorization: Bearer ...` header.
 - `Sign-in could not be verified.` means the supplied bearer token could not be validated by Supabase Auth.
 - `Conversation not found or access denied.` means the conversation ID is not owned by the authenticated user, or the row is not visible under RLS.
@@ -59,7 +59,7 @@ Do not deploy `gpt-chat` or `super-api` for the current frontend source.
 
 - [ ] Confirm the live app is the latest build containing the `integrity-bot-chat` invocation.
 - [ ] Confirm `integrity-bot-chat` is deployed in the same Supabase project whose URL is used by the app.
-- [ ] Confirm a signed-in message creates a **POST** request to `/functions/v1/gemini-chat`, not `super-api`.
+- [ ] Confirm a signed-in message creates a **POST** request to `/functions/v1/integrity-bot-chat`, not `super-api`.
 - [ ] Confirm the request carries the signed-in user's access token in the Authorization bearer header.
 - [ ] Test one signed-in message in each bot chat and Team Inbox.
 - [ ] Refresh and confirm conversation history persists.
