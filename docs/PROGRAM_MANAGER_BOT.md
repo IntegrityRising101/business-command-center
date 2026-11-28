@@ -23,7 +23,7 @@ The workspace report now:
 ## Chat and connection verification
 - The current frontend calls Supabase Edge Function `integrity-bot-chat`.
 - The Supabase project reports `integrity-bot-chat` active at version 7 with JWT verification enabled.
-- The deployed function reads the signed-in user's task records under RLS and supplies read-only task context to Gemini.
+- The deployed function reads the signed-in user's task records under RLS and supplies read-only task context to Gemini.\n- Live Supabase version 7 source uses `gemini-3.8-flash`, while tracked GitHub function source currently names `gemini-3.5-flash-lite`; reconcile this source/deployment drift before deploying any function update.
 - `super-api`, `gemini-chat`, and `gpt-chat` are not the current frontend endpoint.
 - Supabase logs show successful 200 responses for `integrity-bot-chat`; intermittent 502 responses correlate with Gemini upstream HTTP 503 high-demand responses, not the old `super-api` authentication errors.
 - No credentials or secrets are stored in this repository change.
