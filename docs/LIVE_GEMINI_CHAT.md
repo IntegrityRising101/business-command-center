@@ -4,10 +4,10 @@ The Business Command Center bot chat uses **Google Gemini only**. There is no Op
 
 ## What the current repository code uses
 
-- Frontend: `src/components/BotChat.jsx` calls `supabase.functions.invoke('gemini-chat', ...)`.
-- Edge Function: `supabase/functions/gemini-chat/index.ts`.
+- Frontend: `src/components/BotChat.jsx` calls `supabase.functions.invoke('integrity-bot-chat', ...)`.
+- Edge Function: `supabase/functions/integrity-bot-chat/index.ts`.
 - Provider: Gemini API, using `GEMINI_API_KEY` as a server-side Supabase Function Secret.
-- Default model in the function: `gemini-3.5-flash-lite`; `GEMINI_MODEL` can override it. Keep the selected model on the free tier.
+- Tracked GitHub source currently names `gemini-3.5-flash-lite`, but the deployed Supabase version 7 source retrieved on November 28, 2026 uses `gemini-3.8-flash`. This is deployment drift. Reconcile the intended model before deploying function code; do not overwrite the live function from stale source.
 - Supabase automatically supplies `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEYS`; the function reads the `default` publishable key and forwards the signed-in user's bearer token so Row Level Security remains in effect.
 - The function calls `auth.getUser()`, checks conversation ownership, and queries only the signed-in owner's messages and approved memories.
 
@@ -27,10 +27,10 @@ No user-created `SUPABASE_*` secret is needed. Supabase injects its project URL 
 From the repository root, after linking the Supabase CLI to the Business Command Center project:
 
 ```bash
-supabase functions deploy gemini-chat
+supabase functions deploy integrity-bot-chat
 ```
 
-GitHub Pages deployment does **not** deploy Supabase Edge Functions. The app's current source invokes `/functions/v1/gemini-chat`. Do not deploy `gpt-chat` or troubleshoot `super-api` as though either were the endpoint invoked by the current `BotChat.jsx` source.
+GitHub Pages deployment does **not** deploy Supabase Edge Functions. The app's current source invokes `/functions/v1/integrity-bot-chat`. Do not deploy `gemini-chat` or `gpt-chat`, or troubleshoot `super-api`, as though any were the endpoint invoked by the current `BotChat.jsx` source.
 
 ## Latest live diagnostic — November 27, 2026
 
@@ -52,8 +52,8 @@ GitHub Pages deployment does **not** deploy Supabase Edge Functions. The app's c
 ## Verification checklist
 
 - [ ] Confirm `GEMINI_API_KEY` exists in the Business Command Center Supabase project's Function Secrets (never reveal its value).
-- [ ] Confirm the deployed app calls `/functions/v1/gemini-chat`, matching `src/components/BotChat.jsx`.
-- [ ] Deploy `gemini-chat` to that same Supabase project if it is not already deployed.
+- [ ] Confirm the deployed app calls `/functions/v1/integrity-bot-chat`, matching `src/components/BotChat.jsx`.
+- [ ] Confirm `integrity-bot-chat` is deployed to that same Supabase project.
 - [ ] Inspect the exact `gemini-chat` request and function logs; do not use the old `super-api` log as proof of a Gemini failure.
 - [ ] Test one signed-in message in each of the nine bot chats and in Team Inbox.
 - [ ] Confirm each bot responds with its own specialty.
