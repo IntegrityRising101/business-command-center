@@ -102,9 +102,53 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
       lines=['WALL OF WINS',`Completed tasks: ${done.length} · Recorded celebrations: ${wins.length}`,'Recent wins:',...(wins.length?wins.slice(0,5).map(w=>String(w.text).replace(/^🏆\s*/,'')):['Your next completed task will add a celebration.']),'You are making progress one step at a time. Keep rising!'];break;
     }
     case 'Program Manager Bot': {
-      const software=tasks.filter(t=>includes(t,/app|software|code|github|supabase|deploy|bug|test|release/i));
-      const risks=software.filter(t=>isOpen(t)&&(t.priority==='high'||!t.due_date));
-      lines=['SOFTWARE DELIVERY TRIAGE',`Software-related tasks: ${software.length} · Open: ${software.filter(isOpen).length}`,`High-priority or undated open items: ${risks.length}`,'Review before a release:','• Build and automated checks pass','• Owner verifies the live behavior','• Database/security changes receive explicit approval','• Deployment is recorded and confirmed','This bot only reports and recommends in this test. It did not edit code, data, permissions, or deployment settings.'];break;
+      // Coordinator scope is software/app delivery only. Boss Bot remains the
+      // general business assignment coordinator; this report never writes data.
+      const software=tasks.filter(t=>includes(t,/app|software|code|github|supabase|deploy|bug|test|release|edge function|workflow|security checklist/i));
+      const softwareOpen=software.filter(isOpen);
+      const highPriority=softwareOpen.filter(t=>String(t.priority||'').toLowerCase()==='high');
+      const missingDates=softwareOpen.filter(t=>!t.due_date);
+      const missingOwners=softwareOpen.filter(t=>!t.assigned_to);
+      const approval=softwareOpen.filter(t=>t.approval_required);
+      const classify=t=>{
+        const value=[t.title,t.category,t.notes].filter(Boolean).join(' ').toLowerCase();
+        if(/security|privacy|permission|auth|authentication|secret|credential|policy|schema|database access/.test(value))return 'Security & owner decisions';
+        if(/supabase|database|edge function|api|backend|integration|workflow/.test(value))return 'Backend & integrations';
+        if(/bug|test|testing|qa|quality|verify|verification/.test(value))return 'Testing & verification';
+        if(/deploy|deployment|release|launch|publish|production/.test(value))return 'Release readiness';
+        if(/design|layout|navigation|mobile|interface|frontend|page|screen/.test(value))return 'Frontend & experience';
+        return 'Planning & coordination';
+      };
+      const lanes=['Security & owner decisions','Backend & integrations','Frontend & experience','Testing & verification','Release readiness','Planning & coordination'];
+      const laneLines=lanes.map(lane=>{
+        const items=softwareOpen.filter(t=>classify(t)===lane);
+        return `• ${lane}: ${items.length} open${items.length?' — '+items.slice(0,2).map(t=>t.title).join('; '):''}`;
+      });
+      const queue=[...softwareOpen].sort((a,b)=>priorityRank(a)-priorityRank(b)||(a.due_date||'9999').localeCompare(b.due_date||'9999')).slice(0,6);
+      lines=[
+        'PROGRAM MANAGER — SOFTWARE DELIVERY COORDINATION',
+        `Scope: software, app, website, integrations, testing, and release-related tasks only.`,
+        `Related tasks: ${software.length} · Open: ${softwareOpen.length} · Completed: ${software.length-softwareOpen.length}`,
+        `Risk indicators: ${highPriority.length} high priority · ${missingDates.length} missing due dates · ${missingOwners.length} missing owners · ${approval.length} flagged for owner approval`,
+        'WORKSTREAM HEALTH:',
+        ...laneLines,
+        'RECOMMENDED BOT HANDOFFS:',
+        '• Boss Bot: coordinate general task ownership and priorities; existing assignments stay unchanged unless the owner approves.',
+        '• Deadline Bot: review missing dates, overdue items, and milestone timing.',
+        '• Brainy: compare workload and identify planning gaps using saved task data.',
+        '• Scout: gather source-backed research for unresolved technical or tool choices; label unverified ideas.',
+        '• Doc Bot / Build Secretary: organize technical notes, release records, decisions, and follow-ups.',
+        '• Owner: review security, privacy, authentication, permissions, database/schema, secrets, spending, and production-release decisions.',
+        'NEXT SOFTWARE QUEUE:',
+        ...(queue.length?queue.map((t,i)=>`${i+1}. ${t.title} — ${t.priority||'normal'} priority · ${t.assigned_to||'No owner'} · ${dueLabel(t)}`):['No open software-related tasks found.']),
+        'RELEASE GATE:',
+        '• Automated build/checks pass and the exact commit is identified.',
+        '• The owner verifies the live user-facing behavior.',
+        '• Security, data, and permission changes receive explicit owner review.',
+        '• Deployment status and rollback/known limitations are recorded.',
+        'BOUNDARIES: This is a read-only coordination report. It does not assign work, edit code, change data or permissions, contact bots, spend money, or deploy.'
+      ];
+      break;
     }
     case 'Build Secretary': {
       const buildTasks=tasks.filter(t=>includes(t,/build|meeting|agenda|minutes|decision|action item|follow.?up|status report|milestone|release|launch|documentation/i));
@@ -164,10 +208,10 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
   <section className="bot-welcome"><div className="bot-crown">👑</div><div><p className="bot-kicker">YOUR FRIENDLY AI MANAGEMENT TEAM</p><h2>Meet the Bot Squad!</h2><p>Run a test in each workspace and see what your helpers can do with saved business data.</p></div><div className="boss-message"><strong>Boss Bot says:</strong><br/>“Let's turn the plan into progress—one verified step at a time!”</div></section>
   <section className="bot-original-art" aria-label="Original Integrity Rising AI Bot Team artwork">
    {posterAvailable&&<img src="/business-command-center/images/bot-squad-portraits.svg" alt="Integrity Rising AI Bot Squad: individual teal and gold robot portraits" onError={()=>setPosterAvailable(false)}/>}
-   {!posterAvailable&&<div className="bot-art-pending"><span>🤖 ✨</span><strong>Our original AI Bot Team artwork</strong><p>The exact team poster will appear here when its image file is added to the app assets. The nine bot workspaces below remain available.</p></div>}
+   {!posterAvailable&&<div className="bot-art-pending"><span>🤖 ✨</span><strong>Our original AI Bot Team artwork</strong><p>The exact team poster will appear here when its image file is added to the app assets. All current bot workspaces remain available.</p></div>}
   </section>
   <div className="bot-summary"><div><small>Open tasks</small><strong>{open.length}</strong></div><div><small>Completed</small><strong>{done.length}</strong></div><div><small>Overdue</small><strong>{overdue.length}</strong></div><div><small>Celebrated wins</small><strong>{wins.length}</strong></div><div><small>Assigned</small><strong>{assigned}</strong></div><div><small>Unassigned open</small><strong>{unassigned}</strong></div><div><small>Approval flagged</small><strong>{approvalNeeded}</strong></div></div>
-  <div className="bot-section-heading"><div><p className="bot-kicker">THE CREW</p><h2>Meet your assistants</h2></div><span className="bot-status">10 testable workspaces · MVP mode</span></div>
+  <div className="bot-section-heading"><div><p className="bot-kicker">THE CREW</p><h2>Meet your assistants</h2></div><span className="bot-status">{bots.length} testable workspaces · MVP mode</span></div>
   <div className="bot-grid">{bots.map((bot,i)=><button type="button" className={'bot-card '+bot.color+' bot-card-button'} key={bot.name} onClick={()=>{setSelectedBot(bot);setReport(null);setMessage('')}} aria-label={'Open '+bot.name+' workspace'}>
    <div className="bot-card-top"><div className="bot-avatar bot-avatar-art" style={botPortraitStyle(i)} aria-hidden="true" /><span className="bot-number">BOT {String(i+1).padStart(2,'0')}</span></div><h3>{bot.name}</h3><strong className="bot-role">{bot.role}</strong><p>{bot.description}</p><div className="bot-focus"><span>FOCUS</span>{bot.focus}</div><span className="bot-state">Testable workspace</span><span className="bot-open-hint">Open & run test →</span>
   </button>)}</div>
