@@ -17,22 +17,26 @@ export default function SocialMediaCalculator({ userId }) {
   const storageKey = 'ir_social_metrics_v1_' + (userId || 'local');
   const [form, setForm] = useState(blank);
   const [saved, setSaved] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   const [notice, setNotice] = useState('');
 
   useEffect(() => {
     try {
       const parsed = JSON.parse(localStorage.getItem(storageKey) || '[]');
       setSaved(Array.isArray(parsed) ? parsed : []);
+      setLoaded(true);
     } catch {
       setSaved([]);
+      setLoaded(true);
       setNotice('Saved browser data could not be read. You can start a fresh local record.');
     }
   }, [storageKey]);
 
   useEffect(() => {
+    if (!loaded) return;
     try { localStorage.setItem(storageKey, JSON.stringify(saved)); }
     catch { setNotice('Browser storage is unavailable or full. Export your records before leaving this page.'); }
-  }, [saved, storageKey]);
+  }, [saved, storageKey, loaded]);
 
   const values = useMemo(() => Object.fromEntries(numericFields.map(key => [key, safeNumber(form[key])])), [form]);
   const interactions = values.likes + values.comments + values.shares + values.saves;
@@ -42,7 +46,7 @@ export default function SocialMediaCalculator({ userId }) {
     impressions: percent(interactions, values.impressions),
     reachRatio: percent(values.reach, values.followers)
   };
-  const valid = numericFields.every(key => form[key] === '' || (Number.isFinite(Number(form[key])) && Number(form[key]) >= 0));
+  const valid = numericFields.every(key => form[key] === '' || (Number.isInteger(Number(form[key])) && Number(form[key]) >= 0));
 
   const update = (key, value) => setForm(current => ({ ...current, [key]: value }));
   const save = event => {
