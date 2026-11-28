@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import './social-media-analytics.css';
 
 const metricKey = userId => 'ir_social_metrics_v1_' + (userId || 'local');
-const rate = (row, key) => Number.isFinite(Number(row?.rates?.[key])) ? Number(row.rates[key]) : null;
+const rate = (row, key) => row?.rates?.[key] === null || row?.rates?.[key] === undefined || row?.rates?.[key] === '' ? null : (Number.isFinite(Number(row.rates[key])) ? Number(row.rates[key]) : null);
 const fmt = value => value === null ? '—' : value.toFixed(2) + '%';
 const count = value => Number(value || 0).toLocaleString();
 const monthLabel = key => {
