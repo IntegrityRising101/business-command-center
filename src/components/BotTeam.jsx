@@ -12,7 +12,8 @@ const bots=[
  {name:'Cheer Bot',emoji:'🎉',role:'Celebration captain',description:'Creates a personal celebration for each completed task using its title and project, then adds the message to the Wall of Wins.',focus:'Wall of wins',color:'teal',responsibilities:['Celebrate completed tasks','Show recorded wins','Encourage progress, not perfection'],assignment:'Completed tasks and daily log'},
  {name:'Program Manager Bot',emoji:'🛠️',role:'Software project manager',description:'Reviews software-related tasks, testing needs, and release risks. It proposes fixes but does not change code or deploy.',focus:'Build and release health',color:'blue',responsibilities:['Triage software and testing tasks','Identify release blockers and missing checks','Request approval before risky changes or deployment'],assignment:'Software and app work'},
  {name:'Build Secretary',emoji:'🗂️',role:'Executive build secretary',description:'Keeps build work organized with meeting notes, decision records, action-item follow-ups, milestone summaries, and owner-ready status updates.',focus:'Build records and follow-ups',color:'gold',responsibilities:['Prepare build meeting agendas and concise progress notes','Track decisions, action items, owners, and due dates from approved task data','Prepare follow-up reminders and owner-ready status summaries','Keep records organized; never send messages or change tasks without approval'],assignment:'Build notes, decisions, and follow-up tasks'},
- {name:'Secretary Bot',emoji:'🗂️',role:'Verified reporting secretary',description:'Prepares daily and weekly accomplishment reports from saved task records, flags missing completion evidence, and keeps owner-ready updates organized.',focus:'Verified reports',color:'gold',responsibilities:['Report completed tasks only when a saved completion timestamp exists','Flag Done tasks with missing timestamps for owner verification','Separate in-progress, overdue, approval, and unassigned work','Prepare report summaries without sending messages or changing records'],assignment:'Owner Office reports'}
+ {name:'Secretary Bot',emoji:'🗂️',role:'Verified reporting secretary',description:'Prepares daily and weekly accomplishment reports from saved task records, flags missing completion evidence, and keeps owner-ready updates organized.',focus:'Verified reports',color:'gold',responsibilities:['Report completed tasks only when a saved completion timestamp exists','Flag Done tasks with missing timestamps for owner verification','Separate in-progress, overdue, approval, and unassigned work','Prepare report summaries without sending messages or changing records'],assignment:'Owner Office reports'},
+ {name:'Security & Policy Monitor',emoji:'🔐',role:'Read-only security and policy coordinator',description:'Reviews saved security and policy tasks, highlights owner-approval items, and prepares an evidence-aware review checklist. It does not scan secrets or change security settings.',focus:'Security, privacy, and policy readiness',color:'blue',responsibilities:['Triage saved security, privacy, access, backup, and policy tasks','Highlight overdue, high-priority, and owner-approval items','Separate task-board evidence from checks that still need direct verification','Prepare a safe owner review checklist without changing permissions or settings'],assignment:'Security, privacy, and policy tasks'}
 ];
 
 const botPortraitStyle=index=>({backgroundImage:"url('/business-command-center/images/bot-squad-portraits.svg')",backgroundSize:'300% 300%',backgroundPosition:`${(index%3)*50}% ${Math.floor((index%9)/3)*50}%`});
@@ -52,6 +53,7 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
    if(bot.name==='Maily')return tasks.filter(t=>includes(t,/email|gmail|outreach|customer/i));
    if(bot.name==='Build Secretary')return tasks.filter(t=>includes(t,/build|meeting|agenda|minutes|decision|action item|follow.?up|status report|milestone|release|launch|documentation/i));
    if(bot.name==='Secretary Bot')return tasks;
+   if(bot.name==='Security & Policy Monitor')return tasks.filter(t=>includes(t,/security|privacy|permission|access control|authentication|auth|secret|credential|backup|recovery|policy|terms|compliance|row.level security|rls|database isolation/i));
    return done;
  };
 
@@ -147,6 +149,37 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
         '• Security, data, and permission changes receive explicit owner review.',
         '• Deployment status and rollback/known limitations are recorded.',
         'BOUNDARIES: This is a read-only coordination report. It does not assign work, edit code, change data or permissions, contact bots, spend money, or deploy.'
+      ];
+      break;
+    }
+    case 'Security & Policy Monitor': {
+      const securityTasks=tasks.filter(t=>includes(t,/security|privacy|permission|access control|authentication|auth|secret|credential|backup|recovery|policy|terms|compliance|row.level security|rls|database isolation/i));
+      const securityOpen=securityTasks.filter(isOpen);
+      const securityDone=securityTasks.filter(t=>t.status==='Done');
+      const overdueSecurity=securityOpen.filter(t=>t.due_date&&t.due_date<today());
+      const ownerReview=securityOpen.filter(t=>t.approval_required);
+      const highRisk=securityOpen.filter(t=>String(t.priority||'').toLowerCase()==='high');
+      const checklist=[
+        '• Authentication, sign-in, account recovery, and session handling — verify directly in the deployed app.',
+        '• Database Row Level Security and user-to-user isolation — inspect policies and test with separate accounts.',
+        '• Storage privacy and file access — verify bucket policies and signed/public URL behavior.',
+        '• Secrets and API credentials — inspect server-side configuration; never paste secret values into chat or task notes.',
+        '• Backups and recovery — confirm backup schedule, retention, and a tested restore procedure.',
+        '• Privacy notice, terms, support contacts, and data-retention practices — owner review required.',
+        '• Bot permissions and approval gates — confirm bots cannot independently change access, publish, spend, or deploy.'
+      ];
+      lines=[
+        'SECURITY & POLICY MONITOR — READ-ONLY REVIEW',
+        `Matching saved tasks: ${securityTasks.length} · Open: ${securityOpen.length} · Marked Done: ${securityDone.length}`,
+        `Overdue: ${overdueSecurity.length} · High priority: ${highRisk.length} · Owner approval flagged: ${ownerReview.length}`,
+        'TASK-BOARD FINDINGS:',
+        ...(securityTasks.length?securityTasks.slice(0,10).map(t=>`• ${t.title} — ${t.status} · ${t.priority||'normal'} priority · ${t.assigned_to||'No owner'} · ${dueLabel(t)}`):['No matching security or policy tasks were found in the saved task board.']),
+        'OWNER REVIEW QUEUE:',
+        ...(ownerReview.length?ownerReview.map(t=>`• ${t.title} — owner approval is flagged`):['No matching open task is currently flagged for approval.']),
+        'DIRECT VERIFICATION CHECKLIST:',
+        ...checklist,
+        'IMPORTANT LIMITATION: This report reads saved task records only. It has NOT inspected live Supabase policies, authentication settings, storage rules, backups, deployed code, legal compliance, or secret exposure. A task marked Done is not proof that a control passed.',
+        'SAFETY BOUNDARY: Read-only recommendations only. No permissions, policies, secrets, database records, settings, or deployments are changed.'
       ];
       break;
     }
