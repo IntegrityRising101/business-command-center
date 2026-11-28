@@ -36,10 +36,10 @@ GitHub Pages deployment does **not** deploy Supabase Edge Functions. The app's c
 
 - Supplied Supabase logs show a `POST | 401` for `/functions/v1/super-api`.
 - The supplied diagnostic showed `auth_user: null` and no corresponding function-handler logs. This is consistent with rejection before the handler, such as platform JWT verification, but does not independently prove the exact cause.
-- **Important endpoint mismatch:** `super-api` is not the function name invoked by the current repository's `BotChat.jsx`; the current source invokes `gemini-chat`. Therefore the `super-api` 401 does not establish that the current Gemini chat function is failing.
-- Next verification: inspect the browser Network request from the current deployed app and confirm whether it calls `/functions/v1/gemini-chat`. Then inspect that exact function's logs.
+- **Important endpoint mismatch:** `super-api` is not the function name invoked by the current repository's `BotChat.jsx`; the current source invokes `integrity-bot-chat`. Therefore the `super-api` 401 does not establish that the current chat function is failing.
+- Live verification on November 28, 2026 confirmed POST 200 responses to `/functions/v1/integrity-bot-chat`; the deployed function is active at version 7 with JWT verification enabled. Recent 502 responses correlate with Gemini upstream HTTP 503 high-demand errors. Inspect this function's logs for new failures.
 - For a signed-in user call, `Authorization` must contain the current Supabase user access token (`Bearer <user JWT>`); the publishable key belongs in the `apikey` header. Do not put a Supabase publishable/secret API key in the bearer-token position. Keep JWT verification enabled for this signed-in user function unless the authentication design is deliberately changed and separately secured.
-- If the current app really sends a request to `gemini-chat` and that request gets 401, capture its request headers with all secret values redacted and inspect the exact `gemini-chat` function logs before changing code or secrets.
+- If the current app sends a request to `integrity-bot-chat` and that request gets 401, capture its request headers with all secret values redacted and inspect the exact `integrity-bot-chat` function logs before changing code or secrets.
 
 ## Free-tier and privacy behavior
 
@@ -54,7 +54,7 @@ GitHub Pages deployment does **not** deploy Supabase Edge Functions. The app's c
 - [ ] Confirm `GEMINI_API_KEY` exists in the Business Command Center Supabase project's Function Secrets (never reveal its value).
 - [ ] Confirm the deployed app calls `/functions/v1/integrity-bot-chat`, matching `src/components/BotChat.jsx`.
 - [ ] Confirm `integrity-bot-chat` is deployed to that same Supabase project.
-- [ ] Inspect the exact `gemini-chat` request and function logs; do not use the old `super-api` log as proof of a Gemini failure.
+- [ ] Inspect the exact `integrity-bot-chat` request and function logs; do not use the old `super-api` log as proof of a Gemini failure.
 - [ ] Test one signed-in message in each of the nine bot chats and in Team Inbox.
 - [ ] Confirm each bot responds with its own specialty.
 - [ ] Refresh and confirm chat history persists.
