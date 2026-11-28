@@ -189,7 +189,32 @@ export default function BotTeam({tasks=[],logs=[],userId,onOpenTasks,onAddLog,on
       const undated=buildOpen.filter(t=>!t.due_date);
       const unassignedBuild=buildOpen.filter(t=>!t.assigned_to);
       const next=[...buildOpen].sort((a,b)=>priorityRank(a)-priorityRank(b)||(a.due_date||'9999').localeCompare(b.due_date||'9999')).slice(0,5);
-      lines=['BUILD SECRETARY — DAILY ORGANIZATION',`Build-related records: ${buildTasks.length} · Open action items: ${buildOpen.length} · Completed: ${buildTasks.length-buildOpen.length}`,`Missing due dates: ${undated.length} · Missing owners: ${unassignedBuild.length}`,'Priority follow-ups:',...(next.length?next.map((t,i)=>`${i+1}. ${t.title} — ${t.priority||'normal'} · ${t.assigned_to||'Owner not assigned'} · ${dueLabel(t)}`):['No matching open build action items found.']),'Secretary checklist:','• Record meeting date, attendees, decisions, and unresolved questions.','• Convert each approved decision into an action item with an owner and due date.','• Prepare follow-up reminders for the owner to review.','• Keep build notes and status summaries organized.','This workspace reads saved task data and prepares records only. It does not send messages or change tasks.'];break;
+      lines=[
+        'BUILD SECRETARY — DAILY OWNER BRIEF',
+        `Prepared: ${new Date().toLocaleString()}`,
+        `Build-related task records: ${buildTasks.length} · Open: ${buildOpen.length} · Completed: ${buildTasks.length-buildOpen.length}`,
+        `Open items missing due dates: ${undated.length} · Open items missing owners: ${unassignedBuild.length}`,
+        'PRIORITY FOLLOW-UPS:',
+        ...(next.length?next.map((t,i)=>`${i+1}. ${t.title} — ${t.priority||'normal'} · ${t.assigned_to||'Owner not assigned'} · ${dueLabel(t)}`):['No matching open build action items found.']),
+        'MEETING AGENDA TEMPLATE:',
+        '1. Confirm meeting purpose, date, and attendees.',
+        '2. Review verified progress since the previous check-in.',
+        '3. Review blockers, risks, and decisions needed from Christina.',
+        '4. Confirm next milestones and approved priorities.',
+        '5. Read back action items, owners, and due dates.',
+        'DECISION RECORD:',
+        '• Decision: [record only after Christina confirms]',
+        '• Rationale / evidence: [source or owner-provided context]',
+        '• Approval status: [pending / approved / declined]',
+        'ACTION-ITEM FORMAT:',
+        '• Action: [specific deliverable] | Owner: [assigned person] | Due: [date] | Status: [not started / in progress / done]',
+        'FOLLOW-UP CHECK:',
+        `• Resolve ${unassignedBuild.length} open item(s) without an owner.`,
+        `• Confirm due dates for ${undated.length} open item(s).`,
+        '• Keep unapproved decisions clearly marked pending; never record a proposal as an approved decision.',
+        'BOUNDARIES: This report reads saved task records and supplies templates only. It does not create tasks, change assignments, send reminders, send messages, or claim meetings occurred.'
+      ];
+      break;
     }
    }
    return lines.join('\n');
